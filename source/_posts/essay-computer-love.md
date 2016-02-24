@@ -12,11 +12,11 @@ tags:
   - Love
   - Memory
   - Share
-id: 276
+id: 10048
 date: 2013-04-14 23:50:53
 ---
 
-[![computer](http://wp-melove.qiniudn.com/blogimg/2013/04/computer.gif)](http://wp-melove.qiniudn.com/blogimg/2013/04/computer.gif)
+[![computer](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/computer.gif)](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/computer.gif)
 
 这篇文章是在很早以前就看过了，当时应该是刚开始学习编程的时候无意间在网上看到的，当时看的时候好像只看了前两段，好像是也只有前两段；最近浏览`伯乐在线`的时候遇到了完整版，此文挺长，把计算机的主要部件都进行了拟人化，写的很有味道；
 目前发现本文最早的出处是`一塌糊涂`

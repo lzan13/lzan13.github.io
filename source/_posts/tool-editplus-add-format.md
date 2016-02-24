@@ -6,7 +6,7 @@ tags:
   - Editplus3
   - Share
   - Tool
-id: 294
+id: 10062
 date: 2013-05-01 14:33:41
 ---
 
@@ -22,7 +22,7 @@ date: 2013-05-01 14:33:41
 
 打开Editplus 3 点击菜单栏 `工具`->`配置用户工具`，会弹出对话框：
 
-[![editplus](http://wp-melove.qiniudn.com/blogimg/2013/05/editplus3.png)](http://wp-melove.qiniudn.com/blogimg/2013/05/editplus3.png)
+[![editplus](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/editplus3.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/editplus3.png)
 
 首先是选择一个群组，然后点击右边的`群组名称`更改工具组名，自己喜欢就行；
 

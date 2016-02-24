@@ -6,7 +6,7 @@ tags:
   - APP
   - Android
   - Share
-id: 677
+id: 10024
 date: 2014-04-28 01:58:29
 ---
 
@@ -18,10 +18,10 @@ date: 2014-04-28 01:58:29
 在研究了`flappy`之后，就把代码修改，图片资源重做，自己改成了一个`Missile`游戏，
 
 ### 点击下载
-[飞翔的小导弹](http://lzan13.qiniudn.com/apk-site-use/Missile.apk)
+[飞翔的小导弹](http://lzan13.qiniudn.com/blog/uploads/files/2014/02/Missile.apk)
 
 ### 效果图
 给这个游戏加上了一点粒子效果，就是一个导弹后边在喷火，看下效果图
-[![missile-start](http://wp-melove.qiniudn.com/blogimg/2014/04/missile-start.png)](http://wp-melove.qiniudn.com/blogimg/2014/04/missile-start.png)
+[![missile-start](http://lzan13.qiniudn.com/blog/uploads/images/2014/04/missile-start.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/04/missile-start.png)
 
-[![missile-over](http://wp-melove.qiniudn.com/blogimg/2014/04/missile-over.png)](http://wp-melove.qiniudn.com/blogimg/2014/04/missile-over.png)
+[![missile-over](http://lzan13.qiniudn.com/blog/uploads/images/2014/04/missile-over.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/04/missile-over.png)

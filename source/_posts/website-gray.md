@@ -7,7 +7,7 @@ tags:
   - CSS
   - Html
   - Web
-id: 284
+id: 10066
 date: 2013-04-22 00:46:08
 ---
 
@@ -32,6 +32,6 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
 将此`html`代码加入到`style.css`文件中去就行！
 
 ### 站长行动起来
-[![yaan](http://wp-melove.qiniudn.com/blogimg/2013/04/yaan.jpg)](http://wp-melove.qiniudn.com/blogimg/2013/04/yaan.jpg)
+[![yaan](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/yaan.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/yaan.jpg)
 
 我是刘立正，我为雅安祈福！

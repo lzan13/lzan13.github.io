@@ -8,7 +8,7 @@ tags:
   - Cocos2d-Html5
   - CocosEditor
   - Accelerometer
-id: 705
+id: 10031
 date: 2014-05-21 11:16:32
 ---
 

@@ -9,7 +9,7 @@ tags:
   - Jdk
   - Oracle
   - Profiel
-id: 376
+id: 10057
 date: 2013-05-30 22:37:47
 ---
 
@@ -43,6 +43,6 @@ export JAVA_HOME JDK_HOME PATH CLASSPATH
 如果想让`/etc/profile`文件修改后立即生效 ,可以使用如下命令:`. /etc/profile` # 注意`.`和`/etc/profile`之间有`空格`
 
 终端输入`java -version` #如果出现如下图类似信息，说明你的jdk安装配置成功
-[![linu-mint-jdk](http://wp-melove.qiniudn.com/blogimg/2013/05/linu-mint-14.png)](http://wp-melove.qiniudn.com/blogimg/2013/05/linu-mint-14.png)
+[![linu-mint-jdk](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/linu-mint-14.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/linu-mint-14.png)
 
 OK，然后就去配置基于`java`的开发环境吧！

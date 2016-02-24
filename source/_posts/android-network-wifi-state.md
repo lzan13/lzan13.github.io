@@ -7,7 +7,7 @@ tags:
   - Android
   - NewWork
   - WIFI
-id: 348
+id: 10018
 date: 2013-05-20 23:00:13
 ---
 
@@ -17,7 +17,7 @@ date: 2013-05-20 23:00:13
 
 在没有连接的网络的情况下会弹出一个对话框，让用户选择是否去设置网络连接！
 
-[![wifistate](http://wp-melove.qiniudn.com/blogimg/2013/05/wifi-state.png)](http://wp-melove.qiniudn.com/blogimg/2013/05/wifi-state.png)
+[![wifistate](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/wifi-state.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/wifi-state.png)
 
 贴一下主要代码： 
 ```java

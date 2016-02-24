@@ -6,7 +6,7 @@ tags:
   - DDT
   - Game
   - Friends
-id: 789
+id: 10060
 date: 2013-02-14 13:14:23
 ---
 
@@ -35,4 +35,4 @@ date: 2013-02-14 13:14:23
 发这个帖子纯粹是闲的卵疼！没事扯扯蛋O(∩_∩)O~
 
 以前保存的游戏人物截图：
-[![lzan13-ddt](http://wp-melove.qiniudn.com/blogimg/2013/02/lzan13-ddt.png)](http://wp-melove.qiniudn.com/blogimg/2013/02/lzan13-ddt.png)
+[![lzan13-ddt](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/lzan13-ddt.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/lzan13-ddt.png)

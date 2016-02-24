@@ -7,7 +7,7 @@ tags:
   - Android
   - Cocos2d-x
   - Jni
-id: 782
+id: 10039
 date: 2014-07-23 17:54:47
 ---
 
@@ -32,7 +32,7 @@ date: 2014-07-23 17:54:47
     `右击项目`->`属性`->`配置属性`->`VC++目录`->`包含目录`：
 
 在这个选项内添加你的`jdk`下的`include`目录和`include`下的`win32`目录，然后就OK了
-[![image_jni_h](http://wp-melove.qiniudn.com/blogimg/2014/07/image_jni_h.png)](http://wp-melove.qiniudn.com/blogimg/2014/07/image_jni_h.png)
+[![image_jni_h](http://lzan13.qiniudn.com/blog/uploads/images/2014/07/image_jni_h.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/07/image_jni_h.png)
 
 ### 定义方法
 解决了这个问题就可以继续了：

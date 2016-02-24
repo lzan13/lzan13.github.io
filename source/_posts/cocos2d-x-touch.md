@@ -6,7 +6,7 @@ categories:
 tags:
   - Cocos2d-x
   - Touch
-id: 685
+id: 10044
 date: 2014-05-02 17:19:01
 ---
 

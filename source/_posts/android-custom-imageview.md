@@ -8,7 +8,7 @@ tags:
   - Android
   - CustomView
   - ImageView
-id: 901
+id: 10010
 ---
 
 在开发中有时我们需要一个功能，或者一个控件，但是官方的又满足不了我们的需求，此时就需要我们自己实现这些功能；
@@ -17,7 +17,7 @@ id: 901
 这个自定义`ImageView`控件实现了图片的圆角、圆形、边框等功能，同时具有按下改变颜色的效果，通过属性设置可以自定义按下的颜色，
 以及颜色的透明度；还尅定义边框的颜色
 Demo截图：
-![device-2015-05-04-101609](http://wp-melove.qiniudn.com/blogimg/2015/05/device-2015-05-04-101609.png)
+![device-2015-05-04-101609](http://lzan13.qiniudn.com/blog/uploads/images/2015/05/device-2015-05-04-101609.png)
 
 ### 控件属性定义
 ```xml

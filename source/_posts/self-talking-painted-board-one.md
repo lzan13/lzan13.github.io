@@ -6,7 +6,7 @@ tags:
   - Comics
   - Drawing
   - Painted
-id: 489
+id: 10061
 date: 2014-03-17 01:07:06
 ---
 
@@ -15,4 +15,4 @@ date: 2014-03-17 01:07:06
 不过后来由于对科技和物联网的热爱导致了这个爱好的失落，现在这个爱好友长出来了，喜欢画画还有另外一个原因:就是我喜欢动漫和漫画，每一个喜欢动漫和漫画的人都对二次元有一种向往，那简单的线条很能触动人的心弦，看着那些大师绘制的动漫和漫画，有一种想画出来的冲动，这种冲动并不是要成为大师，只是想把自己喜爱的东西通过自己的双手描绘出来；哪怕是临摹出来，那也是一种甜蜜！
 
 这张图是前两天刚买的板子画的第一张人像图，本来只是简单的想练习下人物头像的构图的，然后边想边画，边画边改，就变成这样了，这个头像有点儿歪，其实是在画的时候那个头画歪了，然后就 …… 哈哈
-[![girl](http://wp-melove.qiniudn.com/blogimg/2014/03/first_girl.png)](http://wp-melove.qiniudn.com/blogimg/2014/03/first_girl.png)
+[![girl](http://lzan13.qiniudn.com/blog/uploads/images/2014/03/first_girl.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/03/first_girl.png)

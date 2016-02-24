@@ -7,7 +7,7 @@ tags:
   - Acceleration
   - Cocos2d-x
   - OpenGL
-id: 761
+id: 10036
 date: 2014-06-20 16:00:32
 ---
 
@@ -78,13 +78,13 @@ acc->x, acc->y, acc->z, imgX, imgY);
 
 下边我画了几张图来简单的说明一下`OpenGL`坐标系，屏幕`UI`坐标系
 首先这个立方的 是我绘制的`OpenGL`的重力加速器的三维空间坐标系，旁边的蓝色表示一个手机平放时与坐标系的对应情况；根据图中箭头的方向，`x、y、z`三个坐标轴的值都是趋向于`-1`的；
-[![openGL_coordinate](http://wp-melove.qiniudn.com/blogimg/2014/06/openGL_coordinate.jpg)](http://wp-melove.qiniudn.com/blogimg/2014/06/openGL_coordinate.jpg)
+[![openGL_coordinate](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/openGL_coordinate.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/openGL_coordinate.jpg)
 
 下面这两个是平面的`UI`坐标系和`OpenGL`坐标系
 `UI`坐标系的坐标原点是在左上角，`Y`轴向下延伸，其中精灵`A`位置为`(10,10)`
-[![ui_coordinate](http://wp-melove.qiniudn.com/blogimg/2014/06/ui_coordinate.jpg)](http://wp-melove.qiniudn.com/blogimg/2014/06/ui_coordinate.jpg)
+[![ui_coordinate](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/ui_coordinate.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/ui_coordinate.jpg)
 
-[![gl_coordinate](http://wp-melove.qiniudn.com/blogimg/2014/06/gl_coordinate.jpg)](http://wp-melove.qiniudn.com/blogimg/2014/06/gl_coordinate.jpg)
+[![gl_coordinate](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/gl_coordinate.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/gl_coordinate.jpg)
 `OpenGL`坐标系的原点是在左下角，`Y`轴向上延伸，精灵`B(相当于UI坐标戏中的精灵A)`位置为`(10, 1280)`(屏幕分辨率为720*1280时)
 这就是在官方`Test`例子中`UI`坐标系和`OpenGL`坐标系为什么要进行转换
 

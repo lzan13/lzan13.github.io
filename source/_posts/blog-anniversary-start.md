@@ -4,14 +4,14 @@ categories:
   - 碎碎念
 tags:
   - Blog
-id: 50
+id: 10027
 date: 2013-02-14 05:20:51
 ---
 
 新年了，2012已经过去，2013已经到来，2014也快要到了（同时是Me的本命年O(∩_∩)O~）！
 
 虽说新年已经过了几天了，放张喜庆图，开博O(∩_∩)O哈哈~
-[![blog](http://wp-melove.qiniudn.com/blogimg/2013/02/2013.png)](http://wp-melove.qiniudn.com/blogimg/2013/02/2013.png)
+[![blog](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/2013.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/2013.png)
 
 本来打算在2013除夕夜开博运行的（应该找一个比较有纪念意义的日子开博呗）但由于时间太紧，除夕夜那天没能成功开博，不过，在腊月初五那天，阳历也就是2月14日，情人节（虽说没人一起过…），也算是一个双重节日吧O(∩_∩)O~
 

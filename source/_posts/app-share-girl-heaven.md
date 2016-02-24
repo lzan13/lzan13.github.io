@@ -6,7 +6,7 @@ tags:
   - Android
   - App
   - Beautiful
-id: 734
+id: 10025
 date: 2014-06-14 22:21:03
 ---
 
@@ -26,21 +26,21 @@ APP亮点：美女天堂图片是一款美女图片欣赏应用，本应用收�
 有问题可咨询哥们的`QQ 1203596603`或者给他发送邮件
 
 ### 本地下载
-[美女天堂](http://lzan13.qiniudn.com/apk-site-use/GirlHeavenV1.0.apk)
+[美女天堂](http://lzan13.qiniudn.com/blog/uploads/files/2014/02/GirlHeavenV1.0.apk)
 
 ### 截图欣赏
 下面让我们欣赏下他的软件的风骚截图吧：
 #### 首先是最新图片栏：
-[![device-2014-06-14-214516](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214516.png)](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214516.png)
+[![device-2014-06-14-214516](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214516.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214516.png)
 
 #### 接着是热榜美女们：
-[![device-2014-06-14-214541](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214541.png)](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214541.png)
+[![device-2014-06-14-214541](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214541.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214541.png)
 
 #### 接着是分类美女，这里你可以根据口味选择﹁.﹁
-[![device-2014-06-14-214554](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214554.png)](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214554.png)
+[![device-2014-06-14-214554](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214554.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214554.png)
 
 #### 最重要的是要全屏查看了
-[![device-2014-06-14-214639](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214639.png)](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214639.png)
+[![device-2014-06-14-214639](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214639.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214639.png)
 
 #### 你还可以保存哦，有基友也可以分享的
-[![device-2014-06-14-214652](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214652.png)](http://wp-melove.qiniudn.com/blogimg/2014/06/device-2014-06-14-214652.png)
+[![device-2014-06-14-214652](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214652.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/06/device-2014-06-14-214652.png)

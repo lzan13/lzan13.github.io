@@ -9,7 +9,7 @@ tags:
   - Data
   - LocalStroage
   - SessionStorage
-id: 715
+id: 10034
 date: 2014-06-12 09:55:11
 ---
 

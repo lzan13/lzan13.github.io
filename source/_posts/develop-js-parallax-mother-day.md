@@ -7,7 +7,7 @@ tags:
   - JavaScript
   - Parallax
   - Jarallax
-id: 320
+id: 10046
 date: 2013-05-12 17:47:38
 ---
 
@@ -22,4 +22,4 @@ date: 2013-05-12 17:47:38
 [母亲节祝福 - Github](https://github.com/lzan13/parallax-mother "视差滚动")
 
 ### 效果图
-[![mother parallx](http://wp-melove.qiniudn.com/blogimg/2013/05/parallx-mother.png)](http://wp-melove.qiniudn.com/blogimg/2013/05/parallx-mother.png)
+[![mother parallx](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/parallx-mother.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/parallx-mother.png)

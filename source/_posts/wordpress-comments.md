@@ -9,7 +9,7 @@ tags:
   - JQuery
   - Web
   - Wordpress
-id: 264
+id: 10068
 date: 2013-04-11 00:26:58
 ---
 
@@ -20,7 +20,7 @@ date: 2013-04-11 00:26:58
 不是使用我的主题的朋友可以参考下代码，很容易添加的！
 
 ### 效果图
-[![comments](http://wp-melove.qiniudn.com/blogimg/2013/04/comments.png)](http://wp-melove.qiniudn.com/blogimg/2013/04/comments.png)
+[![comments](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/comments.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/comments.png)
 
 ### 上代码
 首先是在`textarea`上边添加两个div用来实现拖动的小马和定义宽度！

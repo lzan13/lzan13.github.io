@@ -5,7 +5,7 @@ categories:
 tags:
   - Comics
   - OnePiece
-id: 434
+id: 10059
 date: 2013-12-19 22:19:07
 ---
 
@@ -20,4 +20,4 @@ date: 2013-12-19 22:19:07
 如果你喜欢海贼，可以加入我们！我们人不多，但我们活跃；
 我们的海贼群：322624021；
 我们的YY频道：89520213
-[![onepiece](http://wp-melove.qiniudn.com/blogimg/2013/12/onepiece.jpg)](http://wp-melove.qiniudn.com/blogimg/2013/12/onepiece.jpg)
+[![onepiece](http://lzan13.qiniudn.com/blog/uploads/images/2013/12/onepiece.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2013/12/onepiece.jpg)

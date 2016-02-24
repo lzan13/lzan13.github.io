@@ -9,7 +9,7 @@ tags:
   - Game
   - OnePiece
   - Share
-id: 796
+id: 10023
 date: 2014-10-28 09:55:10
 ---
 
@@ -31,7 +31,7 @@ OK 废话不多说，开始正题：
 
 ### 游戏下载
 #### 本地下载：
-[2048动漫版 - 本地下载](http://lzan13.qiniudn.com/apk-site-use/DM2048.apk)
+[2048动漫版 - 本地下载](http://lzan13.qiniudn.com/blog/uploads/files/2014/02/DM2048.apk)
 #### 各大市场下载：
 [2048动漫版 - Google play （已被封）](https://play.google.com/store/apps/details?id=net.melove.game.dm2048)
 [2048动漫版 - 百度手机助手](http://shouji.baidu.com/game/item?docid=7559974&from=as)
@@ -42,18 +42,18 @@ OK 废话不多说，开始正题：
 
 ### 截图
 首先是进入游戏的主界面，有几个提示信息O(∩_∩)O~~，加上可选择游戏形式，还可以分享
-[![dm2048_1](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_1.png)](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_1.png)
+[![dm2048_1](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png)
 
 其中一种游戏形式
-[![dm2048_2](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_2.png)](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_2.png)
+[![dm2048_2](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_2.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_2.png)
 
 另外一种形式
-[![dm2048_3](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_3.png)](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_3.png)
+[![dm2048_3](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_3.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_3.png)
 
 可以进行截图分享，支持分享到微博，还可以调用Android系统分享功能，分享给你其他的好友，比如QQ、微信、等其他聊天与社交软件
-[![dm2048_4](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_4.png)](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_4.png)
+[![dm2048_4](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_4.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_4.png)
 
 最后是一个动画的帮助页面，
-[![dm2048_5](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_5.png)](http://wp-melove.qiniudn.com/blogimg/2014/10/dm2048_5.png)
+[![dm2048_5](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_5.png)](http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_5.png)
 
 有什么bug可以告诉我哈，多谢各位的反馈 O(∩_∩)O~~

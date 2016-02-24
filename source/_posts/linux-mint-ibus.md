@@ -5,7 +5,7 @@ categories:
 tags:
   - Linux
   - Linux Mint
-id: 372
+id: 10056
 date: 2013-05-30 22:09:13
 ---
 

@@ -7,7 +7,7 @@ tags:
   - Android
   - CustomView
   - Picker
-id: 438
+id: 10011
 date: 2013-12-17 21:38:51
 ---
 
@@ -15,7 +15,7 @@ date: 2013-12-17 21:38:51
 
 就自己动手来写一个了！想想应该不是很难吧！这里只是简单写下我的实现方法，不过效果不是很理想，滑动的时候不是很流畅，做个参考吧！
 先看下效果图吧：
-[![picker](http://wp-melove.qiniudn.com/blogimg/2013/12/picker.jpg)](http://wp-melove.qiniudn.com/blogimg/2013/12/picker.jpg)
+[![picker](http://lzan13.qiniudn.com/blog/uploads/images/2013/12/picker.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2013/12/picker.jpg)
 上主要代码，这个类就是自定义的PickerView！
 
 ```java

@@ -6,7 +6,7 @@ categories:
 tags:
   - JavaScript
   - Rose
-id: 53
+id: 10047
 date: 2013-02-15 11:42:55
 ---
 
@@ -75,4 +75,4 @@ date: 2013-02-15 11:42:55
 </html>
 ```
 ### 效果图：
-[![meigui](http://wp-melove.qiniudn.com/blogimg/2013/02/meigui.png)](http://wp-melove.qiniudn.com/blogimg/2013/02/meigui.png)
+[![meigui](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/meigui.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/meigui.png)

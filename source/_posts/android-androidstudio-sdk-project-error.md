@@ -10,7 +10,7 @@ tags:
   - AndroidStudio
   - Error
   - SDK
-id: 953
+id: 10008
 ---
 
 ### 首先说下我这边开发的环境：

@@ -6,7 +6,7 @@ categories:
 tags:
   - 404
   - JavaScript
-id: 214
+id: 10064
 date: 2013-03-27 15:40:18
 ---
 
@@ -15,4 +15,4 @@ date: 2013-03-27 15:40:18
 点击查看我的404页面：[我的404公益](http://www.melove.net/?p=2033)
 
 下边是404公益界面截图：
-[![blog 404](http://wp-melove.qiniudn.com/blogimg/2013/03/blog404.png)](http://wp-melove.qiniudn.com/blogimg/2013/03/blog404.png)
+[![blog 404](http://lzan13.qiniudn.com/blog/uploads/images/2013/03/blog404.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/03/blog404.png)

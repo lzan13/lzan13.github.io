@@ -6,7 +6,7 @@ categories:
 tags:
   - Android
   - SlidMenu
-id: 357
+id: 10012
 date: 2013-05-20 22:58:06
 ---
 
@@ -16,7 +16,7 @@ date: 2013-05-20 22:58:06
 
 而菜单的打开与关闭，实际上就是操作上层的`mSlidView`的滑动，当需要打开菜单时，让`mSlidView`向右边滑动，如果要关闭`menu`，就再让它滑回来，
 
-[![sildmenu](http://wp-melove.qiniudn.com/blogimg/2013/05/sildmenu.png)](http://wp-melove.qiniudn.com/blogimg/2013/05/sildmenu.png)
+[![sildmenu](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/sildmenu.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/sildmenu.png)
 
 主要代码就是自定义的类：
 ```java

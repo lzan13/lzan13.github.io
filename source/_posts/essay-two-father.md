@@ -1,3 +1,4 @@
+
 ---
 title: 世上有两个爸爸
 categories:
@@ -6,11 +7,11 @@ tags:
   - Education
   - Father
   - Good
-id: 179
+id: 10052
 date: 2013-03-01 19:28:14
 ---
 
-[![duzhe](http://wp-melove.qiniudn.com/blogimg/2013/03/duzhe.jpg)](http://wp-melove.qiniudn.com/blogimg/2013/03/duzhe.jpg)
+[![duzhe](http://lzan13.qiniudn.com/blog/uploads/images/2013/03/duzhe.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2013/03/duzhe.jpg)
 
 ### 开头扯扯淡
 在看杂志的时候看到了这篇文章，感觉写的很好，教育的差异反应了中西文化的差异，就个人来说，我反对TC的教育，特别是文化方面，老是口头上说提倡TMD素质教育，结果教育的素质都没了……

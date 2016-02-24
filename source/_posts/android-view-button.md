@@ -6,7 +6,7 @@ categories:
 tags:
   - Android
   - Button
-id: 130
+id: 10021
 date: 2013-02-24 19:35:03
 ---
 
@@ -39,9 +39,9 @@ date: 2013-02-24 19:35:03
 ```
 上边的xml布局文件定义了三个button按钮
 第一个是普通的，第二个是定义了背景图的，第三个是使用xml定义背景的按钮，
-[![Image](http://wp-melove.qiniudn.com/blogimg/2013/02/Image.png)](http://wp-melove.qiniudn.com/blogimg/2013/02/Image.png)
+[![Image](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/Image.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/Image.png)
 使用xml定义按钮的背景，可以实现按下改变背景"button_bg_1.xml"按下效果就是这样！下面是xml定义button背景的代码
-[![Image-2](http://wp-melove.qiniudn.com/blogimg/2013/02/Image-2.png)](http://wp-melove.qiniudn.com/blogimg/2013/02/Image-2.png)
+[![Image-2](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/Image-2.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/02/Image-2.png)
 ```xml
 <?xml version= "1.0" encoding ="utf-8"?>
 <selector xmlns:android ="http://schemas.android.com/apk/res/android" >

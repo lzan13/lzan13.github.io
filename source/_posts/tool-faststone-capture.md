@@ -6,7 +6,7 @@ tags:
   - FastStoneCapture
   - Share
   - Tool
-id: 221
+id: 10063
 date: 2013-05-01 23:16:11
 ---
 
@@ -17,7 +17,7 @@ date: 2013-05-01 23:16:11
 肥差个呢喜欢他的屏幕取色，滚动截取整个网页，无论哇过年也多长！
 
 ### 效果图
-[![fsc](http://wp-melove.qiniudn.com/blogimg/2013/05/20130502142037.png)](http://wp-melove.qiniudn.com/blogimg/2013/05/20130502142037.png)
+[![fsc](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/20130502142037.png)](http://lzan13.qiniudn.com/blog/uploads/images/2013/05/20130502142037.png)
 
 ### 下载
 下边是我收藏的版本下载地址，都是已经破解版的，你们也可以自己百度搜索：
