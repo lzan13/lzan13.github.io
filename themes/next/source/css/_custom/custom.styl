@@ -1,1 +1,50 @@
 // Custom styles.
+/* 修改后的侧边栏头像 */
+.site-author-image {
+  display: block;
+  margin: 10px auto;
+  max-width: 64px;
+  height: auto
+  border-width: 1px;
+  border-color: $gainsboro;
+  padding: 2px;
+
+  /* start */
+  border-radius: 50%
+  webkit-transition: 1.4s all;
+  moz-transition: 1.4s all;
+  ms-transition: 1.4s all;
+  transition: 1.4s all;
+  /* end */
+}
+
+/* 作者头像鼠标悬停样式 */
+.site-author-image:hover { 
+  webkit-transform: rotate(720deg) scale(1.1);
+  moz-transform: rotate(720deg) scale(1.1);
+  ms-transform: rotate(720deg) scale(1.1);
+  transform: rotate(720deg) scale(1.1);
+}
+
+/* 作者名字 */
+.site-author-name {
+  display: block;
+  font-size: 16px;
+  margin-top: 28px;
+  margin-left: 8px;
+}
+.site-description{
+  float: left;
+  display: block;
+  font-size: 12px;
+}
+
+/* 社交连接样式 */
+.links-of-author-item a:hover{
+    color: #2384fe;
+}
+
+/* 主菜单 悬浮样式 */
+.menu-item a:hover{
+    color: #2384fe;
+}
