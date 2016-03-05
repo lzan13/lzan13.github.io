@@ -11,7 +11,7 @@ tags:
 id: 10007
 ---
 
-现在已经有很多人开始使用`AndroidStudio`开始开发`Android`了，但是这货有一点儿不好，一个界面只能打开一个项目，当我们在开发自己的项目时，如果想像`clipse`查看别的`demo`的代码或者功能，只能再另外打开一个`Window`新开项目，其实呢`AndroidStudio`可以在一个项目中导入多个`Module`，这里以导入环信最新版的几个`demo`来实现在`AndroidStudi`中查看多个项目；
+现在已经有很多人开始使用`AndroidStudio`开始开发`Android`了，但是这货有一点儿不好，一个界面只能打开一个项目，当我们在开发自己的项目时，如果想像`clipse`查看别的`demo`的代码或者功能，只能再另外打开一个`Window`新开项目，其实呢`AndroidStudio`可以在一个项目中导入多个`Module`，这里以导入环信最新版的几个`demo`来实现在`AndroidStudio`中查看多个项目；
 首先导入3.0的项目，`3.0 demo`引入了`EaseUI`库，在导入`AndroidStudio`的时候会以`Module`的形式自动导入`EaseUI`，`EaseUI`库中放着`simpledemo`这个小`demo`，我们先把它剪切出来，和其他的`demo`放在一起，等下我们就在一个`AndroidStudio`项目中导入环信的这些全部`demo`
 首先导入`3.0 Demo`：
 ![photo000](http://lzan13.qiniudn.com/blog/uploads/images/2015/11/photo000.png)
