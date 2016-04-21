@@ -1,5 +1,5 @@
 ---
-title: Android开发集成环信SDK3.x简单介绍
+title: Android开发集成聊天环信SDK3.x简单开始
 comments: true
 categories:
   - Develop
@@ -7,6 +7,7 @@ categories:
 tags:
   - Android
   - AndroidStudio
+  - Chat
   - Easemob
   - SDK
 id: 10070
