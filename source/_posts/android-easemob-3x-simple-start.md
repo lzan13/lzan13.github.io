@@ -38,7 +38,7 @@ date: 2016-04-07 11:04:07
 [SDK2.x 升级 SDK3.x 文档](http://docs.easemob.com/im/200androidcleintintegration/140upgradetov30)  
 
 
-###说下我当前开发环境
+### 说下我当前开发环境
 这里并不是一定要按照我的配置来，只是说下当前项目开发运行的环境，如果你的开发环境不同可能需要自己修改下项目配置`build.gradle`文件
 >AndroidStudio 2.0  
 Gradle 2.10（跟随AndroidStudio 一起更新）  
