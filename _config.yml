@@ -5,8 +5,7 @@
 # Site 网站设置
 title: lz's Notes
 subtitle: 慢慢来，一步一个脚印！
-description: x编程 x动漫 x折腾 x生活 
-  Android开发程序员 设计前端爱好者
+description: 编程 动漫 折腾 AndU; Android开发程序员 设计前端爱好者
 author: lzan13
 language: zh-Hans
 timezone: 
@@ -79,8 +78,13 @@ deploy:
   repo: https://github.com/lzan13/lzan13.github.io.git
   branch: master
 
-# DuoShuo
+# duoshuo
 duoshuo_shortname: lzan13
-# DuoShuo share
+# duoshuo share
 # duoshuo_share: false
+
+# 打赏功能
+reward_comment: 觉得不错，来杯咖啡鼓励一下 ~
+wechatpay: /images/playing-wechat.png
+alipay: /images/playing-zfb.png
 
