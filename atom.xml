@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://melove.net/blog/"/>
-  <updated>2016-11-23T11:17:46.000Z</updated>
+  <updated>2017-02-16T09:05:13.000Z</updated>
   <id>http://melove.net/blog/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>AndroidStudio 开发测试运行 Java 类的 Main 方法</title>
-    <link href="http://melove.net/blog/2016/11/android-androidstudio-run-java-10073.html"/>
-    <id>http://melove.net/blog/2016/11/android-androidstudio-run-java-10073.html</id>
+    <link href="http://melove.net/blog/2016/11/android-androidstudio-run-java-1479898645000.html"/>
+    <id>http://melove.net/blog/2016/11/android-androidstudio-run-java-1479898645000.html</id>
     <published>2016-11-23T10:57:25.000Z</published>
-    <updated>2016-11-23T11:17:46.000Z</updated>
+    <updated>2017-02-16T09:05:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>自从<code>Google</code>发布了<code>AndroidStudio1.5</code>之后，现在经常使用<code>AndroidStudio</code>开发程序了，在习惯了他的强大之后已经深深的把<code>Eclipse</code>给抛弃了，现在就算有<code>Eclipse</code>的项目也直接导入到<code>AndroidStudio</code>里去查看；不过在有时候发现<code>Eclipse</code>比<code>AndroidStudio</code>还是有一点儿有时的，就是在有时候突然有个小想法，或者想测试小段计算的代码，这个时候也还必须连上手机去运行程序才行，这让我一直很苦恼；</p>
 <p>不过后来发现，原来可以通过另外一种方式实现运行<code>java</code>类的<code>main</code>方法，不过在刚开始的测试过程中一直有问题，最近更新了下<code>SDK</code>突然想起来试下，发现成功了，这里记录下，给大家一个参考；</p>
@@ -77,17 +77,121 @@
   </entry>
   
   <entry>
-    <title>SublimeText的使用</title>
-    <link href="http://melove.net/blog/2016/05/tool-sublimetext-use-10072.html"/>
-    <id>http://melove.net/blog/2016/05/tool-sublimetext-use-10072.html</id>
-    <published>2016-05-11T05:37:42.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <title>Git常用命令总结</title>
+    <link href="http://melove.net/blog/2016/11/git-common-commands-summary-1478837532000.html"/>
+    <id>http://melove.net/blog/2016/11/git-common-commands-summary-1478837532000.html</id>
+    <published>2016-11-11T04:12:12.000Z</published>
+    <updated>2017-02-16T09:40:27.000Z</updated>
     
-    <content type="html"><![CDATA[<hr>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前一直在使用<code>EditPlus3</code>，后来得知了<code>SublimeText</code>，好牛X的样子，所以就开始使用了</p>
+    <content type="html"><![CDATA[<p>简单总结下使用 <code>git</code> 进行版本控制的时候一些常用命令，以及一些常用语</p>
+<p>创建自己的 ssh 秘钥</p>
 <hr>
+<pre><code>ssh-keygen -t rsa -C &quot;lzan13@sina.com&quot;
+</code></pre><p>这个命令会在当前用户目录下生成一个<code>.ssh</code>目录，然后生成两个文件<code>.id_rsa</code>私钥和<code>.id_rsa.pub</code>公钥</p>
+<p>本地操作相关</p>
+<hr>
+<p>主要是在本地仓库操作时使用的一些命令</p>
+<h3 id="git-status"><a href="#git-status" class="headerlink" title="#git status"></a>#git status</h3><pre><code>git status
+</code></pre><p>查看当前仓库状态：是否有文件修改，需要添加等</p>
+<h3 id="git-add"><a href="#git-add" class="headerlink" title="#git add"></a>#git add</h3><pre><code>git add &lt;file&gt;
+
+git add .
+</code></pre><p>将文件添加到暂存区，后边跟着文件名，可以使用<code>.</code>表示添加全部文件</p>
+<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="#git commit"></a>#git commit</h3><pre><code>git commit -m &quot;first commit&quot;
+</code></pre><p>提交暂存区的所有代码到版本库，参数就是本次提交的说明信息</p>
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="#git log"></a>#git log</h3><pre><code>git log // 查看提交日志
+
+git log --pretty=oneline // 查询信息都在一行显示
+
+git log --graph // 查看分之合并图
+</code></pre><p>提交日志相关，列出从最近到之前的提交日志，列出信息包含有<code>SHA1</code>计算得到的<code>commit_id</code></p>
+<h3 id="git-reset"><a href="#git-reset" class="headerlink" title="#git reset"></a>#git reset</h3><pre><code>git reset --hard HEAD^
+
+git reset --hard &lt;commit_id&gt; // 
+</code></pre><p>这个命令的作用是将代码回退到之前提交的版本，在Git中，用<code>HEAD</code>表示当前版本，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，如果是多个可以写成<code>HEAD~ N</code>，N 代表是第几个，也可以和<code>git log</code>的结果关联起来使用</p>
+<h3 id="git-relog"><a href="#git-relog" class="headerlink" title="#git relog"></a>#git relog</h3><pre><code>git relog
+</code></pre><p>Git 工具操作命令历史日志，和<code>git log</code>稍有不同，<code>git relog</code>会记录所有 git 操作</p>
+<h3 id="git-diff"><a href="#git-diff" class="headerlink" title="#git diff"></a>#git diff</h3><pre><code>git diff
+
+git diff &lt;file&gt;
+
+git diff [&lt;commit_id&gt;] -- &lt;file&gt; // 表示要查看当前文件与上个版本库中的区别
+</code></pre><p>查看文件差异，不带有参数时会列出本次修改所有文件，带上参数时需要制定文件全路径</p>
+<h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="#git checkout"></a>#git checkout</h3><pre><code>git checkout -- &lt;file&gt;
+</code></pre><p>撤销对文件的本次修改，回到之前的状态，准确点儿是回到上次调用<code>git add</code>或者<code>git commit</code>状态</p>
+<h3 id="git-rm"><a href="#git-rm" class="headerlink" title="#git rm"></a>#git rm</h3><pre><code>git rm &lt;file&gt;
+</code></pre><p>从版本库删除一个文件，与本地的删除一个文件不同，这里是直接将版本库里的文件删除了，如果之前有将文件提交到版本库，可以使用<code>git checkout -- filename</code>恢复；</p>
+<h3 id="git-branch"><a href="#git-branch" class="headerlink" title="#git branch"></a>#git branch</h3><pre><code>git branch // 查看分支 -v 本地全部分支，-a 包括远程全部分支
+
+git checkout -b &lt;branch&gt; // 创建并切换分支，等同于下边两个命令
+
+git branch &lt;branch&gt; // 创建分支
+
+git checkout &lt;branch&gt; // 切换分支
+
+git branch -d &lt;branch&gt; // 删除本地分支
+</code></pre><p>分支相关操作命令</p>
+<h3 id="git-merge"><a href="#git-merge" class="headerlink" title="#git merge"></a>#git merge</h3><pre><code>git merge &lt;branch&gt;
+</code></pre><p>合并指定分支到当前所在分支，在使用<code>merge</code>命令时有可能会出现代码修改冲突的情况，特别是在多人协作的情况下，冲突用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>和<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>包裹，中间用<code>=======</code>分割，<code>=======</code>以上是当前分支内容，以下是合并到当前分支的其他分支内容；</p>
+<p>远程操作相关</p>
+<hr>
+<p>主要是和操作远程仓库相关的一些命令</p>
+<h3 id="git-remote"><a href="#git-remote" class="headerlink" title="#git remote"></a>#git remote</h3><pre><code>git remote add &lt;name&gt; &lt;url&gt;
+
+git remote remove &lt;name&gt;
+
+git remote rename &lt;old&gt; &lt;new&gt;
+</code></pre><p>管理当前仓库的远程地址，分别是：添加远程仓库地址、删除远程仓库、重命名远程仓库</p>
+<h3 id="git-push"><a href="#git-push" class="headerlink" title="#git push"></a>#git push</h3><pre><code>git push -u &lt;remote&gt; &lt;branch&gt;
+
+git push &lt;remote&gt; &lt;branch&gt;
+
+git push &lt;remote&gt; &lt;branch&gt;:&lt;branch&gt; // 将本地分支上传到远程的一个新分支
+
+git push &lt;remote :&lt;branch&gt; // 将本地空分支推送到远端，即删除远程分支
+</code></pre><p>此命令是将本地仓库推送到远程仓库，第一次推送到远程分支需要加上<code>-u</code>参数，</p>
+<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="#git clone"></a>#git clone</h3><pre><code>git clone &lt;url&gt; [&lt;dir&gt;]
+
+git clone -b &lt;branch&gt; &lt;url&gt; [&lt;dir&gt;]
+
+git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt; // 根据远程仓库的分支创建并切换到新分支
+</code></pre><p>克隆远程仓库到本地，可以使用<code>-b</code>参数指定克隆的分支，以及指定克隆后的文件夹名称，不设置就是默认远程仓库名字；</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>参考网站 <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰 Git 教程</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;简单总结下使用 &lt;code&gt;git&lt;/code&gt; 进行版本控制的时候一些常用命令，以及一些常用语&lt;/p&gt;
+&lt;p&gt;创建自己的 ssh 秘钥&lt;/p&gt;
+&lt;hr&gt;
+&lt;pre&gt;&lt;code&gt;ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
+    
+    </summary>
+    
+      <category term="Develop" scheme="http://melove.net/blog/categories/Develop/"/>
+    
+    
+      <category term="Git" scheme="http://melove.net/blog/tags/Git/"/>
+    
+      <category term="Branch" scheme="http://melove.net/blog/tags/Branch/"/>
+    
+      <category term="Clone" scheme="http://melove.net/blog/tags/Clone/"/>
+    
+      <category term="Remote" scheme="http://melove.net/blog/tags/Remote/"/>
+    
+      <category term="SSH" scheme="http://melove.net/blog/tags/SSH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SublimeText的使用</title>
+    <link href="http://melove.net/blog/2016/05/tool-sublimetext-use-1462945062000.html"/>
+    <id>http://melove.net/blog/2016/05/tool-sublimetext-use-1462945062000.html</id>
+    <published>2016-05-11T05:37:42.000Z</published>
+    <updated>2017-02-16T09:39:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前一直在使用<code>EditPlus3</code>，后来得知了<code>SublimeText</code>，好牛X的样子，所以就开始使用了</p>
 <h3 id="首先SublimeText的安装"><a href="#首先SublimeText的安装" class="headerlink" title="首先SublimeText的安装"></a>首先SublimeText的安装</h3><p>先去官方下载安装包，这里下载的是<a href="http://www.sublimetext.com/2" target="_blank" rel="external">SublimeText2</a> 根据安装向导安装就好了</p>
-<hr>
 <h3 id="Package-Control"><a href="#Package-Control" class="headerlink" title="Package Control"></a>Package Control</h3><p>如果需要给<code>SublimeText</code>安装插件，首先需要安装<code>Package Control</code></p>
 <ul>
 <li>按<code>Ctrl+``或者</code>View&gt;Show Console<code>打开</code>Console`（SublimeText控制台）</li>
@@ -97,7 +201,6 @@
 <li><p>等待左下角的进度完成，然后重启<code>SublimeText2</code>就成功了</p>
 </li>
 </ul>
-<hr>
 <h3 id="MarkdownEditing"><a href="#MarkdownEditing" class="headerlink" title="MarkdownEditing"></a>MarkdownEditing</h3><h4 id="安装MarkdownEditing"><a href="#安装MarkdownEditing" class="headerlink" title="安装MarkdownEditing"></a>安装MarkdownEditing</h4><ul>
 <li>按下<code>Ctrl+Shift+P</code>然后输入<code>Package Control: Install Package</code>或<code>pci</code>然后在弹出框输入<code>MarkdownEditing</code>回车，等待安装完成，然后重启<code>SublimeText</code>就可以看到<code>Markdown</code>的效果了</li>
 <li>此插件可以设置一些主题，不过他的主题对<code>Markdown</code>的语言没作用，只是更改了编辑文本的主题样式</li>
@@ -106,16 +209,13 @@
 </blockquote>
 </li>
 </ul>
-<hr>
 <h3 id="HTML-CSS-JS-Prettify"><a href="#HTML-CSS-JS-Prettify" class="headerlink" title="HTML/CSS/JS Prettify"></a>HTML/CSS/JS Prettify</h3><h4 id="安装HTML-CSS-JS-Prettify"><a href="#安装HTML-CSS-JS-Prettify" class="headerlink" title="安装HTML-CSS-JS Prettify"></a>安装HTML-CSS-JS Prettify</h4><p>按下<code>Ctrl+Shift+P</code>然后输入<code>Package Control: Install Package</code>或<code>pci</code>然后在弹出框输入<code>HTML-CSS-JS Prettify</code>然后回车，等待安装完成重启就行了</p>
 <h4 id="配置HTML-CSS-JS-Prettify"><a href="#配置HTML-CSS-JS-Prettify" class="headerlink" title="配置HTML-CSS-JS Prettify"></a>配置HTML-CSS-JS Prettify</h4><p>配置的时候只需要右键<code>HTML/CSS/JS Prettify&gt;Set Plugin Options</code>打开插件的配置文件，修改下<code>nodejs</code>的路径就行了，其中有三个平台的路径，只需要修改自己相应的平台就行了<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  // Simply using `node` without specifying a path sometimes doesn't work :(</div><div class="line">  // https://github.com/victorporof/Sublime-HTMLPrettify#oh-noez-command-not-found</div><div class="line">  // http://nodejs.org/#download</div><div class="line">  "node_path": &#123;</div><div class="line">    "windows": "D:/develop/web/nodejs/node.exe",</div><div class="line">    "linux": "/usr/bin/nodejs",</div><div class="line">    "osx": "/usr/local/bin/node"</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  // Automatically format when a file is saved.</div><div class="line">  "format_on_save": false,</div><div class="line"></div><div class="line">  // Only format the selection if there's one available.</div><div class="line">  "format_selection_only": true,</div><div class="line"></div><div class="line">  // Log the settings passed to the prettifier from `.jsbeautifyrc`.</div><div class="line">  "print_diagnostics": true</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
 <h3 id="Pretty-JSON"><a href="#Pretty-JSON" class="headerlink" title="Pretty JSON"></a>Pretty JSON</h3><h4 id="安装Pretty-JSON"><a href="#安装Pretty-JSON" class="headerlink" title="安装Pretty JSON"></a>安装Pretty JSON</h4><ul>
 <li>按下<code>Ctrl+Shift+P</code>然后输入<code>Package Control: Install Package</code>或<code>pci</code>然后在弹出框输入<code>Pretty JSON</code>然后回车等待安装完成</li>
 <li>选择<code>Preferences &gt; Package Settings &gt; Pretty JSON &gt; Settings - Default​</code>进行相关设置，其实这个没有什么要设置的</li>
 <li>快捷键就是<code>Ctrl+Alt+J</code></li>
 </ul>
-<hr>
 <h3 id="一些常用设置"><a href="#一些常用设置" class="headerlink" title="一些常用设置"></a>一些常用设置</h3><ul>
 <li>Tab为4空格：菜单栏<code>View&gt;Indentation&gt;Tab Width: 4</code></li>
 </ul>
@@ -123,8 +223,7 @@
     
     <summary type="html">
     
-      &lt;hr&gt;
-&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前一直在使用&lt;code&gt;EditPlus3&lt;/code&gt;，后来得知了&lt;code&gt;SublimeText&lt;/code&gt;，好牛X的样
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;之前一直在使用&lt;code&gt;EditPlus3&lt;/code&gt;，后来得知了&lt;code&gt;SublimeText&lt;/code&gt;，好牛X的样子，所以就
     
     </summary>
     
@@ -143,10 +242,10 @@
   
   <entry>
     <title>AndroidStudio优化编译速度</title>
-    <link href="http://melove.net/blog/2016/04/android-androidstudio-accelerate-build-10071.html"/>
-    <id>http://melove.net/blog/2016/04/android-androidstudio-accelerate-build-10071.html</id>
+    <link href="http://melove.net/blog/2016/04/android-androidstudio-accelerate-build-1460551046000.html"/>
+    <id>http://melove.net/blog/2016/04/android-androidstudio-accelerate-build-1460551046000.html</id>
     <published>2016-04-13T12:37:26.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T08:58:58.000Z</updated>
     
     <content type="html"><![CDATA[<p>前几天AndroidStudio发不了<code>2.0</code>正式版，又不少好的功能，所以就更新了下，不过碍于电脑配置不够，刚升级完编译项目竟然要5分钟之多，我了个去，这还搞毛啊，所以扒一扒有什么能优化的方法，稍微加速点编译速度，其实在<code>1.x</code>的版本时就有过配置优化，经过优化配置后，我的<code>AndroidStudio</code>编译一个全新的项目还是需要<code>1:30</code>没有网上别人说的那么快，应该是电脑配置不够的原因，内存8G，同事的<code>MacBook</code>16G配置，不优化都比我的快，说这么多就是配置够好就够快</p>
 <p>废话太多了，开始优化</p>
@@ -192,10 +291,10 @@
   
   <entry>
     <title>Android开发集成聊天环信SDK3.x简单开始</title>
-    <link href="http://melove.net/blog/2016/04/android-easemob-3x-simple-start-10070.html"/>
-    <id>http://melove.net/blog/2016/04/android-easemob-3x-simple-start-10070.html</id>
+    <link href="http://melove.net/blog/2016/04/android-easemob-3x-simple-start-1459998247000.html"/>
+    <id>http://melove.net/blog/2016/04/android-easemob-3x-simple-start-1459998247000.html</id>
     <published>2016-04-07T03:04:07.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:27.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>环信已经发部了<code>SDK3.x</code>版本，<code>SDK3.x</code>相对于<code>SDK2.x</code>来说是整个进行了重写，<code>API</code>变化还是比较大的，已经熟悉<code>SDK2.x</code>的开发者在使用新的<code>SDK3.x</code>还是会遇到不少问题的，不过还好官方给出了<code>SDK2.x</code>升级<code>SDK3.x</code>指南，已经熟悉<code>SDK2.x</code>开发者可以根据文档了解<code>SDK3.x</code>的变化，新集成的开发者可以直接参考<code>SDK3.x</code>进行集成；<br>这里简单的实现了sdk的初始化以及注册登录和收发消息，不过ui上没有没有去做很好的处理</p>
 <h3 id="先看效果图"><a href="#先看效果图" class="headerlink" title="先看效果图"></a>先看效果图</h3><p><img src="http://lzan13.qiniudn.com/blog/uploads/images/2016/4/ec-demo.gif" alt="ec-demo"></p>
@@ -256,10 +355,10 @@
   
   <entry>
     <title>Git命令行将原作者的代码pull到本地并合并</title>
-    <link href="http://melove.net/blog/2016/02/git-pull-author-pull-request-10054.html"/>
-    <id>http://melove.net/blog/2016/02/git-pull-author-pull-request-10054.html</id>
+    <link href="http://melove.net/blog/2016/02/git-pull-author-pull-request-1456112411000.html"/>
+    <id>http://melove.net/blog/2016/02/git-pull-author-pull-request-1456112411000.html</id>
     <published>2016-02-22T03:40:11.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:39:35.000Z</updated>
     
     <content type="html"><![CDATA[<p>今天在提交自己修改的代码到原作者的项目时遇到了一些问题，原作者最近更新比较频繁，导致我提交的代码有了冲突，所以要自己先把原作者的进行<code>pull</code>下来，然后解决冲突之后才能提交，既然要解决冲突，首先肯定是要把原作者的代码给<code>pull</code>下来，这里记录下更新提交的过程<br>首先要给当前的版本库添加原作者的<code>remote</code>，因为我是<code>fork</code>并<code>clone</code>自己的仓库进行修改，当时是没有添加的原作者的<code>remote</code>的<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add easemob https://github.com/easemob/easeui.git</div></pre></td></tr></table></figure></p>
 <p>然后运行命令去<code>pull</code>下来原作者的代码<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull easemob dev</div></pre></td></tr></table></figure></p>
@@ -275,16 +374,20 @@
       <category term="Develop" scheme="http://melove.net/blog/categories/Develop/"/>
     
     
-      <category term="Android" scheme="http://melove.net/blog/tags/Android/"/>
+      <category term="Git" scheme="http://melove.net/blog/tags/Git/"/>
+    
+      <category term="Branch" scheme="http://melove.net/blog/tags/Branch/"/>
+    
+      <category term="PullRequest" scheme="http://melove.net/blog/tags/PullRequest/"/>
     
   </entry>
   
   <entry>
     <title>从Wordpress转战到github.io</title>
-    <link href="http://melove.net/blog/2016/02/blog-migrate-to-hexo-10028.html"/>
-    <id>http://melove.net/blog/2016/02/blog-migrate-to-hexo-10028.html</id>
+    <link href="http://melove.net/blog/2016/02/blog-migrate-to-hexo-1455624518000.html"/>
+    <id>http://melove.net/blog/2016/02/blog-migrate-to-hexo-1455624518000.html</id>
     <published>2016-02-16T12:08:38.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:13:53.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近上班老加班，好久没有更新自己的博客了，不过笔记还是经常在记录的，毕竟有了问题和新的知识大脑不能完全记住啊，最新欢的还是<code>Evernote</code>，扯远了<br>最近没写博客也有一些其他原因，因为最近自己服务器上用来给wordpress存储数据的mysql数据库老是崩掉，让我经常重启服务器，感觉不想用他了，而且看到<code>Github</code>上的大牛们都是用<code>Github.io</code>来写博客，有一种想装一把的冲动 ^_^<br><code>Google</code>了N久（不要问我为什么被墙了还用它，任性），开始下手，把目标定在了<code>Hexo</code>上，博客从<code>Wordpress</code>迁移还是挺坎坷的，毕竟要做的事情不少啊</p>
 ]]></content>
@@ -308,10 +411,10 @@
   
   <entry>
     <title>Android开发之新版AndroidStudio以及新版sdk开发环境创建新项目可能会出现的一些错误问题</title>
-    <link href="http://melove.net/blog/2015/11/android-androidstudio-sdk-project-error-10008.html"/>
-    <id>http://melove.net/blog/2015/11/android-androidstudio-sdk-project-error-10008.html</id>
+    <link href="http://melove.net/blog/2015/11/android-androidstudio-sdk-project-error-1448156049000.html"/>
+    <id>http://melove.net/blog/2015/11/android-androidstudio-sdk-project-error-1448156049000.html</id>
     <published>2015-11-22T01:34:09.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:00:13.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="首先说下我这边开发的环境："><a href="#首先说下我这边开发的环境：" class="headerlink" title="首先说下我这边开发的环境："></a>首先说下我这边开发的环境：</h3><pre><code>AndroidStudio version：1.4.1
 jdk version：1.7.0
@@ -351,10 +454,10 @@ Gradle version：2.4
   
   <entry>
     <title>Android开发之AndroidStudio一个工程内查看多个项目的实现</title>
-    <link href="http://melove.net/blog/2015/11/android-androidstudio-project-module-10007.html"/>
-    <id>http://melove.net/blog/2015/11/android-androidstudio-project-module-10007.html</id>
+    <link href="http://melove.net/blog/2015/11/android-androidstudio-project-module-1448099077000.html"/>
+    <id>http://melove.net/blog/2015/11/android-androidstudio-project-module-1448099077000.html</id>
     <published>2015-11-21T09:44:37.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:27.000Z</updated>
     
     <content type="html"><![CDATA[<p>现在已经有很多人开始使用<code>AndroidStudio</code>开始开发<code>Android</code>了，但是这货有一点儿不好，一个界面只能打开一个项目，当我们在开发自己的项目时，如果想像<code>clipse</code>查看别的<code>demo</code>的代码或者功能，只能再另外打开一个<code>Window</code>新开项目，其实呢<code>AndroidStudio</code>可以在一个项目中导入多个<code>Module</code>，这里以导入环信最新版的几个<code>demo</code>来实现在<code>AndroidStudio</code>中查看多个项目；<br>首先导入3.0的项目，<code>3.0 demo</code>引入了<code>EaseUI</code>库，在导入<code>AndroidStudio</code>的时候会以<code>Module</code>的形式自动导入<code>EaseUI</code>，<code>EaseUI</code>库中放着<code>simpledemo</code>这个小<code>demo</code>，我们先把它剪切出来，和其他的<code>demo</code>放在一起，等下我们就在一个<code>AndroidStudio</code>项目中导入环信的这些全部<code>demo</code><br>首先导入<code>3.0 Demo</code>：<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/photo000.png" alt="photo000"></p>
 <p>因为要导入所有的<code>demo</code>所以给导入的项目重新命名下<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/photo001.png" alt="photo001"></p>
@@ -388,10 +491,10 @@ Gradle version：2.4
   
   <entry>
     <title>AndroidStudio导入环信新版EaseUI库问题</title>
-    <link href="http://melove.net/blog/2015/11/android-androidstudio-import-easeui-10006.html"/>
-    <id>http://melove.net/blog/2015/11/android-androidstudio-import-easeui-10006.html</id>
+    <link href="http://melove.net/blog/2015/11/android-androidstudio-import-easeui-1447854913000.html"/>
+    <id>http://melove.net/blog/2015/11/android-androidstudio-import-easeui-1447854913000.html</id>
     <published>2015-11-18T13:55:13.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>环信大牛最新封装了一个供开发者直接使用的<code>UI</code>库<code>EaseUI</code>，这个可以让大家快速的进行集成环信的<code>SDK</code>进行实现聊天，官方也说了老版本的<code>demo</code>不会进行维护，重点维护这个<code>EaseUI</code>，但是在自己导入的时候有时会有些问题，这里用<code>1.4</code>版本的<code>AndroidStudio</code>导入<code>3.0 demo</code>来说明下；<br>首先就是打开AndroidStudio导入项目<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/tupian010.png" alt="tupian010"><br>我喜欢给他改个名字EaseUIDemo<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/tupian011.png" alt="tupian011"><br>导入完成<br>我这边导入时没有问题的，有时导入<code>demo</code>或者我们自己创建的项目 然后导入<code>EaseUI</code>库，并加入到自己的项目中去的时候可能会出现下边这样的错误 ，出现问题的原因的大致因为EaseUI默认引入的<code>v4</code>包的版本<code>20.0.0</code>，但是大家的开发环境不同，<code>SDK</code>版本以及编译器和<code>support</code>库版本不同，会出现错误；<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/tupian012.png" alt="tupian012"><br>解决办法：这个时候就去点击项目设置，选中EaseUI把sdk版本设置成和<code>build.gradle</code>里一样的版本就行了，如果过低，建议更新<code>Android SDK Tool</code>，还不行，就把自己的项目的<code>SDK</code>版本和<code>EaseUI</code>都设置成一样，<code>v4</code>库也设置成一样<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/tupian013.png" alt="tupian013"><br>设置了之后，要记得同步<code>gradle 1 or 2</code>方式都可以<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/tupian014.png" alt="tupian014"></p>
 ]]></content>
@@ -419,10 +522,10 @@ Gradle version：2.4
   
   <entry>
     <title>关于新版AndroidStudio导入环信Demo的一些注意事项</title>
-    <link href="http://melove.net/blog/2015/11/android-easemob-demo-import-10013.html"/>
-    <id>http://melove.net/blog/2015/11/android-easemob-demo-import-10013.html</id>
+    <link href="http://melove.net/blog/2015/11/android-easemob-demo-import-1447854308000.html"/>
+    <id>http://melove.net/blog/2015/11/android-easemob-demo-import-1447854308000.html</id>
     <published>2015-11-18T13:45:08.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:28.000Z</updated>
     
     <content type="html"><![CDATA[<p>这里是以AndroidStudio v1.4版本为例</p>
 <p>新版<code>AndroidStudio</code>已经可以直接导入<code>eclipse</code>的项目了，具体步骤看下边（会的飘过）<br>有一点要注意：<code>AndroidStudio</code>导入<code>eclipse</code>的项目，如果项目有引入<code>library</code>项目，并且<code>library</code>项目路径正确，<code>AndroidStudio</code>在导入<code>eclipse</code>的项目的同时会自动导入<code>library</code>为<code>module</code></p>
@@ -457,10 +560,10 @@ Gradle version：2.4
   
   <entry>
     <title>AndroidStudio新建及clone项目关于gradle出现的问题</title>
-    <link href="http://melove.net/blog/2015/11/android-androidstudio-gradle-down-error-10004.html"/>
-    <id>http://melove.net/blog/2015/11/android-androidstudio-gradle-down-error-10004.html</id>
+    <link href="http://melove.net/blog/2015/11/android-androidstudio-gradle-down-error-1447853740000.html"/>
+    <id>http://melove.net/blog/2015/11/android-androidstudio-gradle-down-error-1447853740000.html</id>
     <published>2015-11-18T13:35:40.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:25.000Z</updated>
     
     <content type="html"><![CDATA[<p>在我们使用<code>AndroidStudio</code>创建或者<code>clone</code>一个新的项目的时候，一般会遇到一些问题，如下图那样，一般是因为在<code>AndroidStudio</code>每次更新版本都会更新<code>Gradle</code>这个插件，但由于墙的问题每次更新都是失败，又是停止在<code>Refreshing Gradle Project</code>,有时新建项目的时候报<code>Gradle Project Compile Error</code>等等相关的问题<br>解决这些问题办法是<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/11/tupian015.png" alt="tupian015"></p>
 <p>打开<code>AndroidStudio</code>项目，找到项目目录<code>gradle\wrapper\gradle-wrapper.properties</code>这个文件内容如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#Wed Jul 08 23:06:25 CST 2015</div><div class="line">distributionBase=GRADLE_USER_HOME</div><div class="line">distributionPath=wrapper/dists</div><div class="line">zipStoreBase=GRADLE_USER_HOME</div><div class="line">zipStorePath=wrapper/dists</div><div class="line">distributionUrl=https\://services.gradle.org/distributions/gradle-2.5-all.zip</div></pre></td></tr></table></figure></p>
@@ -490,10 +593,10 @@ Gradle version：2.4
   
   <entry>
     <title>AndroidStudio导入第三方jar包重复加载错误解决办法</title>
-    <link href="http://melove.net/blog/2015/05/android-androidstudio-duplicate-jar-10002.html"/>
-    <id>http://melove.net/blog/2015/05/android-androidstudio-duplicate-jar-10002.html</id>
+    <link href="http://melove.net/blog/2015/05/android-androidstudio-duplicate-jar-1431047621000.html"/>
+    <id>http://melove.net/blog/2015/05/android-androidstudio-duplicate-jar-1431047621000.html</id>
     <published>2015-05-08T01:13:41.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:22.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近在使用<code>Http</code>时需要实现文件上传，虽然可以使用<code>HttpURLConnection</code>实现原生<code>post</code>上传，不过这个好像效率很低，然后就选择网上比较多的<code>HttpClient</code>通过<code>HttpPost</code>的方式上传文件，使用这种方式的时候需要用到<code>apache</code>的一个<code>jar</code>包<code>httpmime-xxx.jar</code>这个包还依赖于<code>httpcore-xxx.jar</code>在正常的导入两个<code>jar</code>包后，满心欢喜的准备编译，可是一个蛋疼的错误蹦出来了：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Error:duplicate files during packaging of APK D:\Develop\Android\workspace\androidstudio\MLTimeLine\app\build\outputs\apk\app-debug-unaligned.apk</div><div class="line">     Path in archive: META-INF/NOTICE</div><div class="line">     Origin <span class="number">1</span>: D:\Develop\Android\workspace\androidstudio\MLTimeLine\app\libs\httpcore-<span class="number">4.3</span>.jar</div><div class="line">     Origin <span class="number">2</span>: D:\Develop\Android\workspace\androidstudio\MLTimeLine\app\libs\httpmime-<span class="number">4.3</span>.1.jar</div><div class="line">You can ignore those files in your build.gradle:</div><div class="line">     android &#123;</div><div class="line">       packagingOptions &#123;</div><div class="line">         exclude <span class="string">'META-INF/DEPENDENCIES'</span></div><div class="line">         exclude <span class="string">'META-INF/NOTICE'</span></div><div class="line">         exclude <span class="string">'META-INF/LICENSE'</span></div><div class="line">       &#125;</div><div class="line">     &#125;</div><div class="line">Error:Execution failed <span class="keyword">for</span> task <span class="string">':app:packageDebug'</span>.</div><div class="line">&gt; Duplicate files copied in APK META-INF/NOTICE</div><div class="line">     File <span class="number">1</span>: D:\Develop\Android\workspace\androidstudio\MLTimeLine\app\libs\httpcore-<span class="number">4.3</span>.jar</div><div class="line">     File <span class="number">2</span>: D:\Develop\Android\workspace\androidstudio\MLTimeLine\app\libs\httpcore-<span class="number">4.3</span>.jar</div></pre></td></tr></table></figure></p>
 <p>看字面意思就是说<code>jar</code>加载重复了，然后就是需要在项目的便衣文件中加入一些东西，既然能理解，就按照它提示的来嘛，<br>打开项目的<code>build.gradle</code>文件，在<code>android</code>标签下加入提示的部分，然后同步<code>gradle</code>在修改了<code>gradle</code>编译文件后<code>Androidstudio</code>右上角会有提示同步<code>gradle</code>的按钮，可以直接点击同步<code>gradle</code>配置，如果没有可以选择菜单栏里的<code>Tools - Android - Sync Project with Gradle Files</code>进行同步<br>同步完成，继续编译，duang…<br>还是那个错误，不过这次提示加入的内容不同，继续在<code>packagingOptions</code>下边添加，继续同步编译，duang…<br>继续,duang.duang.duang…<br>ok duang了三次之后算是没问题了，在编译配置文件中加入的就是这几行代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 解决重复加载第三方那个jar包问题</span></div><div class="line">packagingOptions &#123;</div><div class="line">     exclude <span class="string">'META-INF/DEPENDENCIES'</span></div><div class="line">     exclude <span class="string">'META-INF/NOTICE'</span></div><div class="line">     exclude <span class="string">'META-INF/LICENSE'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -525,10 +628,10 @@ Gradle version：2.4
   
   <entry>
     <title>AndroidStudio使用Gradle编译项目Failed to complete Gradle execution错误解决</title>
-    <link href="http://melove.net/blog/2015/04/android-androidstudio-gradle-error-10005.html"/>
-    <id>http://melove.net/blog/2015/04/android-androidstudio-gradle-error-10005.html</id>
+    <link href="http://melove.net/blog/2015/04/android-androidstudio-gradle-error-1430201388000.html"/>
+    <id>http://melove.net/blog/2015/04/android-androidstudio-gradle-error-1430201388000.html</id>
     <published>2015-04-28T06:09:48.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:25.000Z</updated>
     
     <content type="html"><![CDATA[<p>在使用<code>AndroidStudio</code>构建项目时有时会提示错误<code>Failed to complete Gradle execution</code>比较蛋疼的是这个问题还不是经常的，是偶尔，不确定因素，因为不知道什么时候就出现了，运行着好好的就突然这样，重启也不行，让人抓狂！<br>结局办法就是修改醒目的配置文件：<br>下边就是项目工程配置文件<code>gradle.properties</code>，默认是全部注释掉的，<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># Project-wide Gradle settings.</div><div class="line"># IDE (e.g. Android Studio) users:</div><div class="line"># Gradle settings configured through the IDE *will override*</div><div class="line"># any settings specified in this file.</div><div class="line"></div><div class="line"># For more details on how to configure your build environment visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/build_environment.html</div><div class="line"></div><div class="line"># Specifies the JVM arguments used for the daemon process.</div><div class="line"># The setting is particularly useful for tweaking memory settings.</div><div class="line"># Default value: -Xmx10248m -XX:MaxPermSize=256m</div><div class="line"># org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8</div><div class="line">org.gradle.jvmargs=-Xmx512m -XX:MaxPermSize=512m</div><div class="line"></div><div class="line"># When configured, Gradle will run in incubating parallel mode.</div><div class="line"># This option should only be used with decoupled projects. More details, visit</div><div class="line"># http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects</div><div class="line"># org.gradle.parallel=true</div></pre></td></tr></table></figure></p>
 <p>加上这句话就会好了<code>org.gradle.jvmargs=-Xmx512m -XX:MaxPermSize=512m</code><br>这句话不是在<code>studio</code>的配置文件中设置的，而是在项目的配置文件<code>gradle.properties</code>中</p>
@@ -555,10 +658,10 @@ Gradle version：2.4
   
   <entry>
     <title>Android开发自定义ImageView控件实现圆角边框等功能</title>
-    <link href="http://melove.net/blog/2015/04/android-custom-imageview-10010.html"/>
-    <id>http://melove.net/blog/2015/04/android-custom-imageview-10010.html</id>
+    <link href="http://melove.net/blog/2015/04/android-custom-imageview-1428116327000.html"/>
+    <id>http://melove.net/blog/2015/04/android-custom-imageview-1428116327000.html</id>
     <published>2015-04-04T02:58:47.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:00:48.000Z</updated>
     
     <content type="html"><![CDATA[<p>在开发中有时我们需要一个功能，或者一个控件，但是官方的又满足不了我们的需求，此时就需要我们自己实现这些功能；<br>下边边就是我们经常会需要的一个实现了图片的圆角，以及添加边框等功能的自定义控件；文章最后有项目源码地址</p>
 <p>这个自定义<code>ImageView</code>控件实现了图片的圆角、圆形、边框等功能，同时具有按下改变颜色的效果，通过属性设置可以自定义按下的颜色，<br>以及颜色的透明度；还尅定义边框的颜色<br>Demo截图：<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/05/device-2015-05-04-101609.png" alt="device-2015-05-04-101609"></p>
@@ -591,10 +694,10 @@ Gradle version：2.4
   
   <entry>
     <title>AndroidStudio结合Git同步代码到Github库提高开发效率</title>
-    <link href="http://melove.net/blog/2015/03/android-androidstudio-git-10003.html"/>
-    <id>http://melove.net/blog/2015/03/android-androidstudio-git-10003.html</id>
+    <link href="http://melove.net/blog/2015/03/android-androidstudio-git-1427697198000.html"/>
+    <id>http://melove.net/blog/2015/03/android-androidstudio-git-1427697198000.html</id>
     <published>2015-03-30T06:33:18.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:12:24.000Z</updated>
     
     <content type="html"><![CDATA[<p>之前都是用优盘拷贝代码，这里修改一次，拷贝一下，现在用<code>AndroidStudio</code>带有版本控制功能，可以直接使用<code>git</code>同步到<code>github</code>，所以学着弄下，这里记录下来</p>
 <p>首先是在<code>github</code>上新建一个仓库，这是我的测试项目<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git5.png" alt="androidstudio-git5"></p>
@@ -636,10 +739,10 @@ Gradle version：2.4
   
   <entry>
     <title>Android开发ClipboardManager的使用复制字符串到剪切板</title>
-    <link href="http://melove.net/blog/2015/03/android-copy-clipboardmanager-10009.html"/>
-    <id>http://melove.net/blog/2015/03/android-copy-clipboardmanager-10009.html</id>
+    <link href="http://melove.net/blog/2015/03/android-copy-clipboardmanager-1427616491000.html"/>
+    <id>http://melove.net/blog/2015/03/android-copy-clipboardmanager-1427616491000.html</id>
     <published>2015-03-29T08:08:11.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:00:25.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近做的一个项目中需要复制一个字符串到系统的剪切板，以便用户发送给其他人，因为我所需要复制的内容是确定的，因此不想通过让用户长按需要复制的内容，然后选择复制，感觉那样多此一举，so选择直接通过代码来复制到剪切板，查了一下资料，发现Android是有提供这个功能的：<br>通过使用<code>ClipboardManager</code>来实现；<a href="http://developer.android.com/reference/android/content/ClipboardManager.html" title="ClipboardManager api" target="_blank" rel="external">这里是ClipboardManager官方文档</a></p>
 <p><code>ClipboardManager</code>继承自<code>Object</code>类，我们主要使用的方法就是setText(String)不过这个方法在API 11后是废除的，使用setPrimaryClip(ClipData)方法替换</p>
@@ -666,10 +769,10 @@ Gradle version：2.4
   
   <entry>
     <title>Android开发之google官方下拉刷新SwipeRefreshLayout的使用</title>
-    <link href="http://melove.net/blog/2015/02/android-view-swiperefreshlayout-10022.html"/>
-    <id>http://melove.net/blog/2015/02/android-view-swiperefreshlayout-10022.html</id>
+    <link href="http://melove.net/blog/2015/02/android-view-swiperefreshlayout-1424756404000.html"/>
+    <id>http://melove.net/blog/2015/02/android-view-swiperefreshlayout-1424756404000.html</id>
     <published>2015-02-24T05:40:04.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:11:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近在写的一个软件要用到下拉刷新，说到下拉刷新，网上有很多的自定义样式，其实<code>google</code>已经出了官方的下拉刷新组建，而且更新过的更好看，是一个不停旋转的彩色缺口圆环，我很喜欢，所以打算用官方的下拉刷新，<br>首先要使用<code>SwipeRefreshLayout</code>，要在布局文件中使用它，而且它只能包含一个子控件，同时必须是可滚动的，比如<code>ScallView</code>、<code>ListView</code>、<code>GridView</code>等；<br>部分布局代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.v4.widget.SwipeRefreshLayout</span> </span></div><div class="line">     <span class="attr">android:id</span>=<span class="string">"@+id/ml_swipe_refresh_layout"</span></div><div class="line">     <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span> </div><div class="line">     <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">ListView</span> </span></div><div class="line">          <span class="attr">android:id</span>=<span class="string">"@+id/ml_timeline_listview"</span> </div><div class="line">          <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">          <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</div><div class="line">    <span class="tag">&lt;/<span class="name">ListView</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.v4.widget.SwipeRefreshLayout</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>接着就是在java代码中去获得控件，并监听控件达到出发刷新的目的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 初始化下拉刷新组件</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initSwipeRefreshLayout</span><span class="params">()</span> </span>&#123;</div><div class="line">	mSwipeRefreshLayout.setProgressViewOffset(<span class="keyword">false</span>, <span class="number">0</span>, <span class="number">220</span>);</div><div class="line">	mSwipeRefreshLayout.setColorSchemeResources(R.color.ml_blue, R.color.ml_orange, R.color.ml_green, R.color.ml_red, R.color.ml_purple);</div><div class="line">	mSwipeRefreshLayout.setOnRefreshListener(<span class="keyword">new</span> SwipeRefreshLayout.OnRefreshListener() &#123;</div><div class="line">		<span class="meta">@Override</span> </div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefresh</span><span class="params">()</span> </span>&#123;</div><div class="line">			mSwipeRefreshLayout.postDelayed(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">				<span class="meta">@Override</span> </div><div class="line">				<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">					mSwipeRefreshLayout.setRefreshing(<span class="keyword">false</span>);</div><div class="line">				&#125;</div><div class="line">			&#125;,</div><div class="line">			<span class="number">5000</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -701,10 +804,10 @@ Gradle version：2.4
   
   <entry>
     <title>Cocos2d-x 3.x使用Sqlite3操作数据库</title>
-    <link href="http://melove.net/blog/2014/11/cocos2d-x-sqlite3-database-10043.html"/>
-    <id>http://melove.net/blog/2014/11/cocos2d-x-sqlite3-database-10043.html</id>
+    <link href="http://melove.net/blog/2014/11/cocos2d-x-sqlite3-database-1414986393000.html"/>
+    <id>http://melove.net/blog/2014/11/cocos2d-x-sqlite3-database-1414986393000.html</id>
     <published>2014-11-03T03:46:33.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:21:08.000Z</updated>
     
     <content type="html"><![CDATA[<p>好像新版的<code>Cocos2d-x</code>引擎包含了<code>sqlite3.h</code>,但是，在我引用时会提示<code>sqlite3_open()</code>无法解析，不知道怎么回事，所以我就不用他内置的了;<br>首先去<a href="http://www.sqlite.org" target="_blank" rel="external">sqlite官网</a>下载<code>sqlite</code>的源码文件，解压得到四个文件<code>shell.c</code>、<code>sqlite3.c</code>、<code>sqlite3.h</code>、<code>sqlite3ext.h</code>把这四个文件拷贝到项目<code>Classes</code>目录下，或者在此目录下再建立一个<code>sqlite</code>目录（便于代码的区分管理），然后右击项目<code>Classes</code>-&gt;<code>添加</code>-&gt;<code>现有项</code>，把这四个文件添加进来，就可以使用了，<br>新建<code>MLSqlite.cpp</code>和<code>MLSqlite.h</code>文件，这个就是我的操作<code>sqlite3</code>数据库的文件 </p>
 <h3 id="MLSqlite-h"><a href="#MLSqlite-h" class="headerlink" title="MLSqlite.h"></a>MLSqlite.h</h3><p>定义了几个简单的方法，简单的实现了数据库的增删改查<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">#ifndef _ml_sqlite_h_</div><div class="line">#define _ml_sqlite_h_</div><div class="line"></div><div class="line">#include "cocos2d.h"</div><div class="line">#include "sqlitesqlite3.h"</div><div class="line"></div><div class="line">USING_NS_CC;</div><div class="line">using namespace std;</div><div class="line"></div><div class="line">class MLSqlite &#123;</div><div class="line">public:</div><div class="line">	static MLSqlite* getInstance();</div><div class="line">	// 创建数据库</div><div class="line">	void openDatabase(const char* dbname);</div><div class="line">	// 创建数据表， 以sql语句的形式</div><div class="line">	void createTable(const char* tablename, const char* sqlstr);</div><div class="line">	// 插入数据， 以sql语句的形式</div><div class="line">	void insertData(const char* tablename, const char* sqlstr);</div><div class="line">	// 删除一条数据， 以sql语句的形式</div><div class="line">	void deleteData(const char* tablename, const char* sqlstr);</div><div class="line">	// 更新一条数据， 以sql语句的形式</div><div class="line">	void updateData(const char* tablename, const char* sqlstr);</div><div class="line"></div><div class="line">	/**</div><div class="line">	 * 查询所有数据 传入处理查询结果的回调函数，</div><div class="line">	 * 这个回调函数有三个参数，可以通过这三个参数来获得所有的数据</div><div class="line">	 */</div><div class="line">	void queryAllData(const char* tablename, const function&lt;void (char**, int, int)&gt;&amp; callback);	</div><div class="line">	/**</div><div class="line">	 * 查询所有数据，并传入处理数据的回调函数</div><div class="line">	 */</div><div class="line">	void queryAllData(const char* tablename, int (*callback)(void*,int,char**,char**));	</div><div class="line">	// 查询特定的数据</div><div class="line">	string queryOneData(const char* tablename, const char* sqlstr, int i);	</div><div class="line">	// 查询有多少条数据</div><div class="line">	int queryData(const char* tablename, const char* sqlstr);	</div><div class="line">	// 删除表</div><div class="line">	void deleteTable(const char* tablename);</div><div class="line">	// 关闭数据库</div><div class="line">	void closeDatabase();</div><div class="line">private:</div><div class="line">	MLSqlite();</div><div class="line">	~MLSqlite();</div><div class="line"></div><div class="line">	sqlite3* mldb;</div><div class="line">	char* error;</div><div class="line">	int result;</div><div class="line">&#125;;</div><div class="line">#endif // _ml_sqlite_h_</div></pre></td></tr></table></figure></p>
@@ -731,10 +834,10 @@ Gradle version：2.4
   
   <entry>
     <title>Cocos2d-x 3.x 使用rapidjson解析json文件</title>
-    <link href="http://melove.net/blog/2014/11/cocos2d-x-rapidjson-parse-json-10041.html"/>
-    <id>http://melove.net/blog/2014/11/cocos2d-x-rapidjson-parse-json-10041.html</id>
+    <link href="http://melove.net/blog/2014/11/cocos2d-x-rapidjson-parse-json-1414898813000.html"/>
+    <id>http://melove.net/blog/2014/11/cocos2d-x-rapidjson-parse-json-1414898813000.html</id>
     <published>2014-11-02T03:26:53.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
+    <updated>2017-02-16T09:19:47.000Z</updated>
     
     <content type="html"><![CDATA[<p>之前在写一个小游戏的时候要把一些<code>关卡</code>、<code>属性</code>等数据保存在<code>json</code>里边，供代码读取，所以就看了下关于<code>Cocos2d-x</code>中解析<code>json</code>的一些方法，发现在<code>3.x</code>里只集成有<code>json</code>解析库的，就是<code>rapidjson</code>，还挺好用，然后稍微对解析<code>json</code>数据进行了下面的封装；</p>
 <p>先留个坑吧 这里只是简单的记录下怎么解析的，代码中也有注释，就不一行行的解释了！有时间再详细的说说</p>
@@ -757,56 +860,6 @@ Gradle version：2.4
       <category term="Cocos2d-x" scheme="http://melove.net/blog/tags/Cocos2d-x/"/>
     
       <category term="RapidJson" scheme="http://melove.net/blog/tags/RapidJson/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>个人游戏 2048动漫版介绍与下载</title>
-    <link href="http://melove.net/blog/2014/10/app-share-game-2048-onepiece-10023.html"/>
-    <id>http://melove.net/blog/2014/10/app-share-game-2048-onepiece-10023.html</id>
-    <published>2014-10-28T01:55:10.000Z</published>
-    <updated>2016-11-18T09:11:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>身为一个程序猿，没有点儿自己的东西岂不是很悲哀，岂不是很丢人！</p>
-<p><code>So</code>不管怎样一定要搞出来一款自己的东西，就算很挫，那也是自己做出来的O(∩_∩)O~~<br>这次是自己动手写的，不过也参考了大牛的一些方法！少走不少弯路；自己做游戏自己玩，很爽 哈哈！</p>
-<p>OK 废话不多说，开始正题：<br>这篇文章就是介绍我的第一款正式的游戏：2048动漫版，游戏模式仿照文字版2048，界面手动PS，自己玩儿的话肯定要加入自己喜欢的元素了，然后就摸索着实现了用图片的方式合并，就加入了我喜欢的海贼造型，就是有点儿太花了，还加了一个龙猫，不过没有找到很合适的图片，就随便<code>PS</code>了几张，效果还不错，等下给大家看看效果图；</p>
-<p>下边这段话游戏的开发介绍</p>
-<blockquote>
-<p>  在浏览<code>Cocos2d-x</code>的时候无意间看到了大牛<code>touchsnow</code>以及他们的官方工具<code>CocosEditor</code> <a href="http://blog.makeapp.co" target="_blank" rel="external">CocosEditor官方博客</a>老牛了，最近有点儿迷上了它，虽然<code>bug</code>不少但是能省了不少开发工作，很喜欢，很强大；是针对cocos2d-js开发的，可以进行可视化编辑游戏界面，然后方便打包成apk，就跟着兴趣学了一下，当时也用<code>Cocos2d-Html5</code>实现了<code>2048</code>这个游戏，准确的说那时就是抄的！还有那个飞翔的小鸟，<code>cocos2d-js</code>开发起来还是挺快的，再加上之前学过一些<code>javascript</code>，很快就学会了，但是博主的那个插件<code>bug</code>还是比较多的（不过现在快更新了2.0版本，期待着发布）</p>
-<p>  学了一段时间的<code>cocos2d-js</code>后发现有些特效实现起来还是有些僵硬的，感觉没有<code>cocos2d-x</code>强大，所以就想着学习一下<code>Cocos2d-x</code>，因为是用<code>C++</code>语言实现的，所以要从头开始，还是比较蛋疼的，还好之前稍微看了写<code>C++</code>的书，多少也有些了解，然后就边爬帖子，边<code>google</code>，边<code>coding</code>，慢慢的算是入门了吧，就想着用<code>Cocos2d-x</code>实现我之前的<code>2048</code>动漫版，而且要做完整</p>
-<p>  这次实现这个游戏我添加上了我所能想到的，同时我现在的能力能实现的功能和效果！同时我也会写一系列文章，把开发这款游戏的过程记录下来，方便以后自己查看，也可以帮助新入门学习的朋友！</p>
-</blockquote>
-<h3 id="游戏下载"><a href="#游戏下载" class="headerlink" title="游戏下载"></a>游戏下载</h3><h4 id="本地下载："><a href="#本地下载：" class="headerlink" title="本地下载："></a>本地下载：</h4><p><a href="http://lzan13.qiniudn.com/blog/uploads/files/2014/02/DM2048.apk" target="_blank" rel="external">2048动漫版 - 本地下载</a></p>
-<h4 id="各大市场下载："><a href="#各大市场下载：" class="headerlink" title="各大市场下载："></a>各大市场下载：</h4><p><a href="https://play.google.com/store/apps/details?id=net.melove.game.dm2048" target="_blank" rel="external">2048动漫版 - Google play （已被封）</a><br><a href="http://shouji.baidu.com/game/item?docid=7559974&amp;from=as" target="_blank" rel="external">2048动漫版 - 百度手机助手</a><br><a href="http://app.mi.com/detail/76048" target="_blank" rel="external">2048动漫版 - 小米商店</a><br><a href="http://www.anzhi.com/soft_1924688.html" target="_blank" rel="external">2048动漫版 - 安智市场</a><br><a href="http://www.wandoujia.com/apps/net.melove.game.dm2048" target="_blank" rel="external">2048动漫版 - 豌豆荚</a></p>
-<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><p>首先是进入游戏的主界面，有几个提示信息O(∩_∩)O~~，加上可选择游戏形式，还可以分享<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png" alt="dm2048_1"></a></p>
-<p>其中一种游戏形式<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_2.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_2.png" alt="dm2048_2"></a></p>
-<p>另外一种形式<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_3.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_3.png" alt="dm2048_3"></a></p>
-<p>可以进行截图分享，支持分享到微博，还可以调用Android系统分享功能，分享给你其他的好友，比如QQ、微信、等其他聊天与社交软件<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_4.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_4.png" alt="dm2048_4"></a></p>
-<p>最后是一个动画的帮助页面，<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_5.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_5.png" alt="dm2048_5"></a></p>
-<p>有什么bug可以告诉我哈，多谢各位的反馈 O(∩_∩)O~~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;身为一个程序猿，没有点儿自己的东西岂不是很悲哀，岂不是很丢人！&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;So&lt;/code&gt;不管怎样一定要搞出来一款自己的东西，就算很挫，那也是自己做出来的O(∩_∩)O~~&lt;br&gt;这次是自己动手写的，不过也参考了大牛的一些方法！少走不少弯路；自己做游戏自己
-    
-    </summary>
-    
-      <category term="APPShare" scheme="http://melove.net/blog/categories/APPShare/"/>
-    
-    
-      <category term="Android" scheme="http://melove.net/blog/tags/Android/"/>
-    
-      <category term="APP" scheme="http://melove.net/blog/tags/APP/"/>
-    
-      <category term="Share" scheme="http://melove.net/blog/tags/Share/"/>
-    
-      <category term="2048" scheme="http://melove.net/blog/tags/2048/"/>
-    
-      <category term="Game" scheme="http://melove.net/blog/tags/Game/"/>
-    
-      <category term="OnePiece" scheme="http://melove.net/blog/tags/OnePiece/"/>
     
   </entry>
   

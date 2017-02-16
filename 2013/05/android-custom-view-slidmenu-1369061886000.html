@@ -1,0 +1,805 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,SlidMenu," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="lz's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/blog/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在制做一个软件的时候要用到侧滑菜单，而且，现在这个应用在软件开发中应用很多！虽然网上有好多说是实现了这个功能，csdn上资源下载那里也有好多提供下载，但当我一个一个的测试了之后，只能感叹一句坑爹啊都是bug，想想还是自己来实现吧！
+实现上主要就是一个自定义的MySlidView，在这个MySlidView里边去加载两个你要显示的mMenuView mSlidView，即一个是滑动之后，左侧的mSl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发之自定义控件侧滑菜单">
+<meta property="og:url" content="http://melove.net/blog/2013/05/android-custom-view-slidmenu-1369061886000.html">
+<meta property="og:site_name" content="lz's Notes">
+<meta property="og:description" content="在制做一个软件的时候要用到侧滑菜单，而且，现在这个应用在软件开发中应用很多！虽然网上有好多说是实现了这个功能，csdn上资源下载那里也有好多提供下载，但当我一个一个的测试了之后，只能感叹一句坑爹啊都是bug，想想还是自己来实现吧！
+实现上主要就是一个自定义的MySlidView，在这个MySlidView里边去加载两个你要显示的mMenuView mSlidView，即一个是滑动之后，左侧的mSl">
+<meta property="og:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/sildmenu.png">
+<meta property="og:updated_time" content="2017-02-16T09:01:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发之自定义控件侧滑菜单">
+<meta name="twitter:description" content="在制做一个软件的时候要用到侧滑菜单，而且，现在这个应用在软件开发中应用很多！虽然网上有好多说是实现了这个功能，csdn上资源下载那里也有好多提供下载，但当我一个一个的测试了之后，只能感叹一句坑爹啊都是bug，想想还是自己来实现吧！
+实现上主要就是一个自定义的MySlidView，在这个MySlidView里边去加载两个你要显示的mMenuView mSlidView，即一个是滑动之后，左侧的mSl">
+<meta name="twitter:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/sildmenu.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://melove.net/blog/2013/05/android-custom-view-slidmenu-1369061886000.html"/>
+
+
+
+
+
+  <title> Android开发之自定义控件侧滑菜单 | lz's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">lz's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">慢慢来，一步一个脚印！</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://melove.net/blog/blog/2013/05/android-custom-view-slidmenu-1369061886000.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="lzan13">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/blog/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="lz's Notes">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="lz's Notes" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android开发之自定义控件侧滑菜单
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-05-20T22:58:06+08:00">
+                2013-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/" itemprop="url" rel="index">
+                    <span itemprop="name">Develop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2013/05/android-custom-view-slidmenu-1369061886000.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/05/android-custom-view-slidmenu-1369061886000.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在制做一个软件的时候要用到侧滑菜单，而且，现在这个应用在软件开发中应用很多！虽然网上有好多说是实现了这个功能，csdn上资源下载那里也有好多提供下载，但当我一个一个的测试了之后，只能感叹一句<code>坑爹啊</code>都是bug，想想还是自己来实现吧！</p>
+<p>实现上主要就是一个自定义的<code>MySlidView</code>，在这个<code>MySlidView</code>里边去加载两个你要显示的<code>mMenuView</code> <code>mSlidView</code>，即一个是滑动之后，左侧的<code>mSlidView</code>，另一个就是关闭<code>mMenuView</code>之后的<code>mSlidView</code>！</p>
+<p>而菜单的打开与关闭，实际上就是操作上层的<code>mSlidView</code>的滑动，当需要打开菜单时，让<code>mSlidView</code>向右边滑动，如果要关闭<code>menu</code>，就再让它滑回来，</p>
+<p><a href="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/sildmenu.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/sildmenu.png" alt="sildmenu"></a></p>
+<p>主要代码就是自定义的类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div><div class="line">346</div><div class="line">347</div><div class="line">348</div><div class="line">349</div><div class="line">350</div><div class="line">351</div><div class="line">352</div><div class="line">353</div><div class="line">354</div><div class="line">355</div><div class="line">356</div><div class="line">357</div><div class="line">358</div><div class="line">359</div><div class="line">360</div><div class="line">361</div><div class="line">362</div><div class="line">363</div><div class="line">364</div><div class="line">365</div><div class="line">366</div><div class="line">367</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> lzan13</div><div class="line"> * </div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySlidView</span> <span class="keyword">extends</span> <span class="title">RelativeLayout</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> View mMenuView;</div><div class="line">	<span class="keyword">private</span> View mSlidView;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> RelativeLayout bgShade;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> Context mContext;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">float</span> mTouchSlop;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> Scroller mScroller; <span class="comment">// 滑动控制</span></div><div class="line">	<span class="keyword">private</span> VelocityTracker mVelocityTracker; <span class="comment">// 用于判断甩动手势</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SNAP_VELOCITY = <span class="number">100</span>; <span class="comment">// 滑动速度阀值</span></div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">float</span> mLastMotionX;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">float</span> mLastMotionY;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">float</span> mFirstMotionX;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> menuWidth; 		<span class="comment">//侧边菜单slidmenu的宽度</span></div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> menuState;		<span class="comment">//菜单状态</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> mIsBeingDragged = <span class="keyword">true</span>; <span class="comment">// 是否在滑动</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MySlidView</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>(context);</div><div class="line">		init(context);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MySlidView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>(context, attrs);</div><div class="line">		init(context);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MySlidView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>(context, attrs, defStyle);</div><div class="line">		init(context);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> context</div><div class="line">	 * 初始化</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">		mContext = context;</div><div class="line">		mScroller = <span class="keyword">new</span> Scroller(context);</div><div class="line"></div><div class="line">		menuState = ConstantQuantity.MENU_STATE_CLOSE;</div><div class="line"></div><div class="line">		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();</div><div class="line"></div><div class="line">		bgShade = <span class="keyword">new</span> RelativeLayout(context);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> menu</div><div class="line">	 * <span class="doctag">@param</span> slid</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViews</span><span class="params">(View menu, View slid)</span> </span>&#123;</div><div class="line">		setMenuView(menu);</div><div class="line">		setSlidView(slid);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@see</span> android.view.View#computeScroll()</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">computeScroll</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (!mScroller.isFinished()) &#123;</div><div class="line">			<span class="keyword">if</span> (mScroller.computeScrollOffset()) &#123;</div><div class="line">				<span class="keyword">int</span> oldX = mSlidView.getScrollX();</div><div class="line">				<span class="keyword">int</span> x = mScroller.getCurrX();</div><div class="line">				<span class="keyword">if</span> (oldX != x) &#123;</div><div class="line">					<span class="keyword">if</span> (mSlidView != <span class="keyword">null</span>) &#123;</div><div class="line">						mSlidView.scrollTo(mScroller.getCurrX(), <span class="number">0</span>);</div><div class="line">						bgShade.scrollTo(x + <span class="number">10</span>, <span class="number">0</span>);<span class="comment">//</span></div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">				invalidate();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollTo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>.scrollTo(x, y);</div><div class="line">		postInvalidate();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@see</span> android.view.ViewGroup#onInterceptTouchEvent(android.view.MotionEvent)</div><div class="line">	 * 拦截手势，在处理触屏操作之前先拦截下触屏事件进行判断之后的操作！</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">		menuWidth = getMenuViewWidth();</div><div class="line">		<span class="keyword">int</span> action = event.getAction();</div><div class="line"></div><div class="line">		<span class="keyword">float</span> x = event.getX();</div><div class="line">		<span class="keyword">float</span> y = event.getY();</div><div class="line"></div><div class="line">		<span class="keyword">switch</span> (action) &#123;</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">			mFirstMotionX = x;</div><div class="line">			mLastMotionX = x;</div><div class="line">			mLastMotionY = y;</div><div class="line">			mIsBeingDragged = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">			<span class="keyword">float</span> deltaX = mLastMotionX - x;</div><div class="line">			<span class="keyword">float</span> deltaY = mLastMotionY - y;</div><div class="line">			<span class="keyword">if</span> (Math.abs(deltaX) &gt; mTouchSlop</div><div class="line">					&amp;&amp; Math.abs(deltaX) &gt; Math.abs(deltaY)) &#123;</div><div class="line">				<span class="keyword">float</span> oldScrollX = mSlidView.getScrollX();</div><div class="line">				<span class="keyword">if</span> (oldScrollX &lt; = <span class="number">0</span>) &#123;</div><div class="line">					mIsBeingDragged = <span class="keyword">true</span>;</div><div class="line">					mLastMotionX = x;</div><div class="line">				&#125; <span class="keyword">else</span> &#123;</div><div class="line">					<span class="keyword">if</span> (deltaX &lt; <span class="number">0</span>) &#123;</div><div class="line">						mIsBeingDragged = <span class="keyword">true</span>;</div><div class="line">						mLastMotionX = x;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">if</span> (menuState == ConstantQuantity.MENU_STATE_OPEN) &#123;</div><div class="line">				System.out.println(mFirstMotionX + <span class="string">" ; "</span></div><div class="line">						+ mSlidView.getScrollX());</div><div class="line">				<span class="keyword">if</span> (mFirstMotionX &gt;= <span class="number">0</span></div><div class="line">						&amp;&amp; mFirstMotionX &lt; Math.abs(mSlidView.getScrollX())) &#123;</div><div class="line">					mIsBeingDragged = <span class="keyword">false</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">			<span class="keyword">if</span> (menuState == ConstantQuantity.MENU_STATE_OPEN) &#123;</div><div class="line">				<span class="keyword">if</span>(mFirstMotionX &gt;= menuWidth &amp;&amp; mLastMotionX &gt;= menuWidth)&#123;</div><div class="line">					openMenuView();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;	</div><div class="line">		<span class="keyword">return</span> mIsBeingDragged;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@see</span> android.view.View#onTouchEvent(android.view.MotionEvent) </div><div class="line">	 * 手势处理</div><div class="line">	 * 这里去处理触屏操作</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> action = event.getAction();</div><div class="line">		<span class="keyword">float</span> x = event.getX();</div><div class="line">		<span class="keyword">float</span> y = event.getY();</div><div class="line">		<span class="keyword">if</span> (mVelocityTracker == <span class="keyword">null</span>) &#123;</div><div class="line">			mVelocityTracker = VelocityTracker.obtain();</div><div class="line">			mVelocityTracker.addMovement(event);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">switch</span> (action) &#123;</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">			<span class="keyword">if</span> (!mScroller.isFinished()) &#123;</div><div class="line">				mScroller.abortAnimation();</div><div class="line">			&#125;</div><div class="line">			mLastMotionX = x;</div><div class="line">			mLastMotionY = y;</div><div class="line">			System.out.println(<span class="string">"mSlidView-scrollX--&gt;"</span> + mSlidView.getScrollX());</div><div class="line">			System.out.println(<span class="string">"mMenuView-Width--&gt;"</span> + getMenuViewWidth());</div><div class="line">			<span class="keyword">if</span> (mSlidView.getScrollX() == -getMenuViewWidth()</div><div class="line">					&amp;&amp; mLastMotionX &lt; getMenuViewWidth()) &#123;</div><div class="line">				<span class="comment">// return false;</span></div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">			<span class="keyword">if</span> (mIsBeingDragged) &#123;</div><div class="line">				<span class="keyword">float</span> delateX = mLastMotionX - x;</div><div class="line">				mLastMotionX = x;</div><div class="line">				<span class="keyword">if</span> (!(mSlidView.getScrollX() &lt; <span class="number">0</span>)) &#123;</div><div class="line">					<span class="keyword">if</span> (delateX &gt; <span class="number">0</span>) &#123;</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				<span class="keyword">if</span> ((mSlidView.getScrollX() &lt; = <span class="number">0</span>)</div><div class="line">						&amp;&amp; (mSlidView.getScrollX() &gt;= -(ConstantQuantity.screenWidth - ConstantQuantity.screenDensity * <span class="number">50</span>))) &#123;</div><div class="line">					mSlidView.scrollBy((<span class="keyword">int</span>) delateX, <span class="number">0</span>);</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				System.out.println(<span class="string">"delateX---&gt;"</span> + delateX);</div><div class="line">				System.out.println(<span class="string">"mSlidView.ScrollX---&gt;"</span></div><div class="line">						+ mSlidView.getScrollX());</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="keyword">if</span> (mSlidView.getScrollX() &gt;= <span class="number">0</span>) &#123;</div><div class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="keyword">if</span> (mSlidView != <span class="keyword">null</span>) &#123;</div><div class="line">				bgShade.scrollTo(mSlidView.getScrollX() + <span class="number">10</span>, <span class="number">0</span>);</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">		<span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">			<span class="keyword">int</span> velocityX = <span class="number">0</span>;</div><div class="line">			<span class="keyword">if</span> (mVelocityTracker != <span class="keyword">null</span>) &#123;</div><div class="line">				mVelocityTracker.addMovement(event);</div><div class="line">				mVelocityTracker.computeCurrentVelocity(<span class="number">1000</span>);</div><div class="line">				velocityX = (<span class="keyword">int</span>) mVelocityTracker.getXVelocity();</div><div class="line">			&#125;</div><div class="line">			<span class="comment">//当离开屏幕时根据滑动的速度来判断菜单是否打开或关闭</span></div><div class="line">			showVelocityMenuView(velocityX);</div><div class="line">			<span class="keyword">if</span> (mVelocityTracker != <span class="keyword">null</span>) &#123;</div><div class="line">				mVelocityTracker.recycle();</div><div class="line">				mVelocityTracker = <span class="keyword">null</span>;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> view</div><div class="line">	 * 设置侧边菜单布局</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMenuView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">		LayoutParams behindParams = <span class="keyword">new</span> LayoutParams(LayoutParams.WRAP_CONTENT,</div><div class="line">				LayoutParams.MATCH_PARENT);</div><div class="line">		addView(view, behindParams);</div><div class="line">		mMenuView = view;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> view</div><div class="line">	 * 设置中间滑动布局 设置中间滑动布局的同时，增加一个背景布局，用来显示侧边阴影！增加层级立体效果</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSlidView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">		LayoutParams bgShadeParams = <span class="keyword">new</span> LayoutParams(</div><div class="line">				ConstantQuantity.screenWidth, ConstantQuantity.screenHeight);</div><div class="line">		bgShadeParams.addRule(RelativeLayout.CENTER_IN_PARENT);</div><div class="line">		bgShade.setLayoutParams(bgShadeParams);</div><div class="line"></div><div class="line">		LayoutParams bgParams = <span class="keyword">new</span> LayoutParams(ConstantQuantity.screenWidth,</div><div class="line">				ConstantQuantity.screenHeight - <span class="number">48</span>);</div><div class="line">		bgParams.addRule(RelativeLayout.CENTER_IN_PARENT);</div><div class="line"></div><div class="line">		View bgShadeContent = <span class="keyword">new</span> View(mContext);</div><div class="line"></div><div class="line">		bgShadeContent.setBackgroundResource(R.drawable.view_left_bg);</div><div class="line"></div><div class="line">		bgShade.removeAllViews();</div><div class="line">		bgShade.addView(bgShadeContent, bgParams);</div><div class="line">		<span class="keyword">if</span> (getChildCount() &gt; <span class="number">1</span>) &#123;</div><div class="line">			removeViewAt(<span class="number">1</span>);</div><div class="line">			removeViewAt(<span class="number">1</span>);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		addView(bgShade, bgParams);</div><div class="line"></div><div class="line">		LayoutParams aboveParams = <span class="keyword">new</span> LayoutParams(LayoutParams.MATCH_PARENT,</div><div class="line">				LayoutParams.MATCH_PARENT);</div><div class="line">		addView(view, aboveParams);</div><div class="line">		mSlidView = view;</div><div class="line">		mSlidView.bringToFront();</div><div class="line">		System.out.println(getChildCount());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@return</span> 获得菜单的宽度</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getMenuViewWidth</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (mMenuView == <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> mMenuView.getWidth();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> velocity</div><div class="line">	 * 判断菜单的打开或关闭</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showVelocityMenuView</span><span class="params">(<span class="keyword">int</span> velocity)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (velocity &gt; <span class="number">0</span>) &#123;</div><div class="line">			<span class="keyword">if</span> (velocity &gt; SNAP_VELOCITY) &#123;</div><div class="line">				smoothScrollTo(-(menuWidth + mSlidView.getScrollX()));</div><div class="line">				setMenuState();</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				<span class="keyword">if</span> (mSlidView.getScrollX() &gt; -ConstantQuantity.screenWidth / <span class="number">2</span>) &#123;</div><div class="line">					smoothScrollTo(-mSlidView.getScrollX());</div><div class="line">				&#125; <span class="keyword">else</span> &#123;</div><div class="line">					smoothScrollTo(-(menuWidth + mSlidView.getScrollX()));</div><div class="line">					setMenuState();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (velocity &lt; <span class="number">0</span>) &#123;</div><div class="line">			<span class="keyword">if</span> (velocity &lt; -SNAP_VELOCITY) &#123;</div><div class="line">				smoothScrollTo(-mSlidView.getScrollX());</div><div class="line">				setMenuState();</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				<span class="keyword">if</span> (mSlidView.getScrollX() &gt; -ConstantQuantity.screenWidth / <span class="number">2</span>) &#123;</div><div class="line">					smoothScrollTo(-mSlidView.getScrollX());</div><div class="line">				&#125; <span class="keyword">else</span> &#123;</div><div class="line">					smoothScrollTo(-(menuWidth + mSlidView.getScrollX()));</div><div class="line">					setMenuState();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (velocity == <span class="number">0</span>) &#123;</div><div class="line">			<span class="keyword">if</span> (mSlidView.getScrollX() &gt; -(ConstantQuantity.screenWidth - ConstantQuantity.screenDensity * <span class="number">50</span>) / <span class="number">2</span>) &#123;</div><div class="line">				smoothScrollTo(-mSlidView.getScrollX());</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				smoothScrollTo(-(menuWidth + mSlidView.getScrollX()));</div><div class="line">				setMenuState();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 去打开或者关闭菜单界面</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openMenuView</span><span class="params">()</span> </span>&#123;</div><div class="line">		menuWidth = getMenuViewWidth();</div><div class="line">		<span class="keyword">if</span> (mSlidView.getScrollX() == <span class="number">0</span>) &#123;</div><div class="line">			<span class="comment">// mMenuView.setVisibility(View.VISIBLE);</span></div><div class="line">			smoothScrollTo(-menuWidth);</div><div class="line">			setMenuState();</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (mSlidView.getScrollX() == -menuWidth) &#123;</div><div class="line">			smoothScrollTo(menuWidth);</div><div class="line">			setMenuState();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 真正的实现打开与关闭的滑动效果</div><div class="line">	 * <span class="doctag">@param</span> distanceX</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">smoothScrollTo</span><span class="params">(<span class="keyword">int</span> distanceX)</span> </span>&#123;</div><div class="line">		mScroller.startScroll(mSlidView.getScrollX(), <span class="number">0</span>, </div><div class="line">				distanceX, <span class="number">0</span>, ConstantQuantity.DURATION_TIME);</div><div class="line">		invalidate();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 设置菜单打开或关闭状态</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setMenuState</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (menuState == ConstantQuantity.MENU_STATE_CLOSE) &#123;</div><div class="line">			menuState = ConstantQuantity.MENU_STATE_OPEN;</div><div class="line">			<span class="comment">// mSlidView.setEnabled(false);</span></div><div class="line">			System.out.println(<span class="string">"菜单将打开"</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			menuState = ConstantQuantity.MENU_STATE_CLOSE;</div><div class="line">			<span class="comment">// mSlidView.setEnabled(true);</span></div><div class="line">			System.out.println(<span class="string">"菜单将关闭"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>代码地址github：<a href="https://github.com/lzan13/myslidmenu" target="_blank" rel="external">侧滑菜单（slidmenu）</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/blog/tags/SlidMenu/" rel="tag"># SlidMenu</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2013/05/develop-js-parallax-mother-day-1368352058000.html" rel="next" title="我的母亲节祝福">
+                <i class="fa fa-chevron-left"></i> 我的母亲节祝福
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2013/05/android-network-wifi-state-1369062013000.html" rel="prev" title="Android判断设备网络连接状态并判断连接方式">
+                Android判断设备网络连接状态并判断连接方式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+
+    <div>
+      
+        
+  <div id="reward">
+    <div reward_comment>
+      <p>觉得不错，来杯咖啡鼓励一下 ~</p>
+    </div>
+    <button id="reward_button" disable="enable" onclick="var qr = document.getElementById('reward_qr'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>我很欣赏你</span>
+    </button>
+    <div id="reward_qr" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-wechat-2.jpg" alt="lzan13 WeChat Pay"/>
+          <p>微信支持</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-alipay-2.jpg" alt="lzan13 Alipay"/>
+          <p>支付宝支持</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2013/05/android-custom-view-slidmenu-1369061886000.html"
+           data-title="Android开发之自定义控件侧滑菜单" data-url="http://melove.net/blog/blog/2013/05/android-custom-view-slidmenu-1369061886000.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.png"
+               alt="lzan13" />
+          <p class="site-author-name" itemprop="name">lzan13</p>
+          <p class="site-description motion-element" itemprop="description">❤️ 编程 ❤️ 动漫 ❤️ 折腾 ❤️ You  Android开发程序员，设计前端爱好者</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">131</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lzan13" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lzan13" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lzan13" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/lzan13" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lzan13</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lzan13"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

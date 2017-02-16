@@ -1,0 +1,912 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git,Branch,Clone,Remote,SSH," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="lz's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/blog/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="简单总结下使用 git 进行版本控制的时候一些常用命令，以及一些常用语
+创建自己的 ssh 秘钥
+
+ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
+这个命令会在当前用户目录下生成一个.ssh目录，然后生成两个文件.id_rsa私钥和.id_rsa.pub公钥
+本地操作相关
+
+主要是在本地仓库操作时使用的一些命令
+#git statusgit sta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git常用命令总结">
+<meta property="og:url" content="http://melove.net/blog/2016/11/git-common-commands-summary-1478837532000.html">
+<meta property="og:site_name" content="lz's Notes">
+<meta property="og:description" content="简单总结下使用 git 进行版本控制的时候一些常用命令，以及一些常用语
+创建自己的 ssh 秘钥
+
+ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
+这个命令会在当前用户目录下生成一个.ssh目录，然后生成两个文件.id_rsa私钥和.id_rsa.pub公钥
+本地操作相关
+
+主要是在本地仓库操作时使用的一些命令
+#git statusgit sta">
+<meta property="og:updated_time" content="2017-02-16T09:40:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git常用命令总结">
+<meta name="twitter:description" content="简单总结下使用 git 进行版本控制的时候一些常用命令，以及一些常用语
+创建自己的 ssh 秘钥
+
+ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
+这个命令会在当前用户目录下生成一个.ssh目录，然后生成两个文件.id_rsa私钥和.id_rsa.pub公钥
+本地操作相关
+
+主要是在本地仓库操作时使用的一些命令
+#git statusgit sta">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://melove.net/blog/2016/11/git-common-commands-summary-1478837532000.html"/>
+
+
+
+
+
+  <title> Git常用命令总结 | lz's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">lz's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">慢慢来，一步一个脚印！</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://melove.net/blog/blog/2016/11/git-common-commands-summary-1478837532000.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="lzan13">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/blog/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="lz's Notes">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="lz's Notes" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git常用命令总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-11T12:12:12+08:00">
+                2016-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/" itemprop="url" rel="index">
+                    <span itemprop="name">Develop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2016/11/git-common-commands-summary-1478837532000.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/git-common-commands-summary-1478837532000.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>简单总结下使用 <code>git</code> 进行版本控制的时候一些常用命令，以及一些常用语</p>
+<p>创建自己的 ssh 秘钥</p>
+<hr>
+<pre><code>ssh-keygen -t rsa -C &quot;lzan13@sina.com&quot;
+</code></pre><p>这个命令会在当前用户目录下生成一个<code>.ssh</code>目录，然后生成两个文件<code>.id_rsa</code>私钥和<code>.id_rsa.pub</code>公钥</p>
+<p>本地操作相关</p>
+<hr>
+<p>主要是在本地仓库操作时使用的一些命令</p>
+<h3 id="git-status"><a href="#git-status" class="headerlink" title="#git status"></a>#git status</h3><pre><code>git status
+</code></pre><p>查看当前仓库状态：是否有文件修改，需要添加等</p>
+<h3 id="git-add"><a href="#git-add" class="headerlink" title="#git add"></a>#git add</h3><pre><code>git add &lt;file&gt;
+
+git add .
+</code></pre><p>将文件添加到暂存区，后边跟着文件名，可以使用<code>.</code>表示添加全部文件</p>
+<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="#git commit"></a>#git commit</h3><pre><code>git commit -m &quot;first commit&quot;
+</code></pre><p>提交暂存区的所有代码到版本库，参数就是本次提交的说明信息</p>
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="#git log"></a>#git log</h3><pre><code>git log // 查看提交日志
+
+git log --pretty=oneline // 查询信息都在一行显示
+
+git log --graph // 查看分之合并图
+</code></pre><p>提交日志相关，列出从最近到之前的提交日志，列出信息包含有<code>SHA1</code>计算得到的<code>commit_id</code></p>
+<h3 id="git-reset"><a href="#git-reset" class="headerlink" title="#git reset"></a>#git reset</h3><pre><code>git reset --hard HEAD^
+
+git reset --hard &lt;commit_id&gt; // 
+</code></pre><p>这个命令的作用是将代码回退到之前提交的版本，在Git中，用<code>HEAD</code>表示当前版本，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，如果是多个可以写成<code>HEAD~ N</code>，N 代表是第几个，也可以和<code>git log</code>的结果关联起来使用</p>
+<h3 id="git-relog"><a href="#git-relog" class="headerlink" title="#git relog"></a>#git relog</h3><pre><code>git relog
+</code></pre><p>Git 工具操作命令历史日志，和<code>git log</code>稍有不同，<code>git relog</code>会记录所有 git 操作</p>
+<h3 id="git-diff"><a href="#git-diff" class="headerlink" title="#git diff"></a>#git diff</h3><pre><code>git diff
+
+git diff &lt;file&gt;
+
+git diff [&lt;commit_id&gt;] -- &lt;file&gt; // 表示要查看当前文件与上个版本库中的区别
+</code></pre><p>查看文件差异，不带有参数时会列出本次修改所有文件，带上参数时需要制定文件全路径</p>
+<h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="#git checkout"></a>#git checkout</h3><pre><code>git checkout -- &lt;file&gt;
+</code></pre><p>撤销对文件的本次修改，回到之前的状态，准确点儿是回到上次调用<code>git add</code>或者<code>git commit</code>状态</p>
+<h3 id="git-rm"><a href="#git-rm" class="headerlink" title="#git rm"></a>#git rm</h3><pre><code>git rm &lt;file&gt;
+</code></pre><p>从版本库删除一个文件，与本地的删除一个文件不同，这里是直接将版本库里的文件删除了，如果之前有将文件提交到版本库，可以使用<code>git checkout -- filename</code>恢复；</p>
+<h3 id="git-branch"><a href="#git-branch" class="headerlink" title="#git branch"></a>#git branch</h3><pre><code>git branch // 查看分支 -v 本地全部分支，-a 包括远程全部分支
+
+git checkout -b &lt;branch&gt; // 创建并切换分支，等同于下边两个命令
+
+git branch &lt;branch&gt; // 创建分支
+
+git checkout &lt;branch&gt; // 切换分支
+
+git branch -d &lt;branch&gt; // 删除本地分支
+</code></pre><p>分支相关操作命令</p>
+<h3 id="git-merge"><a href="#git-merge" class="headerlink" title="#git merge"></a>#git merge</h3><pre><code>git merge &lt;branch&gt;
+</code></pre><p>合并指定分支到当前所在分支，在使用<code>merge</code>命令时有可能会出现代码修改冲突的情况，特别是在多人协作的情况下，冲突用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>和<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>包裹，中间用<code>=======</code>分割，<code>=======</code>以上是当前分支内容，以下是合并到当前分支的其他分支内容；</p>
+<p>远程操作相关</p>
+<hr>
+<p>主要是和操作远程仓库相关的一些命令</p>
+<h3 id="git-remote"><a href="#git-remote" class="headerlink" title="#git remote"></a>#git remote</h3><pre><code>git remote add &lt;name&gt; &lt;url&gt;
+
+git remote remove &lt;name&gt;
+
+git remote rename &lt;old&gt; &lt;new&gt;
+</code></pre><p>管理当前仓库的远程地址，分别是：添加远程仓库地址、删除远程仓库、重命名远程仓库</p>
+<h3 id="git-push"><a href="#git-push" class="headerlink" title="#git push"></a>#git push</h3><pre><code>git push -u &lt;remote&gt; &lt;branch&gt;
+
+git push &lt;remote&gt; &lt;branch&gt;
+
+git push &lt;remote&gt; &lt;branch&gt;:&lt;branch&gt; // 将本地分支上传到远程的一个新分支
+
+git push &lt;remote :&lt;branch&gt; // 将本地空分支推送到远端，即删除远程分支
+</code></pre><p>此命令是将本地仓库推送到远程仓库，第一次推送到远程分支需要加上<code>-u</code>参数，</p>
+<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="#git clone"></a>#git clone</h3><pre><code>git clone &lt;url&gt; [&lt;dir&gt;]
+
+git clone -b &lt;branch&gt; &lt;url&gt; [&lt;dir&gt;]
+
+git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt; // 根据远程仓库的分支创建并切换到新分支
+</code></pre><p>克隆远程仓库到本地，可以使用<code>-b</code>参数指定克隆的分支，以及指定克隆后的文件夹名称，不设置就是默认远程仓库名字；</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>参考网站 <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰 Git 教程</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/blog/tags/Branch/" rel="tag"># Branch</a>
+          
+            <a href="/blog/tags/Clone/" rel="tag"># Clone</a>
+          
+            <a href="/blog/tags/Remote/" rel="tag"># Remote</a>
+          
+            <a href="/blog/tags/SSH/" rel="tag"># SSH</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2016/05/tool-sublimetext-use-1462945062000.html" rel="next" title="SublimeText的使用">
+                <i class="fa fa-chevron-left"></i> SublimeText的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2016/11/android-androidstudio-run-java-1479898645000.html" rel="prev" title="AndroidStudio 开发测试运行 Java 类的 Main 方法">
+                AndroidStudio 开发测试运行 Java 类的 Main 方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+
+    <div>
+      
+        
+  <div id="reward">
+    <div reward_comment>
+      <p>觉得不错，来杯咖啡鼓励一下 ~</p>
+    </div>
+    <button id="reward_button" disable="enable" onclick="var qr = document.getElementById('reward_qr'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>我很欣赏你</span>
+    </button>
+    <div id="reward_qr" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-wechat-2.jpg" alt="lzan13 WeChat Pay"/>
+          <p>微信支持</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-alipay-2.jpg" alt="lzan13 Alipay"/>
+          <p>支付宝支持</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/git-common-commands-summary-1478837532000.html"
+           data-title="Git常用命令总结" data-url="http://melove.net/blog/blog/2016/11/git-common-commands-summary-1478837532000.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.png"
+               alt="lzan13" />
+          <p class="site-author-name" itemprop="name">lzan13</p>
+          <p class="site-description motion-element" itemprop="description">❤️ 编程 ❤️ 动漫 ❤️ 折腾 ❤️ You  Android开发程序员，设计前端爱好者</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">131</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lzan13" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lzan13" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lzan13" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/lzan13" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-status"><span class="nav-number">1.</span> <span class="nav-text">#git status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-add"><span class="nav-number">2.</span> <span class="nav-text">#git add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit"><span class="nav-number">3.</span> <span class="nav-text">#git commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-log"><span class="nav-number">4.</span> <span class="nav-text">#git log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-reset"><span class="nav-number">5.</span> <span class="nav-text">#git reset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-relog"><span class="nav-number">6.</span> <span class="nav-text">#git relog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-diff"><span class="nav-number">7.</span> <span class="nav-text">#git diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-checkout"><span class="nav-number">8.</span> <span class="nav-text">#git checkout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-rm"><span class="nav-number">9.</span> <span class="nav-text">#git rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-branch"><span class="nav-number">10.</span> <span class="nav-text">#git branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-merge"><span class="nav-number">11.</span> <span class="nav-text">#git merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote"><span class="nav-number">12.</span> <span class="nav-text">#git remote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-push"><span class="nav-number">13.</span> <span class="nav-text">#git push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-clone"><span class="nav-number">14.</span> <span class="nav-text">#git clone</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lzan13</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lzan13"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

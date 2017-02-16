@@ -1,0 +1,803 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Library,Cocos2d-x,Extensions,Apk," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="lz's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/blog/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在使用Cocos2d-x写游戏想使用9.png的时候遇到了一些问题，需要用到Scale9Sprite类，这个算是第三方库里的类，在win32环境下加入头文件cocos-ext.h编译没问题，但是在打包到Android的apk时出现找不到文件，这让我很蛋疼，发现原来需要把路径写成extensions/cocos-ext.h 单单是这样还是不能编译通过的，要在Android项目jni目录下的Andro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos2d-x 3.x 开发之引用Extensions第三方库后打包成apk遇到的问题及解决办法">
+<meta property="og:url" content="http://melove.net/blog/2014/07/cocos2d-x-library-android-mk-1405063461000.html">
+<meta property="og:site_name" content="lz's Notes">
+<meta property="og:description" content="在使用Cocos2d-x写游戏想使用9.png的时候遇到了一些问题，需要用到Scale9Sprite类，这个算是第三方库里的类，在win32环境下加入头文件cocos-ext.h编译没问题，但是在打包到Android的apk时出现找不到文件，这让我很蛋疼，发现原来需要把路径写成extensions/cocos-ext.h 单单是这样还是不能编译通过的，要在Android项目jni目录下的Andro">
+<meta property="og:updated_time" content="2017-02-16T09:19:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocos2d-x 3.x 开发之引用Extensions第三方库后打包成apk遇到的问题及解决办法">
+<meta name="twitter:description" content="在使用Cocos2d-x写游戏想使用9.png的时候遇到了一些问题，需要用到Scale9Sprite类，这个算是第三方库里的类，在win32环境下加入头文件cocos-ext.h编译没问题，但是在打包到Android的apk时出现找不到文件，这让我很蛋疼，发现原来需要把路径写成extensions/cocos-ext.h 单单是这样还是不能编译通过的，要在Android项目jni目录下的Andro">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://melove.net/blog/2014/07/cocos2d-x-library-android-mk-1405063461000.html"/>
+
+
+
+
+
+  <title> Cocos2d-x 3.x 开发之引用Extensions第三方库后打包成apk遇到的问题及解决办法 | lz's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">lz's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">慢慢来，一步一个脚印！</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://melove.net/blog/blog/2014/07/cocos2d-x-library-android-mk-1405063461000.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="lzan13">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/blog/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="lz's Notes">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="lz's Notes" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cocos2d-x 3.x 开发之引用Extensions第三方库后打包成apk遇到的问题及解决办法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-07-11T15:24:21+08:00">
+                2014-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/" itemprop="url" rel="index">
+                    <span itemprop="name">Develop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/Cocos2d-x/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos2d-x</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2014/07/cocos2d-x-library-android-mk-1405063461000.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/cocos2d-x-library-android-mk-1405063461000.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在使用<code>Cocos2d-x</code>写游戏想使用<code>9.png</code>的时候遇到了一些问题，需要用到<code>Scale9Sprite</code>类，这个算是第三方库里的类，在<code>win32</code>环境下加入头文件<br><code>cocos-ext.h</code>编译没问题，但是在打包到<code>Android</code>的<code>apk</code>时出现找不到文件，这让我很蛋疼，发现原来需要把路径写成<code>extensions/cocos-ext.h</code> 单单是这样还是不能编译通过的，要在<code>Android</code>项目<code>jni</code>目录下的<code>Android.mk</code>文件中引入<code>extensions</code>的静态库和相关模块儿<br>下边是我的示例<code>Android.mk</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">LOCAL_PATH := $(call my-dir)</div><div class="line"></div><div class="line">include $(CLEAR_VARS)</div><div class="line"></div><div class="line">LOCAL_MODULE := cocos2dcpp_shared</div><div class="line"></div><div class="line">LOCAL_MODULE_FILENAME := libcocos2dcpp</div><div class="line"></div><div class="line">LOCAL_SRC_FILES := hellocpp/main.cpp </div><div class="line">                   ../../Classes/AppDelegate.cpp </div><div class="line">                   ../../Classes/HelloWorldScene.cpp </div><div class="line">             ../../Classes/MyFunc.cpp </div><div class="line">             ../../Classes/CellSprite.cpp </div><div class="line">             ../../Classes/LoadScene.cpp </div><div class="line">             ../../Classes/MainScene.cpp </div><div class="line">             ../../Classes/GameScene.cpp</div><div class="line"></div><div class="line">LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes</div><div class="line"></div><div class="line">LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static</div><div class="line">LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static</div><div class="line">LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static</div><div class="line">LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extensions_static    #添加cocos_extension 静态库</div><div class="line">LOCAL_WHOLE_STATIC_LIBRARIES += cocostudio_static          #添加cocostudio 静态库</div><div class="line"></div><div class="line">include $(BUILD_SHARED_LIBRARY)</div><div class="line"></div><div class="line">$(call <span class="keyword">import</span>-<span class="keyword">module</span>,<span class="number">2</span>d)</div><div class="line">$(call <span class="keyword">import</span>-<span class="keyword">module</span>,audio/android)</div><div class="line">$(call <span class="keyword">import</span>-<span class="keyword">module</span>,Box2D)</div><div class="line">$(call <span class="keyword">import</span>-<span class="keyword">module</span>,extensions)                    #导入 extensions 模块儿</div><div class="line">$(call <span class="keyword">import</span>-<span class="keyword">module</span>,editor-support/cocostudio)     #导入 cocostudio 模块儿</div></pre></td></tr></table></figure></p>
+<p>OK了，如上所说在使用了其他的第三方库的时候，要在这个<code>Android.mk</code>文件中添加引用模块儿，这样在编译就OK了；<br>另外在项目中添加<code>cocostudio</code>以及<code>GUI</code>和<code>extensions</code>库可以看我的另一片文章：<br><a href="http://www.melove.net/lzan13/cocos2d-x-import-library-774.html" target="_blank" rel="external">Cocos2d-x 3.x 引用CocoStudio等第三方库</a></p>
+<p>最近又看了下，好像3.x引擎版本新建的项目在<code>Android.mk</code>中已经包含了所有的模块儿，不过都是处于注释状态，要手动打开你需要的库就行了</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/blog/tags/Library/" rel="tag"># Library</a>
+          
+            <a href="/blog/tags/Cocos2d-x/" rel="tag"># Cocos2d-x</a>
+          
+            <a href="/blog/tags/Extensions/" rel="tag"># Extensions</a>
+          
+            <a href="/blog/tags/Apk/" rel="tag"># Apk</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2014/07/cocos2d-x-import-library-1405063314000.html" rel="next" title="Cocos2d-x 3.x 引用CocoStudio等第三方库">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x 3.x 引用CocoStudio等第三方库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2014/07/cocos2d-x-jni-library-1406109287000.html" rel="prev" title="Cocos2d-x 3.x 开发之让C++通过jni调用java中的方法为后续添加第三方sdk做准备">
+                Cocos2d-x 3.x 开发之让C++通过jni调用java中的方法为后续添加第三方sdk做准备 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+
+    <div>
+      
+        
+  <div id="reward">
+    <div reward_comment>
+      <p>觉得不错，来杯咖啡鼓励一下 ~</p>
+    </div>
+    <button id="reward_button" disable="enable" onclick="var qr = document.getElementById('reward_qr'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>我很欣赏你</span>
+    </button>
+    <div id="reward_qr" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-wechat-2.jpg" alt="lzan13 WeChat Pay"/>
+          <p>微信支持</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-alipay-2.jpg" alt="lzan13 Alipay"/>
+          <p>支付宝支持</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/07/cocos2d-x-library-android-mk-1405063461000.html"
+           data-title="Cocos2d-x 3.x 开发之引用Extensions第三方库后打包成apk遇到的问题及解决办法" data-url="http://melove.net/blog/blog/2014/07/cocos2d-x-library-android-mk-1405063461000.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.png"
+               alt="lzan13" />
+          <p class="site-author-name" itemprop="name">lzan13</p>
+          <p class="site-description motion-element" itemprop="description">❤️ 编程 ❤️ 动漫 ❤️ 折腾 ❤️ You  Android开发程序员，设计前端爱好者</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">131</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lzan13" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lzan13" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lzan13" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/lzan13" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lzan13</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lzan13"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

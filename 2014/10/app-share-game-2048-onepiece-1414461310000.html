@@ -1,0 +1,845 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,2048,APP,Game,OnePiece,Share," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="lz's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/blog/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="身为一个程序猿，没有点儿自己的东西岂不是很悲哀，岂不是很丢人！
+So不管怎样一定要搞出来一款自己的东西，就算很挫，那也是自己做出来的O(∩_∩)O~~这次是自己动手写的，不过也参考了大牛的一些方法！少走不少弯路；自己做游戏自己玩，很爽 哈哈！
+OK 废话不多说，开始正题：这篇文章就是介绍我的第一款正式的游戏：2048动漫版，游戏模式仿照文字版2048，界面手动PS，自己玩儿的话肯定要加入自己喜欢的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人游戏 2048动漫版介绍与下载">
+<meta property="og:url" content="http://melove.net/blog/2014/10/app-share-game-2048-onepiece-1414461310000.html">
+<meta property="og:site_name" content="lz's Notes">
+<meta property="og:description" content="身为一个程序猿，没有点儿自己的东西岂不是很悲哀，岂不是很丢人！
+So不管怎样一定要搞出来一款自己的东西，就算很挫，那也是自己做出来的O(∩_∩)O~~这次是自己动手写的，不过也参考了大牛的一些方法！少走不少弯路；自己做游戏自己玩，很爽 哈哈！
+OK 废话不多说，开始正题：这篇文章就是介绍我的第一款正式的游戏：2048动漫版，游戏模式仿照文字版2048，界面手动PS，自己玩儿的话肯定要加入自己喜欢的">
+<meta property="og:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png">
+<meta property="og:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_2.png">
+<meta property="og:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_3.png">
+<meta property="og:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_4.png">
+<meta property="og:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_5.png">
+<meta property="og:updated_time" content="2017-02-16T09:11:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="个人游戏 2048动漫版介绍与下载">
+<meta name="twitter:description" content="身为一个程序猿，没有点儿自己的东西岂不是很悲哀，岂不是很丢人！
+So不管怎样一定要搞出来一款自己的东西，就算很挫，那也是自己做出来的O(∩_∩)O~~这次是自己动手写的，不过也参考了大牛的一些方法！少走不少弯路；自己做游戏自己玩，很爽 哈哈！
+OK 废话不多说，开始正题：这篇文章就是介绍我的第一款正式的游戏：2048动漫版，游戏模式仿照文字版2048，界面手动PS，自己玩儿的话肯定要加入自己喜欢的">
+<meta name="twitter:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://melove.net/blog/2014/10/app-share-game-2048-onepiece-1414461310000.html"/>
+
+
+
+
+
+  <title> 个人游戏 2048动漫版介绍与下载 | lz's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">lz's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">慢慢来，一步一个脚印！</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://melove.net/blog/blog/2014/10/app-share-game-2048-onepiece-1414461310000.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="lzan13">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/blog/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="lz's Notes">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="lz's Notes" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                个人游戏 2048动漫版介绍与下载
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-10-28T09:55:10+08:00">
+                2014-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/APPShare/" itemprop="url" rel="index">
+                    <span itemprop="name">APPShare</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2014/10/app-share-game-2048-onepiece-1414461310000.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/app-share-game-2048-onepiece-1414461310000.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>身为一个程序猿，没有点儿自己的东西岂不是很悲哀，岂不是很丢人！</p>
+<p><code>So</code>不管怎样一定要搞出来一款自己的东西，就算很挫，那也是自己做出来的O(∩_∩)O~~<br>这次是自己动手写的，不过也参考了大牛的一些方法！少走不少弯路；自己做游戏自己玩，很爽 哈哈！</p>
+<p>OK 废话不多说，开始正题：<br>这篇文章就是介绍我的第一款正式的游戏：2048动漫版，游戏模式仿照文字版2048，界面手动PS，自己玩儿的话肯定要加入自己喜欢的元素了，然后就摸索着实现了用图片的方式合并，就加入了我喜欢的海贼造型，就是有点儿太花了，还加了一个龙猫，不过没有找到很合适的图片，就随便<code>PS</code>了几张，效果还不错，等下给大家看看效果图；</p>
+<p>下边这段话游戏的开发介绍</p>
+<blockquote>
+<p>  在浏览<code>Cocos2d-x</code>的时候无意间看到了大牛<code>touchsnow</code>以及他们的官方工具<code>CocosEditor</code> <a href="http://blog.makeapp.co" target="_blank" rel="external">CocosEditor官方博客</a>老牛了，最近有点儿迷上了它，虽然<code>bug</code>不少但是能省了不少开发工作，很喜欢，很强大；是针对cocos2d-js开发的，可以进行可视化编辑游戏界面，然后方便打包成apk，就跟着兴趣学了一下，当时也用<code>Cocos2d-Html5</code>实现了<code>2048</code>这个游戏，准确的说那时就是抄的！还有那个飞翔的小鸟，<code>cocos2d-js</code>开发起来还是挺快的，再加上之前学过一些<code>javascript</code>，很快就学会了，但是博主的那个插件<code>bug</code>还是比较多的（不过现在快更新了2.0版本，期待着发布）</p>
+<p>  学了一段时间的<code>cocos2d-js</code>后发现有些特效实现起来还是有些僵硬的，感觉没有<code>cocos2d-x</code>强大，所以就想着学习一下<code>Cocos2d-x</code>，因为是用<code>C++</code>语言实现的，所以要从头开始，还是比较蛋疼的，还好之前稍微看了写<code>C++</code>的书，多少也有些了解，然后就边爬帖子，边<code>google</code>，边<code>coding</code>，慢慢的算是入门了吧，就想着用<code>Cocos2d-x</code>实现我之前的<code>2048</code>动漫版，而且要做完整</p>
+<p>  这次实现这个游戏我添加上了我所能想到的，同时我现在的能力能实现的功能和效果！同时我也会写一系列文章，把开发这款游戏的过程记录下来，方便以后自己查看，也可以帮助新入门学习的朋友！</p>
+</blockquote>
+<h3 id="游戏下载"><a href="#游戏下载" class="headerlink" title="游戏下载"></a>游戏下载</h3><h4 id="本地下载："><a href="#本地下载：" class="headerlink" title="本地下载："></a>本地下载：</h4><p><a href="http://lzan13.qiniudn.com/blog/uploads/files/2014/02/DM2048.apk" target="_blank" rel="external">2048动漫版 - 本地下载</a></p>
+<h4 id="各大市场下载："><a href="#各大市场下载：" class="headerlink" title="各大市场下载："></a>各大市场下载：</h4><p><a href="https://play.google.com/store/apps/details?id=net.melove.game.dm2048" target="_blank" rel="external">2048动漫版 - Google play （已被封）</a><br><a href="http://shouji.baidu.com/game/item?docid=7559974&amp;from=as" target="_blank" rel="external">2048动漫版 - 百度手机助手</a><br><a href="http://app.mi.com/detail/76048" target="_blank" rel="external">2048动漫版 - 小米商店</a><br><a href="http://www.anzhi.com/soft_1924688.html" target="_blank" rel="external">2048动漫版 - 安智市场</a><br><a href="http://www.wandoujia.com/apps/net.melove.game.dm2048" target="_blank" rel="external">2048动漫版 - 豌豆荚</a></p>
+<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><p>首先是进入游戏的主界面，有几个提示信息O(∩_∩)O~~，加上可选择游戏形式，还可以分享<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_1.png" alt="dm2048_1"></a></p>
+<p>其中一种游戏形式<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_2.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_2.png" alt="dm2048_2"></a></p>
+<p>另外一种形式<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_3.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_3.png" alt="dm2048_3"></a></p>
+<p>可以进行截图分享，支持分享到微博，还可以调用Android系统分享功能，分享给你其他的好友，比如QQ、微信、等其他聊天与社交软件<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_4.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_4.png" alt="dm2048_4"></a></p>
+<p>最后是一个动画的帮助页面，<br><a href="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_5.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2014/10/dm2048_5.png" alt="dm2048_5"></a></p>
+<p>有什么bug可以告诉我哈，多谢各位的反馈 O(∩_∩)O~~</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/blog/tags/2048/" rel="tag"># 2048</a>
+          
+            <a href="/blog/tags/APP/" rel="tag"># APP</a>
+          
+            <a href="/blog/tags/Game/" rel="tag"># Game</a>
+          
+            <a href="/blog/tags/OnePiece/" rel="tag"># OnePiece</a>
+          
+            <a href="/blog/tags/Share/" rel="tag"># Share</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2014/07/cocos2d-x-jni-library-1406109287000.html" rel="next" title="Cocos2d-x 3.x 开发之让C++通过jni调用java中的方法为后续添加第三方sdk做准备">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x 3.x 开发之让C++通过jni调用java中的方法为后续添加第三方sdk做准备
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2014/11/cocos2d-x-rapidjson-parse-json-1414898813000.html" rel="prev" title="Cocos2d-x 3.x 使用rapidjson解析json文件">
+                Cocos2d-x 3.x 使用rapidjson解析json文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+
+    <div>
+      
+        
+  <div id="reward">
+    <div reward_comment>
+      <p>觉得不错，来杯咖啡鼓励一下 ~</p>
+    </div>
+    <button id="reward_button" disable="enable" onclick="var qr = document.getElementById('reward_qr'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>我很欣赏你</span>
+    </button>
+    <div id="reward_qr" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-wechat-2.jpg" alt="lzan13 WeChat Pay"/>
+          <p>微信支持</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-alipay-2.jpg" alt="lzan13 Alipay"/>
+          <p>支付宝支持</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/10/app-share-game-2048-onepiece-1414461310000.html"
+           data-title="个人游戏 2048动漫版介绍与下载" data-url="http://melove.net/blog/blog/2014/10/app-share-game-2048-onepiece-1414461310000.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.png"
+               alt="lzan13" />
+          <p class="site-author-name" itemprop="name">lzan13</p>
+          <p class="site-description motion-element" itemprop="description">❤️ 编程 ❤️ 动漫 ❤️ 折腾 ❤️ You  Android开发程序员，设计前端爱好者</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">131</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lzan13" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lzan13" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lzan13" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/lzan13" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#游戏下载"><span class="nav-number">1.</span> <span class="nav-text">游戏下载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地下载："><span class="nav-number">1.1.</span> <span class="nav-text">本地下载：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#各大市场下载："><span class="nav-number">1.2.</span> <span class="nav-text">各大市场下载：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截图"><span class="nav-number">2.</span> <span class="nav-text">截图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lzan13</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lzan13"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
