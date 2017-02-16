@@ -1,0 +1,786 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,NewWork,WIFI," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="lz's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/blog/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="现在是互联网高速发展的时代，Android开发过程中，对于一个需要连接网络的Android设备，对设备的网络状态检测是很有必要的！好多的App都需要连接网络，所以抽时间就写了一个检测Android设备网络连接状态的demo
+这个小例子可以判断设备是否已经连接网络，并且在连接网络的状态下可以判断是WIFI无线连接还是GPRS手机网络连接，这样就可以在不同的网络连接下去调用不同的方法，处理不同的事情，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android判断设备网络连接状态并判断连接方式">
+<meta property="og:url" content="http://melove.net/blog/2013/05/android-network-wifi-state-10018.html">
+<meta property="og:site_name" content="lz's Notes">
+<meta property="og:description" content="现在是互联网高速发展的时代，Android开发过程中，对于一个需要连接网络的Android设备，对设备的网络状态检测是很有必要的！好多的App都需要连接网络，所以抽时间就写了一个检测Android设备网络连接状态的demo
+这个小例子可以判断设备是否已经连接网络，并且在连接网络的状态下可以判断是WIFI无线连接还是GPRS手机网络连接，这样就可以在不同的网络连接下去调用不同的方法，处理不同的事情，">
+<meta property="og:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/wifi-state.png">
+<meta property="og:updated_time" content="2016-11-18T09:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android判断设备网络连接状态并判断连接方式">
+<meta name="twitter:description" content="现在是互联网高速发展的时代，Android开发过程中，对于一个需要连接网络的Android设备，对设备的网络状态检测是很有必要的！好多的App都需要连接网络，所以抽时间就写了一个检测Android设备网络连接状态的demo
+这个小例子可以判断设备是否已经连接网络，并且在连接网络的状态下可以判断是WIFI无线连接还是GPRS手机网络连接，这样就可以在不同的网络连接下去调用不同的方法，处理不同的事情，">
+<meta name="twitter:image" content="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/wifi-state.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://melove.net/blog/2013/05/android-network-wifi-state-10018.html"/>
+
+
+
+
+
+  <title> Android判断设备网络连接状态并判断连接方式 | lz's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">lz's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">慢慢来，一步一个脚印！</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://melove.net/blog/blog/2013/05/android-network-wifi-state-10018.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="lzan13">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/blog/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="lz's Notes">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="lz's Notes" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android判断设备网络连接状态并判断连接方式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-05-20T23:00:13+08:00">
+                2013-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/" itemprop="url" rel="index">
+                    <span itemprop="name">Develop</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在是互联网高速发展的时代，<code>Android</code>开发过程中，对于一个需要连接网络的<code>Android</code>设备，对设备的网络状态检测是很有必要的！好多的App都需要连接网络，所以抽时间就写了一个检测<code>Android</code>设备网络连接状态的<code>demo</code></p>
+<p>这个小例子可以判断设备是否已经连接网络，并且在连接网络的状态下可以判断是<code>WIFI</code>无线连接还是<code>GPRS</code>手机网络连接，这样就可以在不同的网络连接下去调用不同的方法，处理不同的事情，比如一个有下载功能的<code>app</code>可以判断只有当<code>WIFI</code>连接的是后去下载文件，<code>GPRS</code>流量连接则不下载！</p>
+<p>在没有连接的网络的情况下会弹出一个对话框，让用户选择是否去设置网络连接！</p>
+<p><a href="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/wifi-state.png" target="_blank" rel="external"><img src="http://lzan13.qiniudn.com/blog/uploads/images/2013/05/wifi-state.png" alt="wifistate"></a></p>
+<p>贴一下主要代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 检测网络是否连接</div><div class="line">* <span class="doctag">@return</span></div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">checkNetworkState</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</div><div class="line">	<span class="comment">//得到网络连接信息</span></div><div class="line">	manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);</div><div class="line">	<span class="comment">//去进行判断网络是否连接</span></div><div class="line">	<span class="keyword">if</span> (manager.getActiveNetworkInfo() != <span class="keyword">null</span>) &#123;</div><div class="line">		flag = manager.getActiveNetworkInfo().isAvailable();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span> (!flag) &#123;</div><div class="line">		setNetwork();</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		isNetworkAvailable();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> flag;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 网络未连接时，调用设置方法</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setNetwork</span><span class="params">()</span></span>&#123;</div><div class="line">	Toast.makeText(<span class="keyword">this</span>, <span class="string">"wifi is closed!"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">	AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>);</div><div class="line">	builder.setIcon(R.drawable.ic_launcher);</div><div class="line">	builder.setTitle(<span class="string">"网络提示信息"</span>);</div><div class="line">	builder.setMessage(<span class="string">"网络不可用，如果继续，请先设置网络！"</span>);</div><div class="line">	builder.setPositiveButton(<span class="string">"设置"</span>, <span class="keyword">new</span> OnClickListener() &#123;</div><div class="line">		<span class="meta">@Override</span></div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">			Intent intent = <span class="keyword">null</span>;</div><div class="line">			<span class="comment">/**</span></div><div class="line">			 * 判断手机系统的版本！如果API大于10 就是3.0+</div><div class="line">			 * 因为3.0以上的版本的设置和3.0以下的设置不一样，调用的方法不同</div><div class="line">			 */</div><div class="line">			<span class="keyword">if</span> (android.os.Build.VERSION.SDK_INT &gt; <span class="number">10</span>) &#123;</div><div class="line">				intent = <span class="keyword">new</span> Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				intent = <span class="keyword">new</span> Intent();</div><div class="line">				ComponentName component = <span class="keyword">new</span> ComponentName(</div><div class="line">						<span class="string">"com.android.settings"</span>,</div><div class="line">						<span class="string">"com.android.settings.WirelessSettings"</span>);</div><div class="line">					intent.setComponent(component);</div><div class="line">					intent.setAction(<span class="string">"android.intent.action.VIEW"</span>);</div><div class="line">				&#125;</div><div class="line">				startActivity(intent);</div><div class="line">			&#125;</div><div class="line">		&#125;);</div><div class="line"></div><div class="line">	builder.setNegativeButton(<span class="string">"取消"</span>, <span class="keyword">new</span> OnClickListener() &#123;</div><div class="line">		<span class="meta">@Override</span></div><div class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">		&#125;</div><div class="line">	&#125;);</div><div class="line">	builder.create();</div><div class="line">	builder.show();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 网络已经连接，然后去判断是wifi连接还是GPRS连接</div><div class="line"> * 设置一些自己的逻辑调用</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">isNetworkAvailable</span><span class="params">()</span></span>&#123;</div><div class="line">	State gprs = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();</div><div class="line">    State wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();</div><div class="line">    <span class="keyword">if</span>(gprs == State.CONNECTED || gprs == State.CONNECTING)&#123;</div><div class="line">    	Toast.makeText(<span class="keyword">this</span>, <span class="string">"wifi is open! gprs"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//判断为wifi状态下才加载广告，如果是GPRS手机网络则不加载！</span></div><div class="line">    <span class="keyword">if</span>(wifi == State.CONNECTED || wifi == State.CONNECTING)&#123;</div><div class="line">    	Toast.makeText(<span class="keyword">this</span>, <span class="string">"wifi is open! wifi"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    	loadAdmob();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 在wifi状态下 加载admob广告</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadAdmob</span><span class="params">()</span></span>&#123;</div><div class="line">	ll = (LinearLayout) findViewById(R.id.load_ads);</div><div class="line">	ll.removeAllViews();</div><div class="line">	adsView = <span class="keyword">new</span> AdView(<span class="keyword">this</span>, AdSize.BANNER, <span class="string">"a15194a1ac9505d"</span>);</div><div class="line">	ll.addView(adsView);</div><div class="line">	adsView.loadAd(<span class="keyword">new</span> AdRequest());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我这里为了能明确的说明<code>WIFI</code>和<code>GPRS</code>连接的不同情况，设置了<code>WIFI</code>连接下加载一个<code>admob</code>的广告条，<code>GPRS</code>下不去加载广告，这也算是在实际的开发中提升用户体验的一个途径吧！ </p>
+<p>代码稍后放到github:<a href="https://github.com/lzan13/lzan13_wifi" target="_blank" rel="external">检测网络连接demo</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>觉得不错，来杯咖啡鼓励一下 ~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/blog/images/qr-wechat.png" alt="lzan13 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/blog/images/qr-alipay.png" alt="lzan13 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/blog/tags/NewWork/" rel="tag"># NewWork</a>
+          
+            <a href="/blog/tags/WIFI/" rel="tag"># WIFI</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2013/05/android-custom-view-slidmenu-10012.html" rel="next" title="Android开发之自定义控件侧滑菜单">
+                <i class="fa fa-chevron-left"></i> Android开发之自定义控件侧滑菜单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2013/05/android-activity-screen-10001.html" rel="prev" title="Android开发设置Activity全屏状态">
+                Android开发设置Activity全屏状态 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.png"
+               alt="lzan13" />
+          <p class="site-author-name" itemprop="name">lzan13</p>
+          <p class="site-description motion-element" itemprop="description">❤️ 编程 ❤️ 动漫 ❤️ 折腾 ❤️ You  Android开发程序员，设计前端爱好者</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">126</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lzan13" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lzan13" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lzan13" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/lzan13" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lzan13</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

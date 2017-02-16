@@ -1,0 +1,844 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Share,Tool,Plugin,SublimeText," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="lz's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/blog/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言之前一直在使用EditPlus3，后来得知了SublimeText，好牛X的样子，所以就开始使用了
+
+首先SublimeText的安装先去官方下载安装包，这里下载的是SublimeText2 根据安装向导安装就好了
+
+Package Control如果需要给SublimeText安装插件，首先需要安装Package Control
+
+按Ctrl+``或者View&amp;gt;Show Consol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SublimeText的使用">
+<meta property="og:url" content="http://melove.net/blog/2016/05/tool-sublimetext-use-10072.html">
+<meta property="og:site_name" content="lz's Notes">
+<meta property="og:description" content="前言之前一直在使用EditPlus3，后来得知了SublimeText，好牛X的样子，所以就开始使用了
+
+首先SublimeText的安装先去官方下载安装包，这里下载的是SublimeText2 根据安装向导安装就好了
+
+Package Control如果需要给SublimeText安装插件，首先需要安装Package Control
+
+按Ctrl+``或者View&amp;gt;Show Consol">
+<meta property="og:updated_time" content="2016-11-18T09:11:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SublimeText的使用">
+<meta name="twitter:description" content="前言之前一直在使用EditPlus3，后来得知了SublimeText，好牛X的样子，所以就开始使用了
+
+首先SublimeText的安装先去官方下载安装包，这里下载的是SublimeText2 根据安装向导安装就好了
+
+Package Control如果需要给SublimeText安装插件，首先需要安装Package Control
+
+按Ctrl+``或者View&amp;gt;Show Consol">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://melove.net/blog/2016/05/tool-sublimetext-use-10072.html"/>
+
+
+
+
+
+  <title> SublimeText的使用 | lz's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">lz's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">慢慢来，一步一个脚印！</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://melove.net/blog/blog/2016/05/tool-sublimetext-use-10072.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="lzan13">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/blog/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="lz's Notes">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="lz's Notes" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SublimeText的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-11T13:37:42+08:00">
+                2016-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/APPShare/" itemprop="url" rel="index">
+                    <span itemprop="name">APPShare</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前一直在使用<code>EditPlus3</code>，后来得知了<code>SublimeText</code>，好牛X的样子，所以就开始使用了</p>
+<hr>
+<h3 id="首先SublimeText的安装"><a href="#首先SublimeText的安装" class="headerlink" title="首先SublimeText的安装"></a>首先SublimeText的安装</h3><p>先去官方下载安装包，这里下载的是<a href="http://www.sublimetext.com/2" target="_blank" rel="external">SublimeText2</a> 根据安装向导安装就好了</p>
+<hr>
+<h3 id="Package-Control"><a href="#Package-Control" class="headerlink" title="Package Control"></a>Package Control</h3><p>如果需要给<code>SublimeText</code>安装插件，首先需要安装<code>Package Control</code></p>
+<ul>
+<li>按<code>Ctrl+``或者</code>View&gt;Show Console<code>打开</code>Console`（SublimeText控制台）</li>
+<li><p>粘贴下边的代码到<code>Console</code>并回车，<a href="https://packagecontrol.io/installation" target="_blank" rel="external">Package Control</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 2.x版本</span></div><div class="line"><span class="keyword">import</span> urllib2,os,hashlib; h = <span class="string">'2915d1851351e5ee549c20394736b442'</span> + <span class="string">'8bc59f460fa1548d1514676163dafc88'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) <span class="keyword">if</span> not os.path.exists(ipp) <span class="keyword">else</span> None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler()) ); by = urllib2.urlopen( <span class="string">'http://packagecontrol.io/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); open( os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by) <span class="keyword">if</span> dh == h <span class="keyword">else</span> None; print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h) <span class="keyword">if</span> dh != h <span class="keyword">else</span> <span class="string">'Please restart Sublime Text to finish installation'</span>)</div><div class="line"></div><div class="line"><span class="comment">// 3.x版本</span></div><div class="line"><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'2915d1851351e5ee549c20394736b442'</span> + <span class="string">'8bc59f460fa1548d1514676163dafc88'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://packagecontrol.io/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manpciual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)</div></pre></td></tr></table></figure>
+</li>
+<li><p>等待左下角的进度完成，然后重启<code>SublimeText2</code>就成功了</p>
+</li>
+</ul>
+<hr>
+<h3 id="MarkdownEditing"><a href="#MarkdownEditing" class="headerlink" title="MarkdownEditing"></a>MarkdownEditing</h3><h4 id="安装MarkdownEditing"><a href="#安装MarkdownEditing" class="headerlink" title="安装MarkdownEditing"></a>安装MarkdownEditing</h4><ul>
+<li>按下<code>Ctrl+Shift+P</code>然后输入<code>Package Control: Install Package</code>或<code>pci</code>然后在弹出框输入<code>MarkdownEditing</code>回车，等待安装完成，然后重启<code>SublimeText</code>就可以看到<code>Markdown</code>的效果了</li>
+<li>此插件可以设置一些主题，不过他的主题对<code>Markdown</code>的语言没作用，只是更改了编辑文本的主题样式</li>
+<li>然后就是有一些快捷键比如：<blockquote>
+<p>插入链接：<code>win+ctrl+v</code><br>插入图片：<code>win+ctrl+k</code><br>其他详细可以通过打开<code>Ctrl+Shift+P</code>然后输入<code>MarkdownEditing</code>查看</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="HTML-CSS-JS-Prettify"><a href="#HTML-CSS-JS-Prettify" class="headerlink" title="HTML/CSS/JS Prettify"></a>HTML/CSS/JS Prettify</h3><h4 id="安装HTML-CSS-JS-Prettify"><a href="#安装HTML-CSS-JS-Prettify" class="headerlink" title="安装HTML-CSS-JS Prettify"></a>安装HTML-CSS-JS Prettify</h4><p>按下<code>Ctrl+Shift+P</code>然后输入<code>Package Control: Install Package</code>或<code>pci</code>然后在弹出框输入<code>HTML-CSS-JS Prettify</code>然后回车，等待安装完成重启就行了</p>
+<h4 id="配置HTML-CSS-JS-Prettify"><a href="#配置HTML-CSS-JS-Prettify" class="headerlink" title="配置HTML-CSS-JS Prettify"></a>配置HTML-CSS-JS Prettify</h4><p>配置的时候只需要右键<code>HTML/CSS/JS Prettify&gt;Set Plugin Options</code>打开插件的配置文件，修改下<code>nodejs</code>的路径就行了，其中有三个平台的路径，只需要修改自己相应的平台就行了<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  // Simply using `node` without specifying a path sometimes doesn't work :(</div><div class="line">  // https://github.com/victorporof/Sublime-HTMLPrettify#oh-noez-command-not-found</div><div class="line">  // http://nodejs.org/#download</div><div class="line">  "node_path": &#123;</div><div class="line">    "windows": "D:/develop/web/nodejs/node.exe",</div><div class="line">    "linux": "/usr/bin/nodejs",</div><div class="line">    "osx": "/usr/local/bin/node"</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  // Automatically format when a file is saved.</div><div class="line">  "format_on_save": false,</div><div class="line"></div><div class="line">  // Only format the selection if there's one available.</div><div class="line">  "format_selection_only": true,</div><div class="line"></div><div class="line">  // Log the settings passed to the prettifier from `.jsbeautifyrc`.</div><div class="line">  "print_diagnostics": true</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="Pretty-JSON"><a href="#Pretty-JSON" class="headerlink" title="Pretty JSON"></a>Pretty JSON</h3><h4 id="安装Pretty-JSON"><a href="#安装Pretty-JSON" class="headerlink" title="安装Pretty JSON"></a>安装Pretty JSON</h4><ul>
+<li>按下<code>Ctrl+Shift+P</code>然后输入<code>Package Control: Install Package</code>或<code>pci</code>然后在弹出框输入<code>Pretty JSON</code>然后回车等待安装完成</li>
+<li>选择<code>Preferences &gt; Package Settings &gt; Pretty JSON &gt; Settings - Default​</code>进行相关设置，其实这个没有什么要设置的</li>
+<li>快捷键就是<code>Ctrl+Alt+J</code></li>
+</ul>
+<hr>
+<h3 id="一些常用设置"><a href="#一些常用设置" class="headerlink" title="一些常用设置"></a>一些常用设置</h3><ul>
+<li>Tab为4空格：菜单栏<code>View&gt;Indentation&gt;Tab Width: 4</code></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>觉得不错，来杯咖啡鼓励一下 ~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/blog/images/qr-wechat.png" alt="lzan13 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/blog/images/qr-alipay.png" alt="lzan13 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Share/" rel="tag"># Share</a>
+          
+            <a href="/blog/tags/Tool/" rel="tag"># Tool</a>
+          
+            <a href="/blog/tags/Plugin/" rel="tag"># Plugin</a>
+          
+            <a href="/blog/tags/SublimeText/" rel="tag"># SublimeText</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2016/04/android-androidstudio-accelerate-build-10071.html" rel="next" title="AndroidStudio优化编译速度">
+                <i class="fa fa-chevron-left"></i> AndroidStudio优化编译速度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2016/11/android-androidstudio-run-java-10073.html" rel="prev" title="AndroidStudio 开发测试运行 Java 类的 Main 方法">
+                AndroidStudio 开发测试运行 Java 类的 Main 方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.png"
+               alt="lzan13" />
+          <p class="site-author-name" itemprop="name">lzan13</p>
+          <p class="site-description motion-element" itemprop="description">❤️ 编程 ❤️ 动漫 ❤️ 折腾 ❤️ You  Android开发程序员，设计前端爱好者</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">126</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lzan13" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lzan13" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lzan13" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/lzan13" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先SublimeText的安装"><span class="nav-number">2.</span> <span class="nav-text">首先SublimeText的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Package-Control"><span class="nav-number">3.</span> <span class="nav-text">Package Control</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MarkdownEditing"><span class="nav-number">4.</span> <span class="nav-text">MarkdownEditing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装MarkdownEditing"><span class="nav-number">4.1.</span> <span class="nav-text">安装MarkdownEditing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-CSS-JS-Prettify"><span class="nav-number">5.</span> <span class="nav-text">HTML/CSS/JS Prettify</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装HTML-CSS-JS-Prettify"><span class="nav-number">5.1.</span> <span class="nav-text">安装HTML-CSS-JS Prettify</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置HTML-CSS-JS-Prettify"><span class="nav-number">5.2.</span> <span class="nav-text">配置HTML-CSS-JS Prettify</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pretty-JSON"><span class="nav-number">6.</span> <span class="nav-text">Pretty JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Pretty-JSON"><span class="nav-number">6.1.</span> <span class="nav-text">安装Pretty JSON</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些常用设置"><span class="nav-number">7.</span> <span class="nav-text">一些常用设置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lzan13</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
