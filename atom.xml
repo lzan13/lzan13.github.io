@@ -798,15 +798,15 @@ Gradle version：2.4
     
       <category term="Android" scheme="http://melove.net/blog/tags/Android/"/>
     
-      <category term="APP" scheme="http://melove.net/blog/tags/APP/"/>
-    
-      <category term="Share" scheme="http://melove.net/blog/tags/Share/"/>
-    
       <category term="2048" scheme="http://melove.net/blog/tags/2048/"/>
+    
+      <category term="APP" scheme="http://melove.net/blog/tags/APP/"/>
     
       <category term="Game" scheme="http://melove.net/blog/tags/Game/"/>
     
       <category term="OnePiece" scheme="http://melove.net/blog/tags/OnePiece/"/>
+    
+      <category term="Share" scheme="http://melove.net/blog/tags/Share/"/>
     
   </entry>
   
