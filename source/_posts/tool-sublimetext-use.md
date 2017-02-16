@@ -1,6 +1,5 @@
 ---
 title: SublimeText的使用
-comments: true
 categories:
   - APPShare
 tags:
@@ -8,21 +7,17 @@ tags:
   - SublimeText
   - Share
   - Tool
-id: 10072
 date: 2016-05-11 13:37:42
+id: 1462945062000
+comments: true
 ---
 
----------------
 ### 前言
 之前一直在使用`EditPlus3`，后来得知了`SublimeText`，好牛X的样子，所以就开始使用了
 
-
------------------------
 ### 首先SublimeText的安装
 先去官方下载安装包，这里下载的是[SublimeText2](http://www.sublimetext.com/2) 根据安装向导安装就好了
 
-
-------------------------
 ### Package Control
 如果需要给`SublimeText`安装插件，首先需要安装`Package Control`
 - 按`Ctrl+``或者`View>Show Console`打开`Console`（SublimeText控制台）
@@ -36,8 +31,6 @@ import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc5
 ```
 - 等待左下角的进度完成，然后重启`SublimeText2`就成功了
 
-
-------------------------
 ### MarkdownEditing
 #### 安装MarkdownEditing
 - 按下`Ctrl+Shift+P`然后输入`Package Control: Install Package`或`pci`然后在弹出框输入`MarkdownEditing`回车，等待安装完成，然后重启`SublimeText`就可以看到`Markdown`的效果了
@@ -47,8 +40,6 @@ import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc5
 > 插入图片：`win+ctrl+k`
 > 其他详细可以通过打开`Ctrl+Shift+P`然后输入`MarkdownEditing`查看
 
-
-------------------------
 ### HTML/CSS/JS Prettify
 #### 安装HTML-CSS-JS Prettify
 按下`Ctrl+Shift+P`然后输入`Package Control: Install Package`或`pci`然后在弹出框输入`HTML-CSS-JS Prettify`然后回车，等待安装完成重启就行了
@@ -77,8 +68,6 @@ import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc5
 }
 ```
 
-
-------------------------
 ### Pretty JSON
 #### 安装Pretty JSON
 - 按下`Ctrl+Shift+P`然后输入`Package Control: Install Package`或`pci`然后在弹出框输入`Pretty JSON`然后回车等待安装完成
@@ -86,7 +75,6 @@ import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc5
 - 快捷键就是`Ctrl+Alt+J`
 
 
----------------
 ### 一些常用设置
 
 - Tab为4空格：菜单栏`View>Indentation>Tab Width: 4`

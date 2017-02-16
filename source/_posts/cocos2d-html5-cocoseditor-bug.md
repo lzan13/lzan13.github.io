@@ -7,8 +7,9 @@ tags:
   - Cocos2d-x
   - Cocos2d-Html5
   - CocosEditor
-id: 10032
 date: 2014-05-24 20:18:57
+id: 1400933937000
+comments: true
 ---
 
 最近研究`CocosEditor`此插件是牛人`touchsnow`开发 [CocosEditor官方博客](http://blog.makeapp.co)编写的，不过这个插件暂时还有`bug`，所以在开发中难免会遇到令人蛋疼的错误，所以这里整理我遇到的错误以及解决办法！错误是经常遇到的，遇到新的就更新这篇文章！

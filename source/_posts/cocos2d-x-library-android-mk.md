@@ -9,8 +9,9 @@ tags:
   - Cocos2d-x
   - Library
   - Extensions
-id: 10040
 date: 2014-07-11 15:24:21
+id: 1405063461000
+comments: true
 ---
 
 在使用`Cocos2d-x`写游戏想使用`9.png`的时候遇到了一些问题，需要用到`Scale9Sprite`类，这个算是第三方库里的类，在`win32`环境下加入头文件

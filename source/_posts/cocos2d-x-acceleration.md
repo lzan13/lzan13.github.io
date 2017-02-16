@@ -7,8 +7,9 @@ tags:
   - Acceleration
   - Cocos2d-x
   - OpenGL
-id: 10036
 date: 2014-06-20 16:00:32
+id: 1403251232000
+comments: true
 ---
 
 今天解决了一个问题心情很爽 哈哈；

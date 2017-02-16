@@ -8,8 +8,9 @@ tags:
   - Theme
   - Wordpress
   - Html
-id: 10065
 date: 2013-02-26 22:56:23
+id: 1361890583000
+comments: true
 ---
 
 从`2013/2/14`起，我的`blog`算是正式运行起来了！

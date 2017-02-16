@@ -1,6 +1,5 @@
 ---
 title: Android开发集成聊天环信SDK3.x简单开始
-comments: true
 categories:
   - Develop
   - Android
@@ -10,8 +9,9 @@ tags:
   - Chat
   - Easemob
   - SDK
-id: 10070
 date: 2016-04-07 11:04:07
+id: 1459998247000
+comments: true
 ---
 
 ### 前言  

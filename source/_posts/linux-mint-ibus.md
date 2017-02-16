@@ -5,8 +5,9 @@ categories:
 tags:
   - Linux
   - Linux Mint
-id: 10056
 date: 2013-05-30 22:09:13
+id: 1369922953000
+comments: true
 ---
 
 都说`linux`下开发效果好，而且能学到的东西也多，因为`linux`操作不是很好，对命令行不怎么了解，所以我选择来`Ubuntu`开发，不过不知道怎么回事，也许电脑抽风来，试了好多次，现在装`Ubuntu`老是抽风，所以就我就选择了`linux mint 14`系统！

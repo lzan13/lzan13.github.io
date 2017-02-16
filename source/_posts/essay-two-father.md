@@ -1,4 +1,3 @@
-
 ---
 title: 世上有两个爸爸
 categories:
@@ -7,8 +6,9 @@ tags:
   - Education
   - Father
   - Good
-id: 10052
 date: 2013-03-01 19:28:14
+id: 1362137294000
+comments: true
 ---
 
 [![duzhe](http://lzan13.qiniudn.com/blog/uploads/images/2013/03/duzhe.jpg)](http://lzan13.qiniudn.com/blog/uploads/images/2013/03/duzhe.jpg)

@@ -1,13 +1,14 @@
 ---
 title: Android开发ClipboardManager的使用复制字符串到剪切板
-date: 2015-03-29 16:08:11
 categories:
   - Develop
   - Android
 tags:
   - Android
   - ClipboardManager
-id: 10009
+date: 2015-03-29 16:08:11
+id: 1427616491000
+comments: true
 ---
 
 最近做的一个项目中需要复制一个字符串到系统的剪切板，以便用户发送给其他人，因为我所需要复制的内容是确定的，因此不想通过让用户长按需要复制的内容，然后选择复制，感觉那样多此一举，so选择直接通过代码来复制到剪切板，查了一下资料，发现Android是有提供这个功能的：

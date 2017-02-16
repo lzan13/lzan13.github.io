@@ -9,8 +9,9 @@ tags:
   - Game
   - OnePiece
   - Share
-id: 10023
 date: 2014-10-28 09:55:10
+id: 1414461310000
+comments: true
 ---
 
 身为一个程序猿，没有点儿自己的东西岂不是很悲哀，岂不是很丢人！

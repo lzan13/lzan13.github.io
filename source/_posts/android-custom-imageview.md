@@ -1,6 +1,5 @@
 ---
 title: Android开发自定义ImageView控件实现圆角边框等功能
-date: 2015-04-04 10:58:47
 categories:
   - Develop
   - Android
@@ -8,7 +7,9 @@ tags:
   - Android
   - CustomView
   - ImageView
-id: 10010
+date: 2015-04-04 10:58:47
+id: 1428116327000
+comments: true
 ---
 
 在开发中有时我们需要一个功能，或者一个控件，但是官方的又满足不了我们的需求，此时就需要我们自己实现这些功能；

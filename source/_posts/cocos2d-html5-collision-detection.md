@@ -7,8 +7,9 @@ tags:
   - Cocos2d-x
   - Cocos2d-Html5
   - Collision
-id: 10033
 date: 2014-06-03 11:30:49
+id: 1401766249000
+comments: true
 ---
 
 游戏中的碰撞还是比较多的，比如角色与角色的碰撞，角色与墙壁的碰撞，角色与怪物的碰撞等，都需要

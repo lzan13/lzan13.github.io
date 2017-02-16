@@ -7,8 +7,9 @@ tags:
   - Cocos2d-x
   - Scene
   - Transiion
-id: 10042
 date: 2014-06-18 11:22:17
+id: 1403061737000
+comments: true
 ---
 
 在做游戏的时候一般都是有多个场景的，比如游戏的`Start`、`Menu`、`Setting`、`Loading`等，都是一个个的`场景(Scene)`； 我们选择不同的功能就会切换跳转到不同的场景，如果是干巴巴的切换未免不雅，`Cocos2d-x`引擎提供了多种的切换过渡效果，这里整理贴出来，方便自己以后的查找

@@ -1,6 +1,5 @@
 ---
 title: AndroidStudio导入环信新版EaseUI库问题
-date: 2015-11-18 21:55:13
 categories:
   - Develop
   - Android
@@ -9,7 +8,9 @@ tags:
   - AndroidStudio
   - EaseUI
   - Easemob
-id: 10006
+date: 2015-11-18 21:55:13
+id: 1447854913000
+comments: true
 ---
 
 环信大牛最新封装了一个供开发者直接使用的`UI`库`EaseUI`，这个可以让大家快速的进行集成环信的`SDK`进行实现聊天，官方也说了老版本的`demo`不会进行维护，重点维护这个`EaseUI`，但是在自己导入的时候有时会有些问题，这里用`1.4`版本的`AndroidStudio`导入`3.0 demo`来说明下；

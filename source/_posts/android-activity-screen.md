@@ -1,6 +1,5 @@
 ---
 title: Android开发设置Activity全屏状态
-date: 2013-05-29 22:39:37
 categories:
   - Develop
   - Android
@@ -8,7 +7,9 @@ tags:
   - Android
   - Activity
   - Screen
-id: 10001
+date: 2013-05-29 22:39:37
+id: 1369838377000
+comments: true
 ---
 
 有时候我们要将软件设置为全屏状态，特别是在软件启动的时候，如果设置为全屏，会比带有状态栏启动要显得大方、美观！设置全屏的方式也有两种，一种是在软件启动最开始的时候，在`java`代码中设置，另一种是在xml配置文件中设置！

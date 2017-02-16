@@ -6,8 +6,9 @@ tags:
   - APP
   - Android
   - Share
-id: 10024
 date: 2014-04-28 01:58:29
+id: 1398621509000
+comments: true
 ---
 
 说的搞APP的，又开叉了，研究了下flappy，弄了个flymissile

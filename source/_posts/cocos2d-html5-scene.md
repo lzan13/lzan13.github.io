@@ -7,8 +7,9 @@ tags:
   - Cocos2d-x
   - Cocos2d-Html5
   - Scene
-id: 10035
 date: 2014-05-23 10:12:17
+id: 1400811137000
+comments: true
 ---
 
 最近在使用牛人`touchsnow`的看开发的插件开发游戏，关于[CocosEditor官方博客](http://blog.makeapp.co/)

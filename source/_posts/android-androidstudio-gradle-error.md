@@ -1,6 +1,5 @@
 ---
 title: AndroidStudio使用Gradle编译项目Failed to complete Gradle execution错误解决
-date: 2015-04-28 14:09:48
 categories:
   - Develop
   - Android
@@ -8,7 +7,9 @@ tags:
   - Android
   - AndroidStudio
   - Gradle
-id: 10005
+date: 2015-04-28 14:09:48
+id: 1430201388000
+comments: true
 ---
 
 在使用`AndroidStudio`构建项目时有时会提示错误`Failed to complete Gradle execution`比较蛋疼的是这个问题还不是经常的，是偶尔，不确定因素，因为不知道什么时候就出现了，运行着好好的就突然这样，重启也不行，让人抓狂！

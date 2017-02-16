@@ -5,8 +5,9 @@ categories:
 tags:
   - Android
   - Iphone
-id: 10016
 date: 2013-03-05 21:59:37
+id: 1362491977000
+comments: true
 ---
 
 今天折腾手机的时候发现昨天刷的系统有个bug，所以又去逛了论坛，找了个rom刷上了，在逛论坛的时候发现了一篇帖子，让我这个从事`Android`方面工作的新手也对`Android`有了一个新的认识！

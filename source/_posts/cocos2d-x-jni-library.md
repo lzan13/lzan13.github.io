@@ -7,11 +7,12 @@ tags:
   - Android
   - Cocos2d-x
   - Jni
-id: 10039
 date: 2014-07-23 17:54:47
+id: 1406109287000
+comments: true
 ---
 
-`Cocos2d-x`是用`C++`写的引擎`废话`，可以跨平台`废话`，既然可以跨平台那么我们肯定会移植到特定的平台上，比如我就是做`Android`开发的，所以我做的游戏大多都要移植到`Android`平台，以后或许会开发`ios`平台，那都是后话了；
+`Cocos2d-x`是用`C++`写的引擎，可以跨平台，既然可以跨平台那么我们肯定会移植到特定的平台上，比如我就是做`Android`开发的，所以我做的游戏大多都要移植到`Android`平台，以后或许会开发`ios`平台，那都是后话了；
 
 移植到`Android`平台后有时需要进行底层和上层的交互，比如为`Cocos2d-x`开发的`Android`游戏添加广告、分享等功能时，需要用到第三方`sdk`，这就要让`C++`和`java`代码进行互相调用了，`google`是有提供jni接口来实现他们的互相调用的；
 这里有一篇文章[Cocos2d-x 3.x 开发之添加游戏截图分享到新浪微博](http://melove.net/lzan13/cocos2d-x-share-sina-weibo-787.html)

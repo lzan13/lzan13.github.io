@@ -12,8 +12,9 @@ tags:
   - Love
   - Memory
   - Share
-id: 10048
 date: 2013-04-14 23:50:53
+id: 1365954653000
+comments: true
 ---
 
 [![computer](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/computer.gif)](http://lzan13.qiniudn.com/blog/uploads/images/2013/04/computer.gif)

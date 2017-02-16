@@ -5,8 +5,9 @@ categories:
 tags:
   - Comics
   - OnePiece
-id: 10059
 date: 2013-12-19 22:19:07
+id: 1387462747000
+comments: true
 ---
 
 想了好久要不要写出来，写出来会不会显得做作！是不是不够爷们！

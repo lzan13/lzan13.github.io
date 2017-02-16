@@ -8,8 +8,9 @@ tags:
   - Error
   - Dialog
   - PopupWindow
-id: 10014
 date: 2013-02-20 18:12:46
+id: 1361355166000
+comments: true
 ---
 
 `logcat`错误提示：

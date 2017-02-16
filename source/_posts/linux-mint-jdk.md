@@ -9,8 +9,9 @@ tags:
   - Jdk
   - Oracle
   - Profiel
-id: 10057
 date: 2013-05-30 22:37:47
+id: 1369924667000
+comments: true
 ---
 
 `Linux mint 14`安装完了，软件更新源也更新来，中文输入法也安装好了，Ok 该干正事了，搭建开发环境，准备开发！呵呵～～

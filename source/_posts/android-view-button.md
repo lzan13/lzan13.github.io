@@ -6,8 +6,9 @@ categories:
 tags:
   - Android
   - Button
-id: 10021
 date: 2013-02-24 19:35:03
+id: 1361705703000
+comments: true
 ---
 
 今天是第一天，简单点儿开始，先弄`android`的控件和布局！先说`Button`！

@@ -1,6 +1,5 @@
 ---
 title: AndroidStudio结合Git同步代码到Github库提高开发效率
-date: 2015-03-30 14:33:18
 categories:
   - Develop
   - Android
@@ -9,7 +8,9 @@ tags:
   - AndroidStudio
   - Git
   - Github
-id: 10003
+date: 2015-03-30 14:33:18
+id: 1427697198000
+comments: true
 ---
 
 之前都是用优盘拷贝代码，这里修改一次，拷贝一下，现在用`AndroidStudio`带有版本控制功能，可以直接使用`git`同步到`github`，所以学着弄下，这里记录下来

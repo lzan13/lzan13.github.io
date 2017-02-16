@@ -7,8 +7,9 @@ tags:
   - Android
   - AndroidStudio
   - Gradle
-id: 10004
 date: 2015-11-18 21:35:40
+id: 1447853740000
+comments: true
 ---
 在我们使用`AndroidStudio`创建或者`clone`一个新的项目的时候，一般会遇到一些问题，如下图那样，一般是因为在`AndroidStudio`每次更新版本都会更新`Gradle`这个插件，但由于墙的问题每次更新都是失败，又是停止在`Refreshing Gradle Project`,有时新建项目的时候报`Gradle Project Compile Error`等等相关的问题
 解决这些问题办法是

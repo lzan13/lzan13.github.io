@@ -1,10 +1,10 @@
 ---
 title: {{ title }}
-date: {{ date }}
-comments: true
 categories:
-- Develop
+  - Develop
 tags:
-- Android
-id: 10001
+  - Android
+date: {{ date }}
+id: timestamp
+comments: true
 ---

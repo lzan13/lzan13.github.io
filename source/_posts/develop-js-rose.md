@@ -6,8 +6,9 @@ categories:
 tags:
   - JavaScript
   - Rose
-id: 10047
 date: 2013-02-15 11:42:55
+id: 1360899775000
+comments: true
 ---
 
 这是一段很牛叉的代码，贴这里和大家分享一下，是程序猿送给女朋友的玫瑰花，很赞O(∩_∩)O~

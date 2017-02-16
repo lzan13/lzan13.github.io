@@ -7,8 +7,9 @@ tags:
   - Cocos2d-x
   - Batch
   - Bat
-id: 10037
 date: 2014-05-02 14:32:32
+id: 1399012352000
+comments: true
 ---
 
 开始抽空学习`Cocos2d-x`了，虽然`C/C++`还都不咋地，不过在开发中学习记忆或许会更深吧；

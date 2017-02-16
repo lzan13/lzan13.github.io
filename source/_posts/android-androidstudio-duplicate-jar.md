@@ -1,6 +1,5 @@
 ---
 title: AndroidStudio导入第三方jar包重复加载错误解决办法
-date: 2015-05-08 09:13:41
 categories:
   - Develop
   - Android
@@ -10,7 +9,9 @@ tags:
   - Duplicate
   - HttpClient
   - Jar
-id: 10002
+date: 2015-05-08 09:13:41
+id: 1431047621000
+comments: true
 ---
 
 最近在使用`Http`时需要实现文件上传，虽然可以使用`HttpURLConnection`实现原生`post`上传，不过这个好像效率很低，然后就选择网上比较多的`HttpClient`通过`HttpPost`的方式上传文件，使用这种方式的时候需要用到`apache`的一个`jar`包`httpmime-xxx.jar`这个包还依赖于`httpcore-xxx.jar`在正常的导入两个`jar`包后，满心欢喜的准备编译，可是一个蛋疼的错误蹦出来了：

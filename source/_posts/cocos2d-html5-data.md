@@ -9,8 +9,9 @@ tags:
   - Data
   - LocalStroage
   - SessionStorage
-id: 10034
 date: 2014-06-12 09:55:11
+id: 1402538111000
+comments: true
 ---
 
 做游戏时经常需要的一个功能呢就是数据的保存了，比如游戏最高分、得到的金币数、物品的数量等等，`Cocos2d-Html5`使用了`Html5`，所以`Html5`的数据保存方法是对引擎可用的；

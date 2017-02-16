@@ -8,8 +8,9 @@ tags:
   - Cocos2d-Html5
   - CocosEditor
   - Accelerometer
-id: 10031
 date: 2014-05-21 11:16:32
+id: 1400642192000
+comments: true
 ---
 
 在使用大牛`touchsnow`开发的插件`Cocoseditor`开发游戏时遇到了一些问题，然后就试着解决，最近想试下`coocs2d-html5`能否使用重力感应，发现是可以的，不过这个只能在移动真机上测试，电脑上的模拟器是不行的，

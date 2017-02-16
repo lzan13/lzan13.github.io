@@ -6,8 +6,9 @@ categories:
 tags:
   - Cocos2d-x
   - Touch
-id: 10044
 date: 2014-05-02 17:19:01
+id: 1399022341000
+comments: true
 ---
 
 在使用`Cocos2d-x`给游戏添加触摸事件检测时，遇到了一些问题，特别注意的一些就是`Cocos2d-x 2.x`和`3.x`的版本是有差别的，比如`3.x`的`Cocos2d-x`的类名取消了前边的`CC`前缀，`3.0`版本添加触摸事件好像很灵活，可以为单个的精灵进行设置`onToucheBegan`等事件

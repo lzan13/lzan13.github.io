@@ -5,8 +5,9 @@ categories:
 tags:
   - Developer
   - Drunbility
-id: 10049
 date: 2013-09-07 23:58:28
+id: 1378569508000
+comments: true
 ---
 
 我是程序猿，我为自己带盐！

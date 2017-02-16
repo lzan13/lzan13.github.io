@@ -7,8 +7,9 @@ tags:
   - Android
   - CustomView
   - Picker
-id: 10011
 date: 2013-12-17 21:38:51
+id: 1387287531000
+comments: true
 ---
 
 最近项目中要用到滚动选择器，搜了好多只找到了一个`NumberPicker`，但是不是我想要的！

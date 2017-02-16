@@ -7,8 +7,9 @@ tags:
   - Android
   - Button
   - OnTouchListener
-id: 10020
 date: 2014-03-25 23:43:52
+id: 1395762232000
+comments: true
 ---
 
 `Android`中的`Button`有个很简单的监听事件方法，只要给`Button`设置上`OnClickListener`事件就行了，这个只要写`Button`控件一般都会用到此方法，不然你的`button`就是个摆设，不过这种设置方法只能监听`Button`的点击事件，并不能去监听按钮的按下和提起，本来以为要自定义`Button`才能监听，发现`Button`控件 有个`setOnTouchListener(OnTouchListener listener)`方法，然后重写`onTouch()`方法，自己去判断是`onDown`、`onUp`、`onMove`事件，

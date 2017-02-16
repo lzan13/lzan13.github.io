@@ -1,6 +1,5 @@
 ---
 title: Android开发之AndroidStudio一个工程内查看多个项目的实现
-date: 2015-11-21 17:44:37
 categories:
   - Develop
   - Android
@@ -8,7 +7,9 @@ tags:
   - Android
   - AndroidStudio
   - Module
-id: 10007
+date: 2015-11-21 17:44:37
+id: 1448099077000
+comments: true
 ---
 
 现在已经有很多人开始使用`AndroidStudio`开始开发`Android`了，但是这货有一点儿不好，一个界面只能打开一个项目，当我们在开发自己的项目时，如果想像`clipse`查看别的`demo`的代码或者功能，只能再另外打开一个`Window`新开项目，其实呢`AndroidStudio`可以在一个项目中导入多个`Module`，这里以导入环信最新版的几个`demo`来实现在`AndroidStudio`中查看多个项目；

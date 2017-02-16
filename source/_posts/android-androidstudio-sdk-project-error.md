@@ -1,7 +1,5 @@
 ---
 title: Android开发之新版AndroidStudio以及新版sdk开发环境创建新项目可能会出现的一些错误问题
-date: 2015-11-22 09:34:09
-comments: true
 categories:
   - Develop
   - Android
@@ -10,7 +8,9 @@ tags:
   - AndroidStudio
   - Error
   - SDK
-id: 10008
+date: 2015-11-22 09:34:09
+id: 1448156049000
+comments: true
 ---
 
 ### 首先说下我这边开发的环境：

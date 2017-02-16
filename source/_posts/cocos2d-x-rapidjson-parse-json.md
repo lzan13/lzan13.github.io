@@ -7,8 +7,9 @@ tags:
   - Cocos2d-x
   - RapidJson
   - Json
-id: 10041
 date: 2014-11-02 11:26:53
+id: 1414898813000
+comments: true
 ---
 
 之前在写一个小游戏的时候要把一些`关卡`、`属性`等数据保存在`json`里边，供代码读取，所以就看了下关于`Cocos2d-x`中解析`json`的一些方法，发现在`3.x`里只集成有`json`解析库的，就是`rapidjson`，还挺好用，然后稍微对解析`json`数据进行了下面的封装；

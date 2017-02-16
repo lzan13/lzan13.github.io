@@ -1,12 +1,14 @@
 ---
 title: Git命令行将原作者的代码pull到本地并合并
-comments: true
 categories:
   - Develop
 tags:
-  - Android
-id: 10054
+  - Branch
+  - Git
+  - PullRequest
 date: 2016-02-22 11:40:11
+id: 1456112411000
+comments: true
 ---
 
 今天在提交自己修改的代码到原作者的项目时遇到了一些问题，原作者最近更新比较频繁，导致我提交的代码有了冲突，所以要自己先把原作者的进行`pull`下来，然后解决冲突之后才能提交，既然要解决冲突，首先肯定是要把原作者的代码给`pull`下来，这里记录下更新提交的过程

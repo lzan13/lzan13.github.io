@@ -6,8 +6,9 @@ categories:
 tags:
   - JavaScript
   - FoolsDay
-id: 10045
 date: 2014-04-01 00:02:13
+id: 1396281733000
+comments: true
 ---
 
 Hi！朋友，你是怎么到这里的呢？被骗的，还是自己点的O(∩_∩)O~~

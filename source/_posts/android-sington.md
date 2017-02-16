@@ -6,8 +6,9 @@ categories:
 tags:
   - Android
   - Sington
-id: 10019
 date: 2013-07-05 13:58:08
+id: 1373003888000
+comments: true
 ---
 
 java中单例的使用在实际开发中还是有必要的，我的理解就是单例就像是一个地铁的入口闸，每一个闸口每次只能过一个人！

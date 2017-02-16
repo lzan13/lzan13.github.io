@@ -8,8 +8,9 @@ tags:
   - CocoStudio
   - Extensions
   - Library
-id: 10038
 date: 2014-07-11 15:21:54
+id: 1405063314000
+comments: true
 ---
 
 在使用`Cocos2d-x 3.0`的时候有时会需要用到一些扩展，比如`CocoStudio`的扩展等，这时就需要在`VS`中添加第三方库的引用`我是用的是VS 2012`

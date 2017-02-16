@@ -1,6 +1,5 @@
 ---
 title: AndroidStudio 开发测试运行 Java 类的 Main 方法
-comments: true
 categories:
   - Develop
   - Android
@@ -10,8 +9,9 @@ tags:
   - Java
   - Library
   - Module
-id: 10073
 date: 2016-11-23 18:57:25
+id: 1479898645000
+comments: true
 ---
 
 

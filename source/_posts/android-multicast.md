@@ -7,8 +7,9 @@ tags:
   - Android
   - Multicast
   - MulticastLock
-id: 10017
 date: 2014-02-12 22:26:33
+id: 1392215193000
+comments: true
 ---
 
 在`Android`开发中，默认是不接收组播信息的，因为移动设备的电量是很不耐用的！而组播又是需要时刻通讯，非常的耗电！

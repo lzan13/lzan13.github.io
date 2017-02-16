@@ -7,8 +7,9 @@ tags:
   - Android
   - NewWork
   - WIFI
-id: 10018
 date: 2013-05-20 23:00:13
+id: 1369062013000
+comments: true
 ---
 
 现在是互联网高速发展的时代，`Android`开发过程中，对于一个需要连接网络的`Android`设备，对设备的网络状态检测是很有必要的！好多的App都需要连接网络，所以抽时间就写了一个检测`Android`设备网络连接状态的`demo`

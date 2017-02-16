@@ -1,4 +1,3 @@
-
 ---
 title: Cocos2d-x 3.x使用Sqlite3操作数据库
 categories:
@@ -7,8 +6,9 @@ categories:
 tags:
   - Database
   - Sqlite
-id: 10043
 date: 2014-11-03 11:46:33
+id: 1414986393000
+comments: true
 ---
 
 好像新版的`Cocos2d-x`引擎包含了`sqlite3.h`,但是，在我引用时会提示`sqlite3_open()`无法解析，不知道怎么回事，所以我就不用他内置的了;
