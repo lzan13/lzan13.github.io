@@ -82,7 +82,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/blog/blog/images/favicon.ico?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico?v=5.1.0" />
 
 
 
@@ -90,39 +90,30 @@
 
 
 <meta name="description" content="简单总结下使用 git 进行版本控制的时候一些常用命令，以及一些常用语
-创建自己的 ssh 秘钥
-
-ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
+创建SSH秘钥1ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
 这个命令会在当前用户目录下生成一个.ssh目录，然后生成两个文件.id_rsa私钥和.id_rsa.pub公钥
-本地操作相关
-
-主要是在本地仓库操作时使用的一些命令
-#git statusgit sta">
+本地操作相关主要是在本地仓库操作时使用的一些命令
+#git status1git status
+查看当">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git常用命令总结">
 <meta property="og:url" content="http://melove.net/blog/2016/11/git-common-commands-summary-1478837532000.html">
 <meta property="og:site_name" content="lz's Notes">
 <meta property="og:description" content="简单总结下使用 git 进行版本控制的时候一些常用命令，以及一些常用语
-创建自己的 ssh 秘钥
-
-ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
+创建SSH秘钥1ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
 这个命令会在当前用户目录下生成一个.ssh目录，然后生成两个文件.id_rsa私钥和.id_rsa.pub公钥
-本地操作相关
-
-主要是在本地仓库操作时使用的一些命令
-#git statusgit sta">
-<meta property="og:updated_time" content="2017-02-16T09:40:27.000Z">
+本地操作相关主要是在本地仓库操作时使用的一些命令
+#git status1git status
+查看当">
+<meta property="og:updated_time" content="2017-02-16T10:49:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git常用命令总结">
 <meta name="twitter:description" content="简单总结下使用 git 进行版本控制的时候一些常用命令，以及一些常用语
-创建自己的 ssh 秘钥
-
-ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
+创建SSH秘钥1ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
 这个命令会在当前用户目录下生成一个.ssh目录，然后生成两个文件.id_rsa私钥和.id_rsa.pub公钥
-本地操作相关
-
-主要是在本地仓库操作时使用的一些命令
-#git statusgit sta">
+本地操作相关主要是在本地仓库操作时使用的一些命令
+#git status1git status
+查看当">
 
 
 
@@ -378,16 +369,6 @@ ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2016/11/git-common-commands-summary-1478837532000.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/git-common-commands-summary-1478837532000.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -411,78 +392,38 @@ ssh-keygen -t rsa -C &amp;quot;lzan13@sina.com&amp;quot;
 
       
         <p>简单总结下使用 <code>git</code> 进行版本控制的时候一些常用命令，以及一些常用语</p>
-<p>创建自己的 ssh 秘钥</p>
-<hr>
-<pre><code>ssh-keygen -t rsa -C &quot;lzan13@sina.com&quot;
-</code></pre><p>这个命令会在当前用户目录下生成一个<code>.ssh</code>目录，然后生成两个文件<code>.id_rsa</code>私钥和<code>.id_rsa.pub</code>公钥</p>
-<p>本地操作相关</p>
-<hr>
-<p>主要是在本地仓库操作时使用的一些命令</p>
-<h3 id="git-status"><a href="#git-status" class="headerlink" title="#git status"></a>#git status</h3><pre><code>git status
-</code></pre><p>查看当前仓库状态：是否有文件修改，需要添加等</p>
-<h3 id="git-add"><a href="#git-add" class="headerlink" title="#git add"></a>#git add</h3><pre><code>git add &lt;file&gt;
-
-git add .
-</code></pre><p>将文件添加到暂存区，后边跟着文件名，可以使用<code>.</code>表示添加全部文件</p>
-<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="#git commit"></a>#git commit</h3><pre><code>git commit -m &quot;first commit&quot;
-</code></pre><p>提交暂存区的所有代码到版本库，参数就是本次提交的说明信息</p>
-<h3 id="git-log"><a href="#git-log" class="headerlink" title="#git log"></a>#git log</h3><pre><code>git log // 查看提交日志
-
-git log --pretty=oneline // 查询信息都在一行显示
-
-git log --graph // 查看分之合并图
-</code></pre><p>提交日志相关，列出从最近到之前的提交日志，列出信息包含有<code>SHA1</code>计算得到的<code>commit_id</code></p>
-<h3 id="git-reset"><a href="#git-reset" class="headerlink" title="#git reset"></a>#git reset</h3><pre><code>git reset --hard HEAD^
-
-git reset --hard &lt;commit_id&gt; // 
-</code></pre><p>这个命令的作用是将代码回退到之前提交的版本，在Git中，用<code>HEAD</code>表示当前版本，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，如果是多个可以写成<code>HEAD~ N</code>，N 代表是第几个，也可以和<code>git log</code>的结果关联起来使用</p>
-<h3 id="git-relog"><a href="#git-relog" class="headerlink" title="#git relog"></a>#git relog</h3><pre><code>git relog
-</code></pre><p>Git 工具操作命令历史日志，和<code>git log</code>稍有不同，<code>git relog</code>会记录所有 git 操作</p>
-<h3 id="git-diff"><a href="#git-diff" class="headerlink" title="#git diff"></a>#git diff</h3><pre><code>git diff
-
-git diff &lt;file&gt;
-
-git diff [&lt;commit_id&gt;] -- &lt;file&gt; // 表示要查看当前文件与上个版本库中的区别
-</code></pre><p>查看文件差异，不带有参数时会列出本次修改所有文件，带上参数时需要制定文件全路径</p>
-<h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="#git checkout"></a>#git checkout</h3><pre><code>git checkout -- &lt;file&gt;
-</code></pre><p>撤销对文件的本次修改，回到之前的状态，准确点儿是回到上次调用<code>git add</code>或者<code>git commit</code>状态</p>
-<h3 id="git-rm"><a href="#git-rm" class="headerlink" title="#git rm"></a>#git rm</h3><pre><code>git rm &lt;file&gt;
-</code></pre><p>从版本库删除一个文件，与本地的删除一个文件不同，这里是直接将版本库里的文件删除了，如果之前有将文件提交到版本库，可以使用<code>git checkout -- filename</code>恢复；</p>
-<h3 id="git-branch"><a href="#git-branch" class="headerlink" title="#git branch"></a>#git branch</h3><pre><code>git branch // 查看分支 -v 本地全部分支，-a 包括远程全部分支
-
-git checkout -b &lt;branch&gt; // 创建并切换分支，等同于下边两个命令
-
-git branch &lt;branch&gt; // 创建分支
-
-git checkout &lt;branch&gt; // 切换分支
-
-git branch -d &lt;branch&gt; // 删除本地分支
-</code></pre><p>分支相关操作命令</p>
-<h3 id="git-merge"><a href="#git-merge" class="headerlink" title="#git merge"></a>#git merge</h3><pre><code>git merge &lt;branch&gt;
-</code></pre><p>合并指定分支到当前所在分支，在使用<code>merge</code>命令时有可能会出现代码修改冲突的情况，特别是在多人协作的情况下，冲突用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>和<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>包裹，中间用<code>=======</code>分割，<code>=======</code>以上是当前分支内容，以下是合并到当前分支的其他分支内容；</p>
-<p>远程操作相关</p>
-<hr>
-<p>主要是和操作远程仓库相关的一些命令</p>
-<h3 id="git-remote"><a href="#git-remote" class="headerlink" title="#git remote"></a>#git remote</h3><pre><code>git remote add &lt;name&gt; &lt;url&gt;
-
-git remote remove &lt;name&gt;
-
-git remote rename &lt;old&gt; &lt;new&gt;
-</code></pre><p>管理当前仓库的远程地址，分别是：添加远程仓库地址、删除远程仓库、重命名远程仓库</p>
-<h3 id="git-push"><a href="#git-push" class="headerlink" title="#git push"></a>#git push</h3><pre><code>git push -u &lt;remote&gt; &lt;branch&gt;
-
-git push &lt;remote&gt; &lt;branch&gt;
-
-git push &lt;remote&gt; &lt;branch&gt;:&lt;branch&gt; // 将本地分支上传到远程的一个新分支
-
-git push &lt;remote :&lt;branch&gt; // 将本地空分支推送到远端，即删除远程分支
-</code></pre><p>此命令是将本地仓库推送到远程仓库，第一次推送到远程分支需要加上<code>-u</code>参数，</p>
-<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="#git clone"></a>#git clone</h3><pre><code>git clone &lt;url&gt; [&lt;dir&gt;]
-
-git clone -b &lt;branch&gt; &lt;url&gt; [&lt;dir&gt;]
-
-git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt; // 根据远程仓库的分支创建并切换到新分支
-</code></pre><p>克隆远程仓库到本地，可以使用<code>-b</code>参数指定克隆的分支，以及指定克隆后的文件夹名称，不设置就是默认远程仓库名字；</p>
+<h2 id="创建SSH秘钥"><a href="#创建SSH秘钥" class="headerlink" title="创建SSH秘钥"></a>创建SSH秘钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;lzan13@sina.com&quot;</div></pre></td></tr></table></figure>
+<p>这个命令会在当前用户目录下生成一个<code>.ssh</code>目录，然后生成两个文件<code>.id_rsa</code>私钥和<code>.id_rsa.pub</code>公钥</p>
+<h2 id="本地操作相关"><a href="#本地操作相关" class="headerlink" title="本地操作相关"></a>本地操作相关</h2><p>主要是在本地仓库操作时使用的一些命令</p>
+<h3 id="git-status"><a href="#git-status" class="headerlink" title="#git status"></a>#git status</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status</div></pre></td></tr></table></figure>
+<p>查看当前仓库状态：是否有文件修改，需要添加等</p>
+<h3 id="git-add"><a href="#git-add" class="headerlink" title="#git add"></a>#git add</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git add &lt;file&gt;</div><div class="line">git add .</div></pre></td></tr></table></figure>
+<p>将文件添加到暂存区，后边跟着文件名，可以使用<code>.</code>表示添加全部文件</p>
+<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="#git commit"></a>#git commit</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &quot;first commit&quot;</div></pre></td></tr></table></figure>
+<p>提交暂存区的所有代码到版本库，参数就是本次提交的说明信息</p>
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="#git log"></a>#git log</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git log // 查看提交日志</div><div class="line">git log --pretty=oneline // 查询信息都在一行显示</div><div class="line">git log --graph // 查看分之合并图</div></pre></td></tr></table></figure>
+<p>提交日志相关，列出从最近到之前的提交日志，列出信息包含有<code>SHA1</code>计算得到的<code>commit_id</code></p>
+<h3 id="git-reset"><a href="#git-reset" class="headerlink" title="#git reset"></a>#git reset</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git reset --hard HEAD^</div><div class="line">git reset --hard &lt;commit_id&gt;</div></pre></td></tr></table></figure>
+<p>这个命令的作用是将代码回退到之前提交的版本，在Git中，用<code>HEAD</code>表示当前版本，上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，如果是多个可以写成<code>HEAD~ N</code>，N 代表是第几个，也可以和<code>git log</code>的结果关联起来使用</p>
+<h3 id="git-relog"><a href="#git-relog" class="headerlink" title="#git relog"></a>#git relog</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git relog</div></pre></td></tr></table></figure>
+<p>Git 工具操作命令历史日志，和<code>git log</code>稍有不同，<code>git relog</code>会记录所有 git 操作</p>
+<h3 id="git-diff"><a href="#git-diff" class="headerlink" title="#git diff"></a>#git diff</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git diff</div><div class="line">git diff &lt;file&gt;</div><div class="line">git diff [&lt;commit_id&gt;] -- &lt;file&gt; // 表示要查看当前文件与上个版本库中的区别</div></pre></td></tr></table></figure>
+<p>查看文件差异，不带有参数时会列出本次修改所有文件，带上参数时需要制定文件全路径</p>
+<h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="#git checkout"></a>#git checkout</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -- &lt;file&gt;</div></pre></td></tr></table></figure>
+<p>撤销对文件的本次修改，回到之前的状态，准确点儿是回到上次调用<code>git add</code>或者<code>git commit</code>状态</p>
+<h3 id="git-rm"><a href="#git-rm" class="headerlink" title="#git rm"></a>#git rm</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rm &lt;file&gt;</div></pre></td></tr></table></figure>
+<p>从版本库删除一个文件，与本地的删除一个文件不同，这里是直接将版本库里的文件删除了，如果之前有将文件提交到版本库，可以使用<code>git checkout -- filename</code>恢复；</p>
+<h3 id="git-branch"><a href="#git-branch" class="headerlink" title="#git branch"></a>#git branch</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git branch // 查看分支 -v 本地全部分支，-a 包括远程全部分支</div><div class="line">git checkout -b &lt;branch&gt; // 创建并切换分支，等同于下边两个命令</div><div class="line">git branch &lt;branch&gt; // 创建分支</div><div class="line">git checkout &lt;branch&gt; // 切换分支</div><div class="line">git branch -d &lt;branch&gt; // 删除本地分支</div></pre></td></tr></table></figure>
+<p>分支相关操作命令</p>
+<h3 id="git-merge"><a href="#git-merge" class="headerlink" title="#git merge"></a>#git merge</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git merge &lt;branch&gt;</div></pre></td></tr></table></figure>
+<p>合并指定分支到当前所在分支，在使用<code>merge</code>命令时有可能会出现代码修改冲突的情况，特别是在多人协作的情况下，冲突用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>和<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>包裹，中间用<code>=======</code>分割，<code>=======</code>以上是当前分支内容，以下是合并到当前分支的其他分支内容；</p>
+<h2 id="远程操作相关"><a href="#远程操作相关" class="headerlink" title="远程操作相关"></a>远程操作相关</h2><p>主要是和操作远程仓库相关的一些命令</p>
+<h3 id="git-remote"><a href="#git-remote" class="headerlink" title="#git remote"></a>#git remote</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git remote add &lt;name&gt; &lt;url&gt;</div><div class="line">git remote remove &lt;name&gt;</div><div class="line">git remote rename &lt;old&gt; &lt;new&gt;</div></pre></td></tr></table></figure>
+<p>管理当前仓库的远程地址，分别是：添加远程仓库地址、删除远程仓库、重命名远程仓库</p>
+<h3 id="git-push"><a href="#git-push" class="headerlink" title="#git push"></a>#git push</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git push -u &lt;remote&gt; &lt;branch&gt;</div><div class="line">git push &lt;remote&gt; &lt;branch&gt;</div><div class="line">git push &lt;remote&gt; &lt;branch&gt;:&lt;branch&gt; // 将本地分支上传到远程的一个新分支</div><div class="line">git push &lt;remote :&lt;branch&gt; // 将本地空分支推送到远端，即删除远程分支</div></pre></td></tr></table></figure>
+<p>此命令是将本地仓库推送到远程仓库，第一次推送到远程分支需要加上<code>-u</code>参数，</p>
+<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="#git clone"></a>#git clone</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git clone &lt;url&gt; [&lt;dir&gt;]</div><div class="line">git clone -b &lt;branch&gt; &lt;url&gt; [&lt;dir&gt;]</div><div class="line">git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt; // 根据远程仓库的分支创建并切换到新分支</div></pre></td></tr></table></figure>
+<p>克隆远程仓库到本地，可以使用<code>-b</code>参数指定克隆的分支，以及指定克隆后的文件夹名称，不设置就是默认远程仓库名字；</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>参考网站 <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰 Git 教程</a></p>
 
       
@@ -587,10 +528,6 @@ git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt; // 根据远程仓�
 
           
   <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/11/git-common-commands-summary-1478837532000.html"
-           data-title="Git常用命令总结" data-url="http://melove.net/blog/blog/2016/11/git-common-commands-summary-1478837532000.html">
-      </div>
     
   </div>
 
@@ -734,7 +671,7 @@ git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt; // 根据远程仓�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-status"><span class="nav-number">1.</span> <span class="nav-text">#git status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-add"><span class="nav-number">2.</span> <span class="nav-text">#git add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit"><span class="nav-number">3.</span> <span class="nav-text">#git commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-log"><span class="nav-number">4.</span> <span class="nav-text">#git log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-reset"><span class="nav-number">5.</span> <span class="nav-text">#git reset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-relog"><span class="nav-number">6.</span> <span class="nav-text">#git relog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-diff"><span class="nav-number">7.</span> <span class="nav-text">#git diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-checkout"><span class="nav-number">8.</span> <span class="nav-text">#git checkout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-rm"><span class="nav-number">9.</span> <span class="nav-text">#git rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-branch"><span class="nav-number">10.</span> <span class="nav-text">#git branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-merge"><span class="nav-number">11.</span> <span class="nav-text">#git merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote"><span class="nav-number">12.</span> <span class="nav-text">#git remote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-push"><span class="nav-number">13.</span> <span class="nav-text">#git push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-clone"><span class="nav-number">14.</span> <span class="nav-text">#git clone</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建SSH秘钥"><span class="nav-number">1.</span> <span class="nav-text">创建SSH秘钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地操作相关"><span class="nav-number">2.</span> <span class="nav-text">本地操作相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-status"><span class="nav-number">2.1.</span> <span class="nav-text">#git status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-add"><span class="nav-number">2.2.</span> <span class="nav-text">#git add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-commit"><span class="nav-number">2.3.</span> <span class="nav-text">#git commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-log"><span class="nav-number">2.4.</span> <span class="nav-text">#git log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-reset"><span class="nav-number">2.5.</span> <span class="nav-text">#git reset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-relog"><span class="nav-number">2.6.</span> <span class="nav-text">#git relog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-diff"><span class="nav-number">2.7.</span> <span class="nav-text">#git diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-checkout"><span class="nav-number">2.8.</span> <span class="nav-text">#git checkout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-rm"><span class="nav-number">2.9.</span> <span class="nav-text">#git rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-branch"><span class="nav-number">2.10.</span> <span class="nav-text">#git branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-merge"><span class="nav-number">2.11.</span> <span class="nav-text">#git merge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程操作相关"><span class="nav-number">3.</span> <span class="nav-text">远程操作相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote"><span class="nav-number">3.1.</span> <span class="nav-text">#git remote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-push"><span class="nav-number">3.2.</span> <span class="nav-text">#git push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-clone"><span class="nav-number">3.3.</span> <span class="nav-text">#git clone</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -860,39 +797,32 @@ git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt; // 根据远程仓�
 
   
 
-  
-    
-  
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"lzan13"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
 
   
-    
-    
-    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/blog/js/src/hook-duoshuo.js"></script>
+
+
+
+
+	
+
+
+
+
+
   
 
 
 
 
 
+  
 
 
 
 
 
+  
 
 
 
