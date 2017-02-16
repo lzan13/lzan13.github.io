@@ -1712,7 +1712,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #5eee25;
+  background: #2e2eeb;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2890,7 +2890,7 @@ a.search-result {
   cursor: pointer;
   border: 0;
   outline: 0;
-  border-radius: 100%;
+  border-radius: 8px;
   padding: 0;
   margin: 0;
   letter-spacing: normal;
