@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://melove.net/blog/"/>
-  <updated>2017-02-16T09:05:13.000Z</updated>
+  <updated>2017-02-21T06:59:12.000Z</updated>
   <id>http://melove.net/blog/</id>
   
   <author>
@@ -14,6 +14,78 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用第三方库出现找不到so库UnsatisfiedLinkError错误的原因以及解决方案</title>
+    <link href="http://melove.net/blog/2017/02/android-library-so-error-unsatisfiedlinkerror-1487659244.html"/>
+    <id>http://melove.net/blog/2017/02/android-library-so-error-unsatisfiedlinkerror-1487659244.html</id>
+    <published>2017-02-21T06:40:44.000Z</published>
+    <updated>2017-02-21T06:59:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>首先这边引用<code>环信SDK工程师</code>总结的出现这个问题的一些原因（稍作排版修改）：<br>引用 / <a href="http://www.imgeek.org/article/825307895" target="_blank" rel="external">环信SDK工程师分析 UnsatisfiedLinkError</a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在开发项目的时候我们免不了使用一些第三方的库来进行快速开发，有些第三方库只是简单的一个<code>jar</code>包，但是有些使用了<code>jni</code>开发，因此会包含<code>so</code>库文件，这个时候如果不消息我们就会遇到一个错误:<code>java.lang.UnsatisfiedLinkError</code>；</p>
+<p>最近经常遇到有开发者在问使用环信<code>sdk</code>的时候出现这个错误；这里分享下问题原因以及解决方案；</p>
+<h3 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a>相关信息</h3><p>这里需要先解释一下相关信息<br><code>hyphenatechatsdk</code>提供的指令集类型仅提供<code>armeabi</code>、<code>arm64-v8a</code>、<code>x86</code>三种;<br><code>armeabi</code>和<code>armeabi-v7a</code>是相近似的指令集，<code>v7a</code>是增强型指令集，运行速度，效率均有所提高，他们都是<code>32</code>位指令，并且兼容；<code>arm64-v8a</code>对应<code>arm64</code>位指令集；<br><code>arm64</code>位策略和<code>intel IA32</code>不一样：<code>intel64</code>位指令是兼容<code>intel32</code>位指令，<code>intel32</code>位指令编译的程序可以直接在<code>intel64</code>位机器上运行；但是<code>arm</code>不是，<code>arm64</code>位和<code>arm32</code>位是彼此独立的指令系统，不兼容；<code>arm</code>这样设计的原因是因为运行在嵌入式上，设计指标更趋向于效率，和耗电考量；实际上<code>arm64</code>位芯片上同时包含着<code>arm64</code>指令处理器和<code>arm32</code>位指令处理器，只不过两个处理器彼此独立；</p>
+<h3 id="导致产生UnsatisfiedLinkError的几个原因"><a href="#导致产生UnsatisfiedLinkError的几个原因" class="headerlink" title="导致产生UnsatisfiedLinkError的几个原因"></a>导致产生<code>UnsatisfiedLinkError</code>的几个原因</h3><p>影响链接的限制条件: <code>armeabi</code>实际上可以运行在<code>arm64</code>位机器上，只不过<code>Google</code>增加了限制条件：</p>
+<ol>
+<li><p><code>Android4.x</code>只要能找到<code>so</code>，就可以运行，<code>so</code>可以在<code>armeabi</code>、<code>armeabi-v7a</code>、<code>arm64-v8a</code>，<code>so</code>位置可以很随意；</p>
+</li>
+<li><p><code>Android5.x</code>开始，检查更加严格，会只有和芯片型号对应目录的<code>so</code>会安装到手机中；</p>
+<blockquote>
+<p>举个例子：<br>开发环境下目录结构如下<br> <code>libs/armeabi:libhyphenate.so libhyphenate_av.so</code><br> <code>libs/armeabi-v7a:libmediadata.so</code><br>手机对应的指令集是<code>armeabi-v7a</code>，然后安装到手机的只有<code>libmediadata.so</code>；</p>
+</blockquote>
+</li>
+<li><p><code>Android6.x</code>下，检查更加严格，有一条规则，之前测试有遇到，现在不太确认；<br><code>libs/armeabi/: libhyphenate.so libhyphenate_av.so</code><br><code>libs/arm64-v8a</code>(没有此目录)<br>在<code>arm64</code>位机器上也可以运行，但是作为开发者通常会依赖其他开发包，比如<code>baiduMap</code>，也会用其他<code>so</code>，不能让所有开发者都删掉<code>libs/arm64-v8a</code>的目录；不过开发者可以尝试下删除<code>arm64-v8a</code>，只留<code>armeabi</code>，这样安装包会很小，在各个平台上也能运行；<br><code>Google</code>考量点是执行速率，更流畅的用户体验，作为开发者，服务提供者，我们希望<code>apk</code>尽可能小，对执行速度要求不高；</p>
+</li>
+<li><p><code>armeabi</code>和<code>armeabi-v7a</code>可以互换，现在市面上的手机很少有<code>armeabi</code>的，基本上是<code>armeabi-v7a</code>或<code>arm64</code>位的高端机器。</p>
+</li>
+<li><p>查看手机芯片型号：<code>cat /proc/cpuinfo</code>, 仔细看一下打印信息，能够看明白手机指令集，是<code>32</code>位还是<code>64</code>位。</p>
+</li>
+<li><p><code>x86</code>目录，通常对应虚拟机，很多开发者喜欢在<code>genymotion</code>上开发调试，这个就对应<code>86</code>，<code>x86</code>和前面说的<code>intel IA32</code>是一回事，所以只提供<code>32</code>位的，也能在<code>x86-64</code>位机器上运行；</p>
+</li>
+<li><p>我们的<code>so</code>还依赖于<code>libsqlite.so</code>，不过由于这个包从来没有变化，使用的是系统默认提供的<code>/system/lib</code>，在<code>Android 6.x</code>及以下的平台可以运行，<code>Android7.x</code>执行更严格的安全检查，禁止使用系统目录的内容，所以如果希望在<code>Android7.x</code>以上版本，需要把系统目录的<code>libsqlite.so</code>拷贝出来，也放在自己<code>app</code>对应指令目录下，由于目前<code>Android7.x</code>市面上没有机型，所以目前不在考虑范围；</p>
+</li>
+<li><p><code>mips</code>指令集的手机很少见，听说联想有出过，没见过;</p>
+</li>
+<li><p><code>libs/armeabi/libhyphenate.so</code>和<code>libs.without.audio/armeabi/libhyphenate.so</code>是不同，<code>libs/armeabi/libhyphenate.so</code>会依赖于<code>libs/armeabi/libhyphenate_av.so</code>，如果找不到会报<code>java.lang.UnsatisfiedLinkError</code>；</p>
+</li>
+<li><p>还有一个比较容易忽略的一点，现在我们的的项目一般都是引入好多个第三方库，第六点也提到了使用<code>baiduMap</code>这点，就是当一个项目引入多个库，不同的库有不同的<code>so</code>文件夹，当其中一个支持的比较少，但是另一个比较全时，也会出现这样的错误，解决方法就是不支持的<code>so</code>文件夹删除</p>
+<blockquote>
+<p>举个例子：<br>环信支持的指令集<code>arm64-v8a</code>、<code>armeabi</code>、<code>x86</code><br>百度地图支持的指令集<code>arm64-v8a</code>、<code>armeabi</code>、<code>armeabi-v7a</code>、<code>x86</code>、<code>x86_64</code>、<code>mips</code>、<code>mips64</code><br>如果想在所有设备上都能运行，需要把<code>armeabi-v7a</code>、<code>x86_64</code>、<code>mips</code>、<code>mips64</code>这些删除；<br>根据前边所说可以保留<code>armeabi-v7a</code>文件夹，然后复制<code>armeabi</code>里的<code>so</code>文件到<code>armeabi-v7a</code>就行了</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>所以如果大家再遇到这样的问题，可以先根据以上信息排查下，无非就是某个库的 so 文件放多了，或者某个 so 库的文件放少了，或者是 jar 包和 so 不匹配了，这些只要细心看下 ide 的日志提示，很容易就解决，希望此篇文章能帮大家解决问题，谢谢！</p>
+<p>文笔有限，如果问题，欢迎指正 ^_^~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;首先这边引用&lt;code&gt;环信SDK工程师&lt;/code&gt;总结的出现这个问题的一些原因（稍作排版修改）：&lt;br&gt;引用 / &lt;a href=&quot;http://www.imgeek.org/article/825307895&quot; target=&quot;_blank&quot;
+    
+    </summary>
+    
+      <category term="Develop" scheme="http://melove.net/blog/categories/Develop/"/>
+    
+    
+      <category term="Android" scheme="http://melove.net/blog/tags/Android/"/>
+    
+      <category term="Easemob" scheme="http://melove.net/blog/tags/Easemob/"/>
+    
+      <category term="Library" scheme="http://melove.net/blog/tags/Library/"/>
+    
+      <category term="Error" scheme="http://melove.net/blog/tags/Error/"/>
+    
+      <category term="Armeabi" scheme="http://melove.net/blog/tags/Armeabi/"/>
+    
+      <category term="HyphenateChatSDK" scheme="http://melove.net/blog/tags/HyphenateChatSDK/"/>
+    
+      <category term="UnsatisfiedLinkError" scheme="http://melove.net/blog/tags/UnsatisfiedLinkError/"/>
+    
+  </entry>
   
   <entry>
     <title>AndroidStudio 开发测试运行 Java 类的 Main 方法</title>
@@ -787,37 +859,6 @@ Gradle version：2.4
       <category term="Database" scheme="http://melove.net/blog/tags/Database/"/>
     
       <category term="Sqlite" scheme="http://melove.net/blog/tags/Sqlite/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Cocos2d-x 3.x 使用rapidjson解析json文件</title>
-    <link href="http://melove.net/blog/2014/11/cocos2d-x-rapidjson-parse-json-1414898813000.html"/>
-    <id>http://melove.net/blog/2014/11/cocos2d-x-rapidjson-parse-json-1414898813000.html</id>
-    <published>2014-11-02T03:26:53.000Z</published>
-    <updated>2017-02-16T09:19:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前在写一个小游戏的时候要把一些<code>关卡</code>、<code>属性</code>等数据保存在<code>json</code>里边，供代码读取，所以就看了下关于<code>Cocos2d-x</code>中解析<code>json</code>的一些方法，发现在<code>3.x</code>里只集成有<code>json</code>解析库的，就是<code>rapidjson</code>，还挺好用，然后稍微对解析<code>json</code>数据进行了下面的封装；</p>
-<p>先留个坑吧 这里只是简单的记录下怎么解析的，代码中也有注释，就不一行行的解释了！有时间再详细的说说</p>
-<h3 id="首先是解析字符串数据"><a href="#首先是解析字符串数据" class="headerlink" title="首先是解析字符串数据"></a>首先是解析字符串数据</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//根据传入的参数获取字符串（json最外围格式为Object格式）</span></div><div class="line"><span class="built_in">string</span> MyFunc::getJsonString(<span class="keyword">const</span> <span class="keyword">char</span>* alias, <span class="keyword">const</span> <span class="keyword">char</span>* filename)&#123;</div><div class="line"></div><div class="line">	rapidjson::Document doc;</div><div class="line"></div><div class="line">	<span class="comment">//判断文件是否存在</span></div><div class="line">	<span class="keyword">if</span>(!FileUtils::getInstance()-&gt;isFileExist(MyFunc::plusChar(g_file_text_path.c_str(), filename)))&#123;</div><div class="line">		<span class="built_in">log</span>(<span class="string">"json file not exist!!!"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//读取json文件并初始化 doc</span></div><div class="line">	<span class="built_in">string</span> data = FileUtils::getInstance()-&gt;getStringFromFile(MyFunc::plusChar(g_file_text_path.c_str(), filename));</div><div class="line">	doc.Parse&lt;rapidjson::kparsedefaultflags&gt;(data.c_str());</div><div class="line"></div><div class="line">	<span class="comment">//判断读取成功与否 和 是否为数组类型  </span></div><div class="line">	<span class="keyword">if</span> (doc.HasParseError() || !doc.IsArray()) &#123;</div><div class="line">		<span class="built_in">log</span>(<span class="string">"get json data err!"</span>);  </div><div class="line">		<span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">	&#125;  </div><div class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">	rapidjson::Value&amp; texts = doc[count];</div><div class="line"></div><div class="line">	<span class="built_in">string</span> text = texts[alias].GetString();</div><div class="line">	<span class="built_in">log</span>(<span class="string">"text: %s"</span>, text.c_str());</div><div class="line"></div><div class="line">	<span class="keyword">return</span> text;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="当要解析的json数据包含有数组格式时，"><a href="#当要解析的json数据包含有数组格式时，" class="headerlink" title="当要解析的json数据包含有数组格式时，"></a>当要解析的json数据包含有数组格式时，</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 根据传入的参数获取字符串（json最外围格式为Object格式）内部包含array格式数据</span></div><div class="line"><span class="keyword">void</span> MyFunc::getJsonArray(<span class="keyword">const</span> <span class="keyword">char</span>* alias, <span class="keyword">const</span> <span class="keyword">char</span>* filename, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)&#123;</div><div class="line">	rapidjson::Document doc;</div><div class="line">	<span class="keyword">if</span>(!FileUtils::getInstance()-&gt;isFileExist(filename))&#123;</div><div class="line">		<span class="built_in">log</span>(<span class="string">"json file is not exist!!"</span>);</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> data = FileUtils::getInstance()-&gt;getStringFromFile(filename);</div><div class="line">	doc.Parse&lt;rapidjson::kparsedefaultflags&gt;(data.c_str());</div><div class="line">	<span class="keyword">if</span>(doc.HasParseError() || !doc.IsObject())&#123;</div><div class="line">		<span class="built_in">log</span>(<span class="string">"parse json error!!"</span>);</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;  </div><div class="line">	rapidjson::Value&amp; texts = doc[alias];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;texts .Size(); i++)&#123;</div><div class="line">		words.push_back(texts[i].GetString());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;之前在写一个小游戏的时候要把一些&lt;code&gt;关卡&lt;/code&gt;、&lt;code&gt;属性&lt;/code&gt;等数据保存在&lt;code&gt;json&lt;/code&gt;里边，供代码读取，所以就看了下关于&lt;code&gt;Cocos2d-x&lt;/code&gt;中解析&lt;code&gt;json&lt;/code&gt;的一些方法，发现
-    
-    </summary>
-    
-      <category term="Develop" scheme="http://melove.net/blog/categories/Develop/"/>
-    
-      <category term="Cocos2d-x" scheme="http://melove.net/blog/categories/Develop/Cocos2d-x/"/>
-    
-    
-      <category term="Json" scheme="http://melove.net/blog/tags/Json/"/>
-    
-      <category term="Cocos2d-x" scheme="http://melove.net/blog/tags/Cocos2d-x/"/>
-    
-      <category term="RapidJson" scheme="http://melove.net/blog/tags/RapidJson/"/>
     
   </entry>
   
