@@ -1712,7 +1712,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3dff3e;
+  background: #a3ff06;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2892,6 +2892,7 @@ pre code {
   padding: 15px;
   text-align: center;
   border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
 }
 #reward_comment p {
   padding: 10px;
@@ -2900,7 +2901,7 @@ pre code {
   cursor: pointer;
   border: 0;
   outline: 0;
-  border-radius: 8px;
+  border-radius: 36px;
   padding: 0;
   margin: 0;
   letter-spacing: normal;
@@ -2913,7 +2914,7 @@ pre code {
   width: 122px;
   height: 36px;
   line-height: 36px;
-  border-radius: 8px;
+  border-radius: 36px;
   color: #fff;
   font-weight: 400;
   font-style: normal;
