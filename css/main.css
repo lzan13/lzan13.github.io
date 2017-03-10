@@ -1712,7 +1712,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #7dd77d;
+  background: #c73eb0;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2875,6 +2875,18 @@ a.search-result {
   .post-body {
     text-align: justify;
   }
+}
+#posts .post-body a {
+  color: #239efe;
+}
+#posts .post-body a:hover {
+  color: #fc6423;
+}
+#posts .post-body .post-button a {
+  color: #232323;
+}
+#posts .post-body a:hover {
+  color: #f8f8f8;
 }
 code {
   background: d2d2d2;
