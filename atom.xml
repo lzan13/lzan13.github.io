@@ -271,9 +271,9 @@
     
       <category term="Library" scheme="http://melove.net/tags/Library/"/>
     
-      <category term="Java" scheme="http://melove.net/tags/Java/"/>
-    
       <category term="Module" scheme="http://melove.net/tags/Module/"/>
+    
+      <category term="Java" scheme="http://melove.net/tags/Java/"/>
     
   </entry>
   
