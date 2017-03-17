@@ -1,0 +1,858 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Easemob,SDK,IM,Log," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="lz's Notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="我的简书：【lzan13 / 关于环信2.xSDK日志简单分析】
+
+前言首先说下环信日志保存的机制，这边只要是在开启了SDK的Debug模式下调用环信的EMLog.d()方法输出的日志，日志内容都会在控制台输出的同时记录到设备的日志文件中；
+这里就一些常见的日志跟大家略微解释下，一边能给大家在以后排查问题中起到一些帮助；
+
+PS：这里所列出来的日志内容只是特定情况测试下出现，在不同的设备，不同环">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于环信2.xSDK日志简单分析">
+<meta property="og:url" content="http://melove.net/2017/03/android-library-im-sdk-easemob-v2-1489749784000.html">
+<meta property="og:site_name" content="lz's Notes">
+<meta property="og:description" content="我的简书：【lzan13 / 关于环信2.xSDK日志简单分析】
+
+前言首先说下环信日志保存的机制，这边只要是在开启了SDK的Debug模式下调用环信的EMLog.d()方法输出的日志，日志内容都会在控制台输出的同时记录到设备的日志文件中；
+这里就一些常见的日志跟大家略微解释下，一边能给大家在以后排查问题中起到一些帮助；
+
+PS：这里所列出来的日志内容只是特定情况测试下出现，在不同的设备，不同环">
+<meta property="og:updated_time" content="2017-03-17T11:30:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于环信2.xSDK日志简单分析">
+<meta name="twitter:description" content="我的简书：【lzan13 / 关于环信2.xSDK日志简单分析】
+
+前言首先说下环信日志保存的机制，这边只要是在开启了SDK的Debug模式下调用环信的EMLog.d()方法输出的日志，日志内容都会在控制台输出的同时记录到设备的日志文件中；
+这里就一些常见的日志跟大家略微解释下，一边能给大家在以后排查问题中起到一些帮助；
+
+PS：这里所列出来的日志内容只是特定情况测试下出现，在不同的设备，不同环">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://melove.net/2017/03/android-library-im-sdk-easemob-v2-1489749784000.html"/>
+
+
+
+
+
+  <title> 关于环信2.xSDK日志简单分析 | lz's Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">lz's Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">慢慢来，一步一个脚印！</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/blog/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://melove.net/blog/2017/03/android-library-im-sdk-easemob-v2-1489749784000.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="lzan13">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/blog/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="lz's Notes">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="lz's Notes" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于环信2.xSDK日志简单分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-17T19:23:04+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Develop/" itemprop="url" rel="index">
+                    <span itemprop="name">Develop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2017/03/android-library-im-sdk-easemob-v2-1489749784000.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/android-library-im-sdk-easemob-v2-1489749784000.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>我的简书：【<a href="http://www.jianshu.com/u/f53bcbbc7c3e" target="_blank" rel="external">lzan13</a> / <a href="http://www.jianshu.com/p/3b687c0937a7" target="_blank" rel="external">关于环信2.xSDK日志简单分析</a>】</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>首先说下环信日志保存的机制，这边只要是在开启了<code>SDK</code>的<code>Debug</code>模式下调用环信的<code>EMLog.d()</code>方法输出的日志，日志内容都会在控制台输出的同时记录到设备的日志文件中；</p>
+<p>这里就一些常见的日志跟大家略微解释下，一边能给大家在以后排查问题中起到一些帮助；</p>
+<blockquote>
+<p>PS：这里所列出来的日志内容只是特定情况测试下出现，在不同的设备，不同环境下稍微会有些出入，不过一些关键词的地方都应该是一样的，不要死心眼就好；</p>
+</blockquote>
+<p>还有就是这篇分析是在3.xSDK 日志的基础上分析的，虽然是现有的2.x，但是2.x 的日志不是很熟，所以先写的3.xSDK 的日志分析，不过大致都还是差不多的，2.x 这里稍微简单的说说</p>
+<h3 id="SDK-的初始化"><a href="#SDK-的初始化" class="headerlink" title="SDK 的初始化"></a>SDK 的初始化</h3><p>2.xSDK在初始化时和3.x 稍微有些不同，2.x 初始化时不会检查DNS 配置，从日志和也可以看出来，当什么都不做只是初始化 SDK 时，日志中只是输出下当前是否已经有登录过的账户，以及自动登录设置状态，还有就是SDK版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">2017-03-02 15:26:54:721 [EaseMob][ERROR]passed userName : null</div><div class="line">2017-03-02 15:26:54:744 [EaseMob][ERROR]is autoLogin : true</div><div class="line">2017-03-02 15:26:54:768 [EaseMob][ERROR]lastLoginUser :</div><div class="line">2017-03-02 15:26:54:794 [EaseMob][ERROR]Easemob SDK is initialized with version : 2.3.4</div><div class="line">2017-03-02 15:26:54:855 [group]add group change listener:com.easemob.chatuidemo.DemoHelper$MyGroupChangeListener</div></pre></td></tr></table></figure></p>
+<h3 id="手动登录"><a href="#手动登录" class="headerlink" title="手动登录"></a>手动登录</h3><p>当进行手动登录是，会首先获取 DNS 配置，然后获取完成 DNS 之后就开始登录了，登录要做的就是获取账户的 token，后续的操作都是根据这个 token 进行操作了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">2017-03-02 15:30:45:111 [EMChatManager][ERROR]emchat manager login in process:8369</div><div class="line">2017-03-02 15:30:45:161 [EMDBManager][ERROR]initDB : lz1</div><div class="line">2017-03-02 15:30:45:192 [Session]loginSync : in process 8369</div><div class="line">2017-03-02 15:30:45:218 [Session]login with eid:easemob-demo#chatdemoui_lz1</div><div class="line">2017-03-02 15:30:45:235 [group]group manager clear</div><div class="line">2017-03-02 15:30:45:253 [EMChatManager]</div><div class="line">2017-03-02 15:30:45:279 [EMDBManager]created chatdb for :lz1</div><div class="line">2017-03-02 15:30:45:302 [EMConnectionManager]configure</div><div class="line">2017-03-02 15:30:45:336 [EMDNSManager]getDnsConfig</div><div class="line">2017-03-02 15:30:45:365 [EMDNSManager]retrieveDNSConfig</div><div class="line">2017-03-02 15:30:45:396 [EMDNSManager]refreshDNSConfig</div><div class="line">2017-03-02 15:30:45:429 [EMDNSManager]try to retrieve dns config! with retries number : 0</div><div class="line">2017-03-02 15:30:45:458 [EMDNSManager]buildConfigUrl</div><div class="line">2017-03-02 15:30:45:488 [EMDNSManager]0 use domain</div><div class="line">2017-03-02 15:30:45:550 [EMDNSManager]retrieveDNSConfigWithCountDown</div><div class="line">2017-03-02 15:30:45:572 [EMDNSManager]config server url : http://rs.easemob.com/easemob/server.xml?sdk_version=2.3.4&amp;app_key=easemob-demo%23chatdemoui</div><div class="line">2017-03-02 15:30:45:592 [group]load all groups from db. size:0</div><div class="line">2017-03-02 15:30:45:615 [EMConversationManager]start to load converstations:</div><div class="line">2017-03-02 15:30:45:635 [EMDNSManager]returned config content : &lt;ebs&gt;&lt;deploy_name&gt;easemob&lt;/deploy_name&gt;&lt;file_version&gt;62&lt;/file_version&gt;&lt;valid_before&gt;1496172191&lt;/valid_before&gt;&lt;gcm_enabled&gt;true&lt;/gcm_enabled&gt;&lt;resolver&gt;&lt;hosts&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;59.110.89.59&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;112.126.66.111&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.174.78&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;116.62.83.103&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;120.26.17.225&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;120.26.15.207&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;port&gt;443&lt;/port&gt;&lt;protocol&gt;https&lt;/protocol&gt;&lt;/host&gt;&lt;/hosts&gt;&lt;/resolver&gt;&lt;tcp_resolver&gt;&lt;hosts&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;59.110.89.59&lt;/ip&gt;&lt;port&gt;2020&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;112.126.66.111&lt;/ip&gt;&lt;port&gt;2020&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.174.78&lt;/ip&gt;&lt;port&gt;2020&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;116.62.83.103&lt;/ip&gt;&lt;port&gt;2020&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;120.26.17.225&lt;/ip&gt;&lt;port&gt;2020&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;rs.easemob.com&lt;/domain&gt;&lt;ip&gt;120.26.15.207&lt;/ip&gt;&lt;port&gt;2020&lt;/port&gt;&lt;/host&gt;&lt;/hosts&gt;&lt;/tcp_resolver&gt;&lt;im&gt;&lt;hosts&gt;&lt;host&gt;&lt;domain&gt;im1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.20.34&lt;/ip&gt;&lt;port&gt;443&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;im1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.20.117&lt;/ip&gt;&lt;port&gt;443&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;im1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.23.59&lt;/ip&gt;&lt;port&gt;443&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;im1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.26.56&lt;/ip&gt;&lt;port&gt;443&lt;/port&gt;&lt;/host&gt;&lt;/hosts&gt;&lt;/im&gt;&lt;xmpp&gt;&lt;hosts&gt;&lt;host&gt;&lt;domain&gt;im-api.easemob.com&lt;/domain&gt;&lt;ip&gt;im-api.easemob.com&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;protocol&gt;http&lt;/protocol&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;im-api.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.159.193&lt;/ip&gt;&lt;port&gt;5280&lt;/port&gt;&lt;protocol&gt;http&lt;/protocol&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;im-api.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.228.160&lt;/ip&gt;&lt;port&gt;5280&lt;/port&gt;&lt;protocol&gt;http&lt;/protocol&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;im-api.easemob.com&lt;/domain&gt;&lt;port&gt;443&lt;/port&gt;&lt;protocol&gt;https&lt;/protocol&gt;&lt;/host&gt;&lt;/hosts&gt;&lt;/xmpp&gt;&lt;msync-im&gt;&lt;hosts&gt;&lt;host&gt;&lt;domain&gt;msync-im1.easemob.com&lt;/domain&gt;&lt;ip&gt;60.205.131.133&lt;/ip&gt;&lt;port&gt;6802&lt;/port&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;msync-im1.easemob.com&lt;/domain&gt;&lt;ip&gt;60.205.109.58&lt;/ip&gt;&lt;port&gt;7829&lt;/port&gt;&lt;/host&gt;&lt;/hosts&gt;&lt;/msync-im&gt;&lt;rest&gt;&lt;hosts&gt;&lt;host&gt;&lt;domain&gt;a1.easemob.com&lt;/domain&gt;&lt;port&gt;443&lt;/port&gt;&lt;protocol&gt;https&lt;/protocol&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;a1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.159.193&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;protocol&gt;http&lt;/protocol&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;a1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.228.160&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;protocol&gt;http&lt;/protocol&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;a1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.0.214&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;protocol&gt;http&lt;/protocol&gt;&lt;/host&gt;&lt;host&gt;&lt;domain&gt;a1.easemob.com&lt;/domain&gt;&lt;ip&gt;182.92.4.52&lt;/ip&gt;&lt;port&gt;80&lt;/port&gt;&lt;protocol&gt;http&lt;/protocol&gt;&lt;/host&gt;&lt;/hosts&gt;&lt;/rest&gt;&lt;/ebs&gt;</div><div class="line">...</div><div class="line">获取 DNS 成功之后才是真正的认证登录，获取 TOKEN</div><div class="line">2017-03-02 15:30:46:507 [com.easemob.chat.core.EMInternalConfigManager]accesstoken : &#123;&quot;access_token&quot;:&quot;YWMtYt7kgP8XEeamVEtR2Q-CgwAAAVvC2ReE0obINNrCP8QG9pLb0WlQlRPIpDM&quot;,&quot;expires_in&quot;:5182813,&quot;user&quot;:&#123;&quot;uuid&quot;:&quot;603eadf0-ff17-11e6-8180-657de846951b&quot;,&quot;type&quot;:&quot;user&quot;,&quot;created&quot;:1488438654543,&quot;modified&quot;:1488439651099,&quot;username&quot;:&quot;lz1&quot;,&quot;activated&quot;:true,&quot;notification_display_style&quot;:1,&quot;device_token&quot;:&quot;/cRO2vRH64mWOH46+We1zxt4+onQRJOe26fvcX02iC0=&quot;,&quot;nickname&quot;:&quot;立正1&quot;,&quot;notifier_name&quot;:&quot;2882303761517426801&quot;&#125;&#125;</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<h3 id="自动登录"><a href="#自动登录" class="headerlink" title="自动登录"></a>自动登录</h3><p>自动登录基本和手动登录一样，唯一的区别就是自动登录没有输出<code>emchat manager login in process:8369</code>，这行是红色的，比较醒目，可以用这个来判断当前登录是自动登录，还是手动登录，还有一点就是自动登录时<code>lastLoginUser</code>这个也是有值的；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-03-02 16:47:50:054 [EaseMob][ERROR]passed userName : null</div><div class="line">2017-03-02 16:47:50:085 [EaseMob][ERROR]is autoLogin : true</div><div class="line">2017-03-02 16:47:50:121 [EaseMob][ERROR]lastLoginUser : lz1</div><div class="line">2017-03-02 16:47:50:155 [EMDBManager][ERROR]initDB : lz1</div><div class="line">2017-03-02 16:47:50:190 [EaseMob][ERROR]Easemob SDK is initialized with version : 2.3.4</div><div class="line"></div><div class="line">下边会进行登录的一些操作，初始化，数据加载，以及推送相关的处理</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<h3 id="心跳定时器"><a href="#心跳定时器" class="headerlink" title="心跳定时器"></a>心跳定时器</h3><p>一切都准备好了之后，就是定义心跳定时器，第一次设置时<code>2&#39;00&quot;</code>后启动心跳定时器，后边会慢慢增加到<code>4&#39;30&quot;</code>，然后会按照<code>4&#39;30&quot;</code>这样循环下去，当出现心跳死了之后，会重新从头开始<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">2017-03-02 15:32:47:767 [smart ping]schedule next alarm</div><div class="line">2017-03-02 15:32:47:793 [smart ping]current heartbeat interval : 02:00:000 smart ping state : EMEvaluating</div><div class="line">2017-03-02 15:32:47:821 [smart ping]use 02:00:000 to start alarm</div><div class="line">2017-03-02 15:34:47:776 [EMHeartBeatReceiver]onReceive EMHeartBeatReceiver</div><div class="line">2017-03-02 15:34:47:812 [smart ping]post heartbeat runnable</div><div class="line">2017-03-02 15:34:47:867 [smart ping]has network connection:true has data conn:true isConnected to easemob server : true</div><div class="line">2017-03-02 15:34:47:917 [smart ping]acquire wake lock</div><div class="line">2017-03-02 15:34:47:941 [smart ping]check pingpong ...</div><div class="line">2017-03-02 15:34:48:876 [smart ping]send ping-pong type heartbeat</div><div class="line"></div><div class="line">发送心跳 ping pang</div><div class="line">2017-03-02 15:34:48:919 [SMACK:FileDebugger] SENT to182.92.23.59:443(202029101): &lt;iq id=&quot;6T82J-6&quot; type=&quot;get&quot;&gt;&lt;ping xmlns=&apos;urn:xmpp:ping&apos; /&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 15:34:48:960 [SMACK:FileDebugger] RCV from182.92.23.59:443(202029101): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;6T82J-6&apos; type=&apos;result&apos;/&gt;</div><div class="line">2017-03-02 15:34:48:992 [smart ping]success to send ping pong ... with current heartbeat interval : 02:00:000</div><div class="line">2017-03-02 15:34:49:018 [smart ping]send ping-pong successed</div><div class="line">2017-03-02 15:34:49:045 [smart ping]released the wake lock</div><div class="line">2017-03-02 15:34:49:100 [smart ping]schedule next alarm</div><div class="line">2017-03-02 15:34:49:135 [smart ping]current heartbeat interval : 02:45:000 smart ping state : EMEvaluating</div><div class="line">2017-03-02 15:34:49:176 [smart ping]use 02:45:000 to start alarm</div><div class="line">....</div><div class="line">2017-03-02 15:41:06:823 [smart ping]schedule next alarm</div><div class="line">2017-03-02 15:41:06:845 [smart ping]current heartbeat interval : 04:15:000 smart ping state : EMEvaluating</div><div class="line">2017-03-02 15:41:06:868 [smart ping]use 04:15:000 to start alarm</div><div class="line">2017-03-02 15:54:24:202 [EMHeartBeatReceiver]onReceive EMHeartBeatReceiver</div><div class="line">2017-03-02 15:54:24:248 [smart ping]post heartbeat runnable</div><div class="line">2017-03-02 15:54:24:303 [smart ping]has network connection:true has data conn:true isConnected to easemob server : true</div><div class="line">2017-03-02 15:54:24:355 [smart ping]acquire wake lock</div><div class="line">2017-03-02 15:54:24:384 [smart ping]send white heartbeat</div><div class="line">2017-03-02 15:54:24:437 [smart ping]released the wake lock</div><div class="line">2017-03-02 15:54:24:493 [smart ping]schedule next alarm</div><div class="line">2017-03-02 15:54:24:521 [smart ping]current heartbeat interval : 04:30:000 smart ping state : EMHitted</div><div class="line">2017-03-02 15:54:24:559 [smart ping]use 04:30:000 to start alarm</div></pre></td></tr></table></figure></p>
+<h3 id="链接监听与重连"><a href="#链接监听与重连" class="headerlink" title="链接监听与重连"></a>链接监听与重连</h3><p>当 SDK 因为某些原因检测到与服务器的连接断开后，会回调连接中断监听，然后会启动重连线程，进行尝试重连，这个重连中如果网络不可用会直接跳过，等待下次的尝试，当网络连接恢复后，SDK 会马上尝试重连，中间会进行一系列的操作，连接成功后，会马上回调通知上层<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">2017-03-02 16:25:44:566 [sxmppcon](202029101) socket was closed</div><div class="line">2017-03-02 16:25:44:620 [EMConnectionManager][ERROR]connectionClosedOnError in java.net.SocketException: recvfrom failed: ETIMEDOUT (Connection timed out)</div><div class="line">2017-03-02 16:25:44:699 [EMConnectionManager]register connectivity receiver.</div><div class="line">2017-03-02 16:25:44:763 [EMConnectionManager]connectivity receiver onReceiver</div><div class="line">2017-03-02 16:25:44:812 [EMConnectionManager]160587117 : enter startReconnectionThread()</div><div class="line">2017-03-02 16:25:44:842 [EMConnectionManager]start reconnectionThread()</div><div class="line">2017-03-02 16:25:44:934 [net]no data connection</div><div class="line">2017-03-02 16:25:44:967 [EMConnectionManager]on disconnected</div><div class="line">2017-03-02 16:25:44:994 [EMChatManager]connectionClosedOnError</div><div class="line">2017-03-02 16:25:45:015 [EMConnectionManager]run in reconnectionThread</div><div class="line">2017-03-02 16:25:45:038 [SMACK:FileDebugger] Connection closed due to an exception (202029101)</div><div class="line">2017-03-02 16:25:45:061 [smart ping] onDisconnected ... cnnListener:com.easemob.chat.EMSmartHeartBeatAws$3@f1bae79 EMSmartHeartBeat:com.easemob.chat.EMSmartHeartBeatAws@88857be</div><div class="line">2017-03-02 16:25:45:085 [EMConnectionManager]connectivity receiver onReceiver</div><div class="line">2017-03-02 16:25:45:111 [net]no data connection</div><div class="line">2017-03-02 16:25:45:819 [EMConnectionManager]run in reconnectionThread with connection 202029101</div><div class="line">2017-03-02 16:25:45:848 [net]no data connection</div><div class="line">2017-03-02 16:25:45:873 [EMConnectionManager]skip the reconnection since there is no data connection!</div><div class="line">2017-03-02 16:25:46:842 [EMChatManager]reconnectingIn in 8 </div><div class="line">2017-03-02 16:25:47:850 [EMChatManager]reconnectingIn in 7</div><div class="line">2017-03-02 16:25:48:922 [EMChatManager]reconnectingIn in 6</div><div class="line">2017-03-02 16:25:49:881 [EMChatManager]reconnectingIn in 5</div><div class="line">2017-03-02 16:25:50:888 [EMChatManager]reconnectingIn in 4</div><div class="line">2017-03-02 16:25:51:895 [EMChatManager]reconnectingIn in 3</div><div class="line">2017-03-02 16:25:52:948 [EMChatManager]reconnectingIn in 2</div><div class="line">2017-03-02 16:25:53:986 [EMChatManager]reconnectingIn in 1</div><div class="line">2017-03-02 16:25:54:990 [EMChatManager]reconnectingIn in 0</div><div class="line">2017-03-02 16:25:55:018 [EMConnectionManager]run in reconnectionThread with connection 202029101</div><div class="line">2017-03-02 16:25:55:044 [net]no data connection</div><div class="line">2017-03-02 16:25:55:071 [EMConnectionManager]skip the reconnection since there is no data connection!</div><div class="line">如果后边网络连接恢复后，会马上进行重连操作</div><div class="line">2017-03-02 16:33:21:869 [EMConnectionManager]connectivity receiver onReceiver</div><div class="line">2017-03-02 16:33:22:046 [net]has wifi connection</div><div class="line">2017-03-02 16:33:22:141 [EMConnectionManager]run in reconnectionThread with connection 202029101</div><div class="line">2017-03-02 16:33:22:357 [EMConnectionManager]160587117 : enter startReconnectionThread()</div><div class="line">2017-03-02 16:33:22:415 [EMConnectionManager]try to reconnectSync</div><div class="line">2017-03-02 16:33:22:513 [EMConnectionManager]enter connectSync</div><div class="line">2017-03-02 16:33:22:690 [EMConnectionManager]connection manager:connect</div><div class="line">2017-03-02 16:33:22:735 [EMConnectionManager]before connect</div><div class="line"></div><div class="line">等待认证响应</div><div class="line">2017-03-02 16:33:23:137 [SASLAuthentication]waiting for authentiation response!</div><div class="line">2017-03-02 16:33:23:445 [SMACK:FileDebugger]User logged (202029101): easemob-demo#chatdemoui_lz1@easemob.com@easemob.com:443/mobile</div><div class="line">2017-03-02 16:33:23:479 [EMConnectionManager]reconnectionSuccessful</div><div class="line">2017-03-02 16:33:23:670 [EMChatManager]reconnectionSuccessful</div><div class="line"></div><div class="line">回调链接成功</div><div class="line">2017-03-02 16:33:23:737 [smart ping] onConnectred ... cnnListener:com.easemob.chat.EMSmartHeartBeatAws$3@f1bae79 EMSmartHeartBeat:com.easemob.chat.EMSmartHeartBeatAws@88857be</div><div class="line">2017-03-02 16:33:23:761 [EMConnectionManager]enter initConnection()</div><div class="line">2017-03-02 16:33:23:782 [smart ping]reset interval...</div><div class="line">2017-03-02 16:33:23:802 [EMConnectionManager]already login. skip</div></pre></td></tr></table></figure></p>
+<h3 id="被踢-amp-强制下线-amp-移除账户"><a href="#被踢-amp-强制下线-amp-移除账户" class="headerlink" title="被踢&amp;强制下线&amp;移除账户"></a>被踢&amp;强制下线&amp;移除账户</h3><p>收到连接断开的错误时，会马上记录断开原因的日志，然后会清空链接数据<br>remove:表示移除/禁用/强制下线，这三种状态的提示是一样的，只不过错误码不同<br>Replaced by new connection:表示异地登录</p>
+<p>PS：需要注意的一点就是，当收到这几个状态的回调后需要手动调用<code>logout</code>，清除当前登录状态，因此在遇到被踢和强制下线的日志中一般都能看到和 logout 相关日志</p>
+<p>关键词：<code>connectionClosedOnError</code>,<code>conflict</code>,<code>logout</code>,<code>connectionClosed</code>,<code>remove</code>,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">2017-03-02 16:57:16:011 [EMConnectionManager][ERROR]connectionClosedOnError in stream:error (conflict) text: Replaced by new connection</div><div class="line">2017-03-02 16:57:16:067 [EMConnectionManager][ERROR]connection closed caused by conflict. set autoreconnect to false</div><div class="line">2017-03-02 16:57:16:108 [EMConnectionManager]on disconnected</div><div class="line">2017-03-02 16:57:16:139 [EMChatManager]connectionClosedOnError</div><div class="line">2017-03-02 16:57:16:163 [SMACK:FileDebugger] Connection closed due to an exception (12605026)</div><div class="line">2017-03-02 16:57:16:187 [smart ping] onDisconnected ... cnnListener:com.easemob.chat.EMSmartHeartBeatAws$3@c21515d EMSmartHeartBeat:com.easemob.chat.EMSmartHeartBeatAws@be82ad2</div><div class="line">2017-03-02 16:57:16:209 [EMPushNotificationHelper]push notification helper ondestory</div><div class="line">2017-03-02 16:57:16:234 [EMChatManager] SDK Logout</div><div class="line">2017-03-02 16:57:16:256 [EMVoiceCallManager][WARN]no active call!</div><div class="line">2017-03-02 16:57:16:288 [EMVoiceCallManager]onCallStateChanged with callState = disconnected callError = error_none</div><div class="line">2017-03-02 16:57:16:315 [EMCustomerService]cancel helpdesk logout</div><div class="line">2017-03-02 16:57:16:336 [EMCustomerService]unregister helpdesk logout receiver</div><div class="line">2017-03-02 16:57:16:374 [InvitationsMonitor]invitationPacketListener = org.jivesoftware.smackx.muc.MultiUserChat$InvitationsMonitor$1@5c51e61</div><div class="line">2017-03-02 16:57:16:395 [EMChatRoomManager]init chat room manager</div><div class="line">2017-03-02 16:57:16:419 [group]group manager logout</div><div class="line">2017-03-02 16:57:16:443 [EMDBManager]close msg db</div><div class="line">2017-03-02 16:57:16:466 [Session]Session logout</div><div class="line">2017-03-02 16:57:16:489 [smart ping]stop heart beat timer</div><div class="line">2017-03-02 16:57:16:513 [smart ping]change smart ping state from : EMEvaluating to : EMStopped</div><div class="line">2017-03-02 16:57:16:539 [EMConnectionManager]35284046 : enter disconnect()</div><div class="line">2017-03-02 16:57:16:566 [EMConnectionManager]unregisterConnectivityReceiver()</div><div class="line">2017-03-02 16:57:16:589 [EMConnectionManager][ERROR]connectionClosed</div><div class="line">2017-03-02 16:57:16:609 [EMConnectionManager]on disconnected</div><div class="line">2017-03-02 16:57:16:629 [EMChatManager]closing connection</div><div class="line">2017-03-02 16:57:16:652 [EMConnectionManager]trying to disconnect connection （12605026)</div><div class="line">2017-03-02 16:57:16:673 [sxmppcon]enter disconnect (12605026)</div><div class="line">2017-03-02 16:57:16:694 [sxmppcon](12605026) shutdown</div><div class="line">2017-03-02 16:57:16:728 [sxmppcon]trying to close the socket : Socket[unconnected]</div><div class="line">2017-03-02 16:57:16:754 [sxmppcon](12605026) socket was closed</div><div class="line">2017-03-02 16:57:16:781 [sxmppcon]shutdown was called</div><div class="line">2017-03-02 16:57:16:834 [EMDNSManager]clearDnsConfig</div><div class="line">2017-03-02 16:57:16:862 [EMHostResolver]reset</div><div class="line">2017-03-02 16:57:16:965 [EMChatManager]do stop service</div><div class="line">2017-03-02 16:57:17:014 [EMChatService]onDestroy</div><div class="line"></div><div class="line">后台强制下线</div><div class="line">2017-03-02 17:03:01:255 [EMConnectionManager][ERROR]connectionClosedOnError in stream:error (conflict) text: User removed</div><div class="line">2017-03-02 17:03:01:299 [EMConnectionManager][ERROR]connection closed caused by conflict. set autoreconnect to false</div></pre></td></tr></table></figure></p>
+<h3 id="推送相关"><a href="#推送相关" class="headerlink" title="推送相关"></a>推送相关</h3><p>推送部分2.x 和3.x 基本没有什么变化，都是在登录时检测推送服务是否可用，可以从日志中看到推送功能是否激活，然后获取<code>devicetoken</code>发送到服务器等，<code>devicetoken</code>这个值一定要存在，否者推送无效；这些可以作为检测集成离线推送本地设置是否有效的一些手段；<br>关键词：<code>GCM</code>,<code>push</code>,<code>devicetoken</code>,<code>sendDeviceToServer</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">2017-03-02 15:30:46:585 [EMPushNotificationHelper]GCM is enabled : true</div><div class="line">2017-03-02 15:30:46:613 [EMPushNotificationHelper]GCM service available : false</div><div class="line">2017-03-02 15:30:46:635 [EMPushNotificationHelper]mipush available : true</div><div class="line">2017-03-02 15:30:48:395 [EMPushNotificationHelper]third-party push available</div><div class="line">2017-03-02 15:30:49:430 [EMMipushReceiver]mi push reigster success</div><div class="line">2017-03-02 15:30:49:455 [EMPushNotificationHelper]devicetoken = tyPPd3IQ95+Gg/pYE5RoV1efO/aa4kcZHM+Mc+pPsjI=</div><div class="line">2017-03-02 15:30:49:476 [HttpClientManager]try send request, request url: http://182.92.159.193:80/easemob-demo/chatdemoui/devices with number: 0</div><div class="line">2017-03-02 15:30:49:497 [EMPushNotificationHelper]sendDeviceToServer SC_OK:</div><div class="line">2017-03-02 15:30:49:521 [EMPushNotificationHelper]send device token to server, token = tyPPd3IQ95+Gg/pYE5RoV1efO/aa4kcZHM+Mc+pPsjI=,url = http://182.92.159.193:80/easemob-demo/chatdemoui/users/lz1</div><div class="line">2017-03-02 15:30:49:544 [HttpClientManager]try send request, request url: http://182.92.159.193:80/easemob-demo/chatdemoui/users/lz1 with number: 0</div><div class="line">2017-03-02 15:30:49:569 [EMPushNotificationHelper]sendTokenToServer SC_OK:</div></pre></td></tr></table></figure></p>
+<h2 id="消息相关"><a href="#消息相关" class="headerlink" title="消息相关"></a>消息相关</h2><p>消息这部分就比较简单了，首先就是发送，然后等待服务器返回 ack，更新服务器生成的 id，然后就是对方收到消息，会给自己发送已读 ack，</p>
+<h3 id="发送新消息"><a href="#发送新消息" class="headerlink" title="发送新消息"></a>发送新消息</h3><p>关键词：<code>SENT</code>,<code>RCV</code>,<code>chat</code>,<code>received</code>,<code>acked</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">常见消息将要发送</div><div class="line">2017-03-03 14:39:12:018 [sender]try to send msg to:&lt;contact jid:easemob-demo#chatdemoui_lz2, username:lz2, nick:null&gt; msg:&#123;&quot;from&quot;:&quot;lz1&quot;,&quot;to&quot;:&quot;lz2&quot;,&quot;bodies&quot;:[&#123;&quot;type&quot;:&quot;txt&quot;,&quot;msg&quot;:&quot;复合肥减减肥&quot;&#125;],&quot;ext&quot;:&#123;&#125;&#125;</div><div class="line">SDK 内部开始发送消息</div><div class="line">2017-03-03 14:39:12:054 [SMACK:FileDebugger] SENT to182.92.20.34:443(260847652): &lt;message id=&quot;c6X5L-4-4c958&quot; to=&quot;easemob-demo#chatdemoui_lz2@easemob.com&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; type=&quot;chat&quot;&gt;&lt;body&gt;&#123;&quot;from&quot;:&quot;lz1&quot;,&quot;to&quot;:&quot;lz2&quot;,&quot;bodies&quot;:[&#123;&quot;type&quot;:&quot;txt&quot;,&quot;msg&quot;:&quot;复合肥减减肥&quot;&#125;],&quot;ext&quot;:&#123;&#125;&#125;&lt;/body&gt;&lt;thread&gt;gO9790&lt;/thread&gt;&lt;/message&gt;</div><div class="line"></div><div class="line">收到服务器返回的 ACK，这个时候消息 id 会由临时 id 返回服务器生成的 id</div><div class="line">2017-03-03 14:39:12:128 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;message from=&apos;easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos;&gt;&lt;body&gt;c6X5L-4-4c958&lt;/body&gt;&lt;received xmlns=&apos;urn:xmpp:receipts&apos; mid=&apos;304763800656021220&apos;&gt;c6X5L-4-4c958&lt;/received&gt;&lt;/message&gt;</div><div class="line">2017-03-03 14:39:12:153 [acklistener]&lt;message to=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; from=&quot;easemob.com&quot;&gt;&lt;body&gt;c6X5L-4-4c958&lt;/body&gt;&lt;received xmlns=&quot;urn:xmpp:receipts&quot; id=&quot;null&quot;/&gt;&lt;/message&gt;</div><div class="line">2017-03-03 14:39:12:179 [acklistener] found returned global server msg id : 304763800656021220</div><div class="line">2017-03-03 14:39:12:205 [acklistener]received server ack for msg:c6X5L-4-4c958</div><div class="line"></div><div class="line">收到对方已读 ACK</div><div class="line">2017-03-03 14:39:13:908 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;message from=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; id=&apos;304763808801359888&apos;&gt;&lt;body&gt;304763800656021220&lt;/body&gt;&lt;acked xmlns=&apos;urn:xmpp:receipts&apos; id=&apos;304763800656021220&apos;/&gt;&lt;/message&gt;</div><div class="line">2017-03-03 14:39:13:957 [acklistener]&lt;message id=&quot;304763808801359888&quot; to=&quot;easemob-demo#chatdemoui_lz1@easemob.com&quot; from=&quot;easemob-demo#chatdemoui_lz2@easemob.com&quot;&gt;&lt;body&gt;304763800656021220&lt;/body&gt;&lt;acked xmlns=&quot;urn:xmpp:receipts&quot;&gt;&lt;/acked&gt;&lt;/message&gt;</div><div class="line"></div><div class="line">告诉服务器自己收到对方已读的 ACK</div><div class="line">2017-03-03 14:39:13:996 [chat]send ack message back to server:org.jivesoftware.smack.packet.Message@b4fff167</div><div class="line">2017-03-03 14:39:14:025 [SMACK:FileDebugger] SENT to182.92.20.34:443(260847652): &lt;message id=&quot;304763808801359888&quot; to=&quot;easemob.com&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com&quot;&gt;&lt;received xmlns=&quot;urn:xmpp:receipts&quot; id=&quot;304763808801359888&quot;/&gt;&lt;/message&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="接收新消息"><a href="#接收新消息" class="headerlink" title="接收新消息"></a>接收新消息</h3><p>2.x收到消息后服务器是直接把消息推给客户端，直接就接收解析了</p>
+<p>关键词：<code>SENT</code>,<code>RCV</code>,<code>chat</code>,<code>received</code>,<code>acked</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">SDK 内部输出收到消息，这里还没到回调</div><div class="line">2017-03-03 14:41:44:038 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;message from=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; type=&apos;chat&apos; id=&apos;304764453499439120&apos;&gt;&lt;body&gt;&#123;&quot;bodies&quot;:[&#123;&quot;msg&quot;:&quot;呱呱呱呱呱呱&quot;,&quot;type&quot;:&quot;txt&quot;&#125;],&quot;ext&quot;:&#123;&#125;,&quot;from&quot;:&quot;lz2&quot;,&quot;to&quot;:&quot;lz1&quot;&#125;&lt;/body&gt;&lt;/message&gt;</div><div class="line"></div><div class="line">收到消息后，给对方发送已送达 ACK</div><div class="line">2017-03-03 14:41:44:123 [SMACK:FileDebugger] SENT to182.92.20.34:443(260847652): &lt;message id=&quot;304764453499439120&quot; to=&quot;easemob.com&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com&quot;&gt;&lt;received xmlns=&quot;urn:xmpp:receipts&quot; id=&quot;304764453499439120&quot;/&gt;&lt;/message&gt;</div><div class="line"></div><div class="line">这里是回调部分</div><div class="line">2017-03-03 14:41:44:180 [chat]chat listener receive msg from:easemob-demo#chatdemoui_lz2@easemob.com body:&#123;&quot;bodies&quot;:[&#123;&quot;msg&quot;:&quot;呱呱呱呱呱呱&quot;,&quot;type&quot;:&quot;txt&quot;&#125;],&quot;ext&quot;:&#123;&#125;,&quot;from&quot;:&quot;lz2&quot;,&quot;to&quot;:&quot;lz1&quot;&#125;</div><div class="line">2017-03-03 14:41:44:217 [EMConversationManager]save message:304764453499439120</div><div class="line">2017-03-03 14:41:44:268 [EMConversationManager]get conversation for user:lz2</div><div class="line">2017-03-03 14:41:44:332 [EMDBManager]add converstion with:lz2</div><div class="line">2017-03-03 14:41:44:360 [EMDBManager]save msg to db</div><div class="line">2017-03-03 14:41:44:389 [EMDBManager]add converstion with:lz2</div><div class="line">2017-03-03 14:41:44:417 [notify]publish event, event type: EventNewMessage</div><div class="line">2017-03-03 14:41:44:446 [EaseChatFragment]onEvent: From: lz2 to: lz1</div><div class="line">2017-03-03 14:41:44:471 [Session]check connection...</div><div class="line">2017-03-03 14:41:44:495 [Session]check connection ok</div><div class="line">2017-03-03 14:41:44:532 [EMMessageHandler]send ack msg to:lz2 for msg:304764453499439120</div><div class="line"></div><div class="line">自己读了消息，给对方发送已读 ACK</div><div class="line">2017-03-03 14:41:44:566 [SMACK:FileDebugger] SENT to182.92.20.34:443(260847652): &lt;message id=&quot;c6X5L-5&quot; to=&quot;easemob-demo#chatdemoui_lz2@easemob.com&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com&quot;&gt;&lt;body&gt;304764453499439120&lt;/body&gt;&lt;acked xmlns=&quot;urn:xmpp:receipts&quot; id=&quot;304764453499439120&quot;/&gt;&lt;/message&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="业务逻辑相关"><a href="#业务逻辑相关" class="headerlink" title="业务逻辑相关"></a>业务逻辑相关</h2><p>从日志来看，其实2.x 的也算是通过消息的形式进行操作，这些都是 xmpp 的消息格式，都是发送代表特定操作的消息给服务器，然后服务器会返回这个消息发送成功，接着服务器会以新消息的形式告诉 SDK 操作成功，最后都和收发消息的日志逻辑一样；<br>需要注意的就是这些操作中的关键词；</p>
+<h3 id="联系人"><a href="#联系人" class="headerlink" title="联系人"></a>联系人</h3><p>联系人的这些操作比较简单，</p>
+<p>关键词：<code>subscribe</code>,<code>subscribed</code>,<code>roster</code>,<code>subscription</code>,<code>remove</code>,<code>special</code>,<code>privacy</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">收到好友请求很明显</div><div class="line">2017-03-02 17:14:34:815 [SMACK:FileDebugger] RCV from182.92.26.56:443(98255024): &lt;presence from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz2@easemob.com/mobile&apos; id=&apos;go1Xg-33&apos; type=&apos;subscribe&apos;&gt;&lt;status&gt;加个好友呗&lt;/status&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">同意对方请求</div><div class="line">2017-03-02 17:17:16:038 [SMACK:FileDebugger] SENT to182.92.26.56:443(98255024): &lt;presence id=&quot;yOWo3-18&quot; to=&quot;easemob-demo#chatdemoui_lz1@easemob.com&quot; type=&quot;subscribed&quot;&gt;&lt;status&gt;[resp:true]&lt;/status&gt;&lt;priority&gt;24&lt;/priority&gt;&lt;/presence&gt;</div><div class="line">2017-03-02 17:17:16:069 [SMACK:FileDebugger] SENT to182.92.26.56:443(98255024): &lt;presence id=&quot;yOWo3-19&quot; to=&quot;easemob-demo#chatdemoui_lz1@easemob.com&quot; type=&quot;subscribe&quot;&gt;&lt;status&gt;[resp:true]&lt;/status&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">2017-03-02 17:17:16:154 [SMACK:FileDebugger] RCV from182.92.26.56:443(98255024): &lt;iq from=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz2@easemob.com/mobile&apos; id=&apos;push413681005&apos; type=&apos;set&apos;&gt;&lt;query xmlns=&apos;jabber:iq:roster&apos; ver=&apos;e7f2a8501f158f4bc887cd876c4b0e83359d6a2f&apos;&gt;&lt;item subscription=&apos;from&apos; jid=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos;/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line"></div><div class="line">对方同意了请求</div><div class="line">2017-03-02 17:17:15:584 [SMACK:FileDebugger] RCV from182.92.20.117:443(158255556): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;push4291800965&apos; type=&apos;set&apos;&gt;&lt;query xmlns=&apos;jabber:iq:roster&apos; ver=&apos;05fa1fbab5632f76d0dfd615e3544708fe7fd718&apos;&gt;&lt;item subscription=&apos;to&apos; jid=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos;/&gt;&lt;/query&gt;&lt;/iq&gt;&lt;presence from=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;yOWo3-18&apos; type=&apos;subscribed&apos;&gt;&lt;status&gt;[resp:true]&lt;/status&gt;&lt;priority&gt;24&lt;/priority&gt;&lt;/presence&gt;&lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;push825452103&apos; type=&apos;set&apos;&gt;&lt;query xmlns=&apos;jabber:iq:roster&apos; ver=&apos;1af84210f8a52f51ec94d169f67b85a7773ad289&apos;&gt;&lt;item subscription=&apos;to&apos; jid=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos;/&gt;&lt;/query&gt;&lt;/iq&gt;&lt;presence from=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;yOWo3-19&apos; type=&apos;subscribe&apos;&gt;&lt;status&gt;[resp:true]&lt;/status&gt;&lt;/presence&gt;&lt;presence from=&apos;easemob-demo#chatdemoui_lz2@easemob.com/mobile&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;yOWo3-15&apos;&gt;&lt;im_login_time&gt;665&lt;/im_login_time&gt;&lt;chat_login_time&gt;1416&lt;/chat_login_time&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">2017-03-02 17:17:15:624 [rosterstorage]updated roster version to:05fa1fbab5632f76d0dfd615e3544708fe7fd718</div><div class="line"></div><div class="line">删除联系人</div><div class="line">2017-03-02 18:04:02:519 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-18&quot; type=&quot;set&quot;&gt;&lt;query xmlns=&quot;jabber:iq:roster&quot; &gt;&lt;item jid=&quot;easemob-demo#chatdemoui_lz2@easemob.com&quot; name=&quot;lz2&quot; subscription=&quot;remove&quot;&gt;&lt;/item&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line"></div><div class="line">将对方加入黑名单</div><div class="line">2017-03-02 18:04:50:625 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-22&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; type=&quot;set&quot;&gt;&lt;query xmlns=&quot;jabber:iq:privacy&quot;&gt;&lt;list name=&quot;special&quot;&gt;&lt;item action=&quot;deny&quot; order=&quot;100&quot; type=&quot;jid&quot; value=&quot;easemob-demo#chatdemoui_lz2@easemob.com&quot;&gt;&lt;message/&gt;&lt;/item&gt;&lt;/list&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:04:50:651 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;push1906068296&apos; type=&apos;set&apos;&gt;&lt;query xmlns=&apos;jabber:iq:privacy&apos;&gt;&lt;list name=&apos;special&apos;/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line"></div><div class="line">移除黑名单</div><div class="line">2017-03-02 18:08:38:085 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-34&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; type=&quot;get&quot;&gt;&lt;query xmlns=&quot;jabber:iq:privacy&quot;&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:115 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;2f21d-34&apos; type=&apos;result&apos;&gt;&lt;query xmlns=&apos;jabber:iq:privacy&apos;&gt;&lt;active name=&apos;special&apos;/&gt;&lt;default name=&apos;special&apos;/&gt;&lt;list name=&apos;special&apos;/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:140 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-35&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; type=&quot;get&quot;&gt;&lt;query xmlns=&quot;jabber:iq:privacy&quot;&gt;&lt;list name=&quot;special&quot;/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:165 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;2f21d-35&apos; type=&apos;result&apos;&gt;&lt;query xmlns=&apos;jabber:iq:privacy&apos;&gt;&lt;list name=&apos;special&apos;&gt;&lt;item type=&apos;jid&apos; value=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos; action=&apos;deny&apos; order=&apos;100&apos;&gt;&lt;message/&gt;&lt;/item&gt;&lt;/list&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:190 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-36&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; type=&quot;get&quot;&gt;&lt;query xmlns=&quot;jabber:iq:privacy&quot;&gt;&lt;list name=&quot;special&quot;/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:215 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;2f21d-36&apos; type=&apos;result&apos;&gt;&lt;query xmlns=&apos;jabber:iq:privacy&apos;&gt;&lt;list name=&apos;special&apos;&gt;&lt;item type=&apos;jid&apos; value=&apos;easemob-demo#chatdemoui_lz2@easemob.com&apos; action=&apos;deny&apos; order=&apos;100&apos;&gt;&lt;message/&gt;&lt;/item&gt;&lt;/list&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:253 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-37&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; type=&quot;set&quot;&gt;&lt;query xmlns=&quot;jabber:iq:privacy&quot;&gt;&lt;default/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:273 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;2f21d-37&apos; type=&apos;result&apos;/&gt;</div><div class="line">2017-03-02 18:08:38:293 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-38&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com/mobile&quot; type=&quot;set&quot;&gt;&lt;query xmlns=&quot;jabber:iq:privacy&quot;&gt;&lt;list name=&quot;special&quot;/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:323 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;push3498390976&apos; type=&apos;set&apos;&gt;&lt;query xmlns=&apos;jabber:iq:privacy&apos;&gt;&lt;list name=&apos;special&apos;/&gt;&lt;/query&gt;&lt;/iq&gt;</div><div class="line">2017-03-02 18:08:38:342 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;iq from=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos; id=&apos;2f21d-38&apos; type=&apos;result&apos;/&gt;</div><div class="line">2017-03-02 18:08:38:362 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;push3498390976&quot; from=&quot;easemob-demo#chatdemoui_lz1@easemob.com&quot; type=&quot;result&quot;&gt;&lt;/iq&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="群组操作"><a href="#群组操作" class="headerlink" title="群组操作"></a>群组操作</h3><p>群组的操作也都是以 xmpp 消息的格式进行操作的，仔细看的话都是一个个的消息体，只是这些消息体和聊天的消息稍微有些差别，不过可以根据中间的一些关键词来了解分析日志</p>
+<p>关键词：<code>muc</code>,<code>create</code>,<code>201</code>,<code>invites</code>,<code>join</code>,<code>unavailable</code>,<code>affiliation</code>,<code>member</code>,<code>none</code>,<code>role</code>,<code>participant</code>,<code>none</code>,<code>321</code>,<code>110</code>,<code>destroy</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">创建新群组</div><div class="line">2017-03-02 17:50:13:330 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;presence id=&quot;2f21d-6&quot; to=&quot;easemob-demo#chatdemoui_1488448213229@conference.easemob.com/lz1&quot;&gt;&lt;x xmlns=&quot;http://jabber.org/protocol/muc&quot;&gt;&lt;/x&gt;&lt;create xmlns=&quot;http://jabber.org/protocol/muc&quot;&gt;&lt;/create&gt;&lt;/presence&gt;</div><div class="line">2017-03-02 17:50:13:356 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;presence from=&apos;easemob-demo#chatdemoui_1488448213229@conference.easemob.com/lz1&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item jid=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; affiliation=&apos;owner&apos; role=&apos;moderator&apos;/&gt;&lt;status code=&apos;201&apos;/&gt;&lt;/x&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">邀请加入群组</div><div class="line">2017-03-02 17:53:47:102 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;message id=&quot;2f21d-15&quot; to=&quot;easemob-demo#chatdemoui_1488448213229@conference.easemob.com&quot;&gt;&lt;x xmlns=&quot;http://jabber.org/protocol/muc#user&quot;&gt;&lt;invite to=&quot;easemob-demo#chatdemoui_lz2@easemob.com&quot;&gt;&lt;reason&gt;EaseMob-Group&lt;/reason&gt;&lt;/invite&gt;&lt;/x&gt;&lt;/message&gt;</div><div class="line"></div><div class="line">对方同意，并加入到群组中</div><div class="line">2017-03-02 17:53:47:657 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;presence from=&apos;easemob-demo#chatdemoui_1488448213229@conference.easemob.com/lz2&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;member&apos; role=&apos;participant&apos;/&gt;&lt;/x&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">SDK 自动同意邀请会发送一条加入的消息给服务器</div><div class="line">2017-03-02 17:39:48:823 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;presence id=&quot;2f21d-4&quot; to=&quot;easemob-demo#chatdemoui_1479267663683@conference.easemob.com/lz1&quot;&gt;&lt;x xmlns=&quot;http://jabber.org/protocol/muc&quot;&gt;&lt;/x&gt;&lt;join xmlns=&quot;http://jabber.org/protocol/muc&quot;&gt;&lt;/join&gt;&lt;/presence&gt;</div><div class="line">2017-03-02 17:39:48:845 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;presence from=&apos;easemob-demo#chatdemoui_1479267663683@conference.easemob.com/lz1&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item jid=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; affiliation=&apos;member&apos; role=&apos;moderator&apos;/&gt;&lt;/x&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">收到被踢出群组</div><div class="line">2017-03-02 17:47:53:175 [SMACK:FileDebugger] RCV from182.92.23.59:443(12605026): &lt;message from=&apos;easemob-demo#chatdemoui_1479267663683@conference.easemob.com/lz1&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; type=&apos;notify&apos; presence_type=&apos;unavailable&apos; id=&apos;304441338491836376&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;none&apos; role=&apos;none&apos;&gt;&lt;actor nick=&apos;lz2&apos;/&gt;&lt;/item&gt;&lt;status code=&apos;321&apos;/&gt;&lt;/x&gt;&lt;/message&gt;&lt;presence from=&apos;easemob-demo#chatdemoui_1479267663683@conference.easemob.com/lz1&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; type=&apos;unavailable&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;none&apos; role=&apos;none&apos;/&gt;&lt;status code=&apos;110&apos;/&gt;&lt;/x&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">群组解散</div><div class="line">2017-03-02 17:59:45:100 [SMACK:FileDebugger] SENT to182.92.23.59:443(12605026): &lt;iq id=&quot;2f21d-17&quot; to=&quot;easemob-demo#chatdemoui_1488448213229@conference.easemob.com&quot; type=&quot;set&quot;&gt;&lt;query xmlns=&quot;http://jabber.org/protocol/muc#owner&quot;&gt;&lt;destroy&gt;&lt;reason&gt;delete-group&lt;/reason&gt;&lt;/destroy&gt;&lt;/query&gt;&lt;/iq&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="聊天室"><a href="#聊天室" class="headerlink" title="聊天室"></a>聊天室</h3><p>聊天室的操作基本和群组差不多的，一些操作的命令关键词都是一样的<br>关键词：<code>muc</code>,<code>join</code>,<code>affiliation</code>,<code>member</code>,<code>none</code>,<code>role</code>,<code>participant</code>,<code>none</code>,<code>321</code>,<code>chatroom</code>,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">加入聊天室</div><div class="line">2017-03-03 15:14:51:992 [SMACK:FileDebugger] SENT to182.92.20.34:443(260847652): &lt;presence id=&quot;c6X5L-13&quot; to=&quot;easemob-demo#chatdemoui_3759501541378@conference.easemob.com/lz1&quot;&gt;&lt;x xmlns=&quot;http://jabber.org/protocol/muc&quot;&gt;&lt;/x&gt;&lt;join xmlns=&quot;http://jabber.org/protocol/muc&quot;&gt;&lt;/join&gt;&lt;/presence&gt;</div><div class="line">2017-03-03 15:14:52:045 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;presence from=&apos;easemob-demo#chatdemoui_3759501541378@conference.easemob.com/lz1&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com/mobile&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;member&apos; role=&apos;participant&apos;/&gt;&lt;/x&gt;&lt;roomtype xmlns=&apos;easemob:x:roomtype&apos; type=&apos;chatroom&apos;/&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">收到其他人加入聊天室日志</div><div class="line">2017-03-03 15:24:25:677 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;presence from=&apos;easemob-demo#chatdemoui_3759501541378@conference.easemob.com/lz2&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;member&apos; role=&apos;participant&apos;/&gt;&lt;/x&gt;&lt;roomtype xmlns=&apos;easemob:x:roomtype&apos; type=&apos;chatroom&apos;/&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">其他人离开聊天室</div><div class="line">2017-03-03 15:25:15:858 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;presence from=&apos;easemob-demo#chatdemoui_3759501541378@conference.easemob.com/lz2&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; type=&apos;unavailable&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;none&apos; role=&apos;none&apos;/&gt;&lt;/x&gt;&lt;roomtype xmlns=&apos;easemob:x:roomtype&apos; type=&apos;chatroom&apos;/&gt;&lt;/presence&gt;</div><div class="line"></div><div class="line">服务器把自己踢出聊天室</div><div class="line">2017-03-03 15:28:09:622 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;message from=&apos;easemob-demo#chatdemoui_3759501541378@conference.easemob.com/lz1&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; type=&apos;notify&apos; presence_type=&apos;unavailable&apos; id=&apos;304776417562855424&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;none&apos; role=&apos;none&apos;&gt;&lt;actor nick=&apos;系统管理员&apos;/&gt;&lt;/item&gt;&lt;status code=&apos;321&apos;/&gt;&lt;/x&gt;&lt;/message&gt;</div><div class="line"></div><div class="line">聊天室解散</div><div class="line">2017-03-03 15:29:33:394 [SMACK:FileDebugger] RCV from182.92.20.34:443(260847652): &lt;message from=&apos;easemob-demo#chatdemoui_3759501541378@conference.easemob.com/lz1&apos; to=&apos;easemob-demo#chatdemoui_lz1@easemob.com&apos; type=&apos;notify&apos; presence_type=&apos;unavailable&apos; id=&apos;304776777249589296&apos;&gt;&lt;x xmlns=&apos;http://jabber.org/protocol/muc#user&apos;&gt;&lt;item affiliation=&apos;none&apos; role=&apos;none&apos;/&gt;&lt;destroy&gt;&lt;reason&gt;&lt;/reason&gt;&lt;/destroy&gt;&lt;/x&gt;&lt;/message&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="通话相关"><a href="#通话相关" class="headerlink" title="通话相关"></a>通话相关</h2><p>由于通话功能大部分都是由底层实现，也就先不写了</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>没有什么能一眼看出错误的方法，只要记住正常的日志是什么样的，以后只要遇到错误的日志就知道这不正常了，所有能通过日志看出来问题的问题，都不是说一下根据哪一点日志就能知道的，一般都是需要联系下上下文的日志，然后结合场景才好分析</p>
+<p>没什么投机取巧的方式，其实都是熟能生巧，然后大家互相交流，分享自己所知道的</p>
+<p>最后希望这一篇分析能对大家有所帮助，</p>
+<p>错误码参考：<a href="http://docs.easemob.com/start/450errorcode/20androiderrorcode" target="_blank" rel="external">环信官方 API 文档 Error</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/blog/tags/Easemob/" rel="tag"># Easemob</a>
+          
+            <a href="/blog/tags/SDK/" rel="tag"># SDK</a>
+          
+            <a href="/blog/tags/IM/" rel="tag"># IM</a>
+          
+            <a href="/blog/tags/Log/" rel="tag"># Log</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/03/android-library-im-sdk-hyphenate-v3-1489749364000.html" rel="next" title="关于环信3.xSDK日志简单分析">
+                <i class="fa fa-chevron-left"></i> 关于环信3.xSDK日志简单分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+
+    <div>
+      
+        
+  <div id="reward">
+    <div reward_comment>
+      <p>阿弥陀佛，施主，你如此器宇轩昂，不来二两 ~</p>
+    </div>
+    <button id="reward_button" disable="enable" onclick="var qr = document.getElementById('reward_qr'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>~ 阿弥陀佛 ~</span>
+    </button>
+    <div id="reward_qr" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-wechat-2.jpg" alt="lzan13 WeChat Pay"/>
+          <p>微信支持</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://lzan13.qiniudn.com/blog/upload/images/qr-alipay-2.jpg" alt="lzan13 Alipay"/>
+          <p>支付宝支持</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/android-library-im-sdk-easemob-v2-1489749784000.html"
+           data-title="关于环信2.xSDK日志简单分析" data-url="http://melove.net/blog/2017/03/android-library-im-sdk-easemob-v2-1489749784000.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/avatar.png"
+               alt="lzan13" />
+          <p class="site-author-name" itemprop="name">lzan13</p>
+          <p class="site-description motion-element" itemprop="description">❤️ 编程 ❤️ 动漫 ❤️ 折腾 ❤️ You  Android开发程序员，设计前端爱好者</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">143</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lzan13" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/lzan13" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/lzan13" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/lzan13" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK-的初始化"><span class="nav-number">1.1.</span> <span class="nav-text">SDK 的初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动登录"><span class="nav-number">1.2.</span> <span class="nav-text">手动登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动登录"><span class="nav-number">1.3.</span> <span class="nav-text">自动登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#心跳定时器"><span class="nav-number">1.4.</span> <span class="nav-text">心跳定时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接监听与重连"><span class="nav-number">1.5.</span> <span class="nav-text">链接监听与重连</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#被踢-amp-强制下线-amp-移除账户"><span class="nav-number">1.6.</span> <span class="nav-text">被踢&强制下线&移除账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送相关"><span class="nav-number">1.7.</span> <span class="nav-text">推送相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息相关"><span class="nav-number">2.</span> <span class="nav-text">消息相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发送新消息"><span class="nav-number">2.1.</span> <span class="nav-text">发送新消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收新消息"><span class="nav-number">2.2.</span> <span class="nav-text">接收新消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务逻辑相关"><span class="nav-number">3.</span> <span class="nav-text">业务逻辑相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联系人"><span class="nav-number">3.1.</span> <span class="nav-text">联系人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#群组操作"><span class="nav-number">3.2.</span> <span class="nav-text">群组操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聊天室"><span class="nav-number">3.3.</span> <span class="nav-text">聊天室</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通话相关"><span class="nav-number">4.</span> <span class="nav-text">通话相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束语"><span class="nav-number">5.</span> <span class="nav-text">结束语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lzan13</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lzan13"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
