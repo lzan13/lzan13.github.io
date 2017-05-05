@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://melove.net/"/>
-  <updated>2017-03-17T11:30:45.000Z</updated>
+  <updated>2017-05-05T10:00:46.000Z</updated>
   <id>http://melove.net/</id>
   
   <author>
@@ -14,6 +14,73 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用环信3.xSDK集成小米推送实现消息以及通话时的离线通知</title>
+    <link href="http://melove.net/2017/05/android-use-hyphenate-and-mi-push-complete-offline-notify-1493976924000.html"/>
+    <id>http://melove.net/2017/05/android-use-hyphenate-and-mi-push-complete-offline-notify-1493976924000.html</id>
+    <published>2017-05-05T09:35:24.000Z</published>
+    <updated>2017-05-05T10:00:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>项目源码：<a href="https://github.com/lzan13" target="_blank" rel="external">lzan13</a> / <a href="https://github.com/lzan13/VMChatDemoCall" target="_blank" rel="external">VMChatDemoCall</a><br>简书博客：<a href="https://jianshu.com/" target="_blank" rel="external">lzan13</a> / <a href=""></a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>集成聊天，目的无非就是为了让两个人能够方便的沟通，但是有时我们会退到后台，kill 程序，这时候别人再发送消息就收不到了，以及有些用户还想在呼叫通话时也能通知对方，打开 app 接听通话，这些都因为 app 被杀死而实现不了；还好有推送服务可用，苹果有<code>apns</code>，虽然<code>Android</code>有<code>gcm</code>， 但是在国内也用不了，因此就催生了各种各样的第三方推送，环信这边根据市场设备情况，选择了两家推送集成，在国内可以集成小米和华为推送，这样可以保证在他们自家的设备上实现离线消息通知；</p>
+<blockquote>
+<p>PS：为什么不用极光，因为极光并不是国内那些 rom 厂商自家的推送服务，他们不允许第三方的服务器在自家设备的后台撒欢</p>
+</blockquote>
+<p>废话不多说，今天就通过集成最新的小米推送来实现下消息的离线推送通知，以及被呼叫方离线时方推送提醒对方启动 app 接听通话；其实都是通过集成推送完成！</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>首先你的项目需要集成环信 sdk，并且已经实现了发送消息以及音视频通话功能（这个可以直接用我上边 github 上的项目）；<br>然后你需要有小米的开发者账户，需要创建一个应用，包名要和你自己的项目一样，然后需要用到的就是应用的<code>appId</code>、<code>appKey</code>、<code>appSecret</code>，这些在环信开发者后台上传小米证书，以及在项目中初始化小米推送需要用到；</p>
+<h3 id="开始集成"><a href="#开始集成" class="headerlink" title="开始集成"></a>开始集成</h3><p>首先这边先把证书弄好了，证书的名字和秘钥以及包名一定要对应：<br><img src="http://upload-images.jianshu.io/upload_images/672606-c5449b5706f8eaa7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20170505-162024.png"></p>
+<p>然后需要做的就是在代码中集成小米推送，需要做的有两个地方：</p>
+<ol>
+<li>在初始化 sdk 的时候调用 options 设置小米的 appId 和 appKey</li>
+<li>在 AndroidManifest配置文件配置相应的权限和广播接收器以及服务</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 初始化环信sdk，并做一些注册监听的操作，这里把其他的处理都去掉了只写了小米推送</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initHyphenate</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// 初始化sdk的一些配置</span></div><div class="line">    EMOptions options = <span class="keyword">new</span> EMOptions();</div><div class="line">    <span class="comment">// 设置小米推送 appID 和 appKey</span></div><div class="line">    options.setMipushConfig(<span class="string">"2882303761517573806"</span>, <span class="string">"5981757315806"</span>);</div><div class="line">    <span class="comment">// 初始化环信SDK,一定要先调用init()</span></div><div class="line">    EMClient.getInstance().init(context, options);</div><div class="line">    <span class="comment">// 开启 debug 模式</span></div><div class="line">    EMClient.getInstance().setDebugMode(<span class="keyword">true</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后就是<code>AndroidManifest</code>配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">package</span>=<span class="string">"com.vmloft.develop.app.demo.call"</span>&gt;</div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- 项目权限配置 --&gt;</span></div><div class="line">    <span class="comment">&lt;!--小米推送相关权限--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">permission</span></span></div><div class="line">        <span class="attr">android:name</span>=<span class="string">"com.vmloft.develop.app.demo.call.permission.MIPUSH_RECEIVE"</span></div><div class="line">        <span class="attr">android:protectionLevel</span>=<span class="string">"signature"</span>/&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"com.vmloft.develop.app.demo.call.permission.MIPUSH_RECEIVE"</span>/&gt;</span></div><div class="line">    <span class="comment">&lt;!--小米推送权限 end--&gt;</span></div><div class="line">    <span class="comment">&lt;!--程序入口--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">application</span></span></div><div class="line">        <span class="attr">android:name</span>=<span class="string">"com.vmloft.develop.app.demo.call.AppApplication"</span></div><div class="line">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></div><div class="line">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></div><div class="line">        <span class="attr">android:largeHeap</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></div><div class="line">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</div><div class="line">        ...</div><div class="line">        <span class="comment">&lt;!--小米推送相关配置--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">service</span></span></div><div class="line">            <span class="attr">android:name</span>=<span class="string">"com.xiaomi.push.service.XMJobService"</span></div><div class="line">            <span class="attr">android:enabled</span>=<span class="string">"true"</span></div><div class="line">            <span class="attr">android:exported</span>=<span class="string">"false"</span></div><div class="line">            <span class="attr">android:permission</span>=<span class="string">"android.permission.BIND_JOB_SERVICE"</span></div><div class="line">            <span class="attr">android:process</span>=<span class="string">":pushservice"</span>/&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">service</span></span></div><div class="line">            <span class="attr">android:name</span>=<span class="string">"com.xiaomi.push.service.XMPushService"</span></div><div class="line">            <span class="attr">android:enabled</span>=<span class="string">"true"</span></div><div class="line">            <span class="attr">android:process</span>=<span class="string">":pushservice"</span>/&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">service</span></span></div><div class="line">            <span class="attr">android:name</span>=<span class="string">"com.xiaomi.mipush.sdk.PushMessageHandler"</span></div><div class="line">            <span class="attr">android:enabled</span>=<span class="string">"true"</span></div><div class="line">            <span class="attr">android:exported</span>=<span class="string">"true"</span>/&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">service</span></span></div><div class="line">            <span class="attr">android:name</span>=<span class="string">"com.xiaomi.mipush.sdk.MessageHandleService"</span></div><div class="line">            <span class="attr">android:enabled</span>=<span class="string">"true"</span>/&gt;</div><div class="line"></div><div class="line">        <span class="comment">&lt;!--推送消息广播接收器--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">receiver</span></span></div><div class="line">            <span class="attr">android:name</span>=<span class="string">".push.MIPushReceiver"</span></div><div class="line">            <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</div><div class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.xiaomi.mipush.RECEIVE_MESSAGE"</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.xiaomi.mipush.MESSAGE_ARRIVED"</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.xiaomi.mipush.ERROR"</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">receiver</span></span></div><div class="line">            <span class="attr">android:name</span>=<span class="string">"com.xiaomi.push.service.receivers.NetworkStatusReceiver"</span></div><div class="line">            <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</div><div class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.net.conn.CONNECTIVITY_CHANGE"</span>/&gt;</span></div><div class="line"></div><div class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">receiver</span></span></div><div class="line">            <span class="attr">android:name</span>=<span class="string">"com.xiaomi.push.service.receivers.PingReceiver"</span></div><div class="line">            <span class="attr">android:exported</span>=<span class="string">"false"</span></div><div class="line">            <span class="attr">android:process</span>=<span class="string">":pushservice"</span>&gt;</div><div class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.xiaomi.push.PING_TIMER"</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">receiver</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--小米推送配置 end--&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>其中<code>MIPushReceiver</code>这个广播接收器可以不用自己实现，环信 sdk 已经集成小米广播接收器<code>EMMipushReceiver</code>实现，可以直接用（这里如果需要自己与自己的业务处理可以继承它去处理自己的逻辑；详细可以根据小米推送官方 sdk 文档进行了解下）；</p>
+<p>当我们做完这些之后在收到离线消息后就可以收到推送通知了，只不过这个推送通知我们不能自定义，因为这些都是服务器推什么我们接受什么，这点比较坑！</p>
+<h3 id="通话的离线通知"><a href="#通话的离线通知" class="headerlink" title="通话的离线通知"></a>通话的离线通知</h3><p>上边已经实现了消息的离线通知，我们下边就要做当呼叫对方时，对方却不在线，我们怎么通知对方打开 app 进行接听呢？<br>曾经集成过环信用户应该知道，在呼叫对方不在线后会马上结束通话，回调对方不在线，在新版3.2.2的 sdk 中新增设置音视频参数及呼叫时对方离线是否发推送的接口，在初始化的时候进行以下设置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 设置通话过程中对方如果离线是否发送离线推送通知，默认 false</span></div><div class="line">EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(<span class="keyword">true</span>);</div><div class="line"><span class="comment">// 设置了这个之后就不会在通话状态监听中回调对方不在线，需要实现另外一个回调</span></div><div class="line">...</div><div class="line"><span class="comment">// 设置音频通话推送提供者，在 onRemoteOffline()回调中给对方发送消息就行了</span></div><div class="line">EMClient.getInstance().callManager().setPushProvider(EMCallManager.EMCallPushProvider &#123;</div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRemoteOffline</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        EMMessage message = EMMessage.createTxtSendMessage(<span class="string">"有人呼叫你，开启 APP 接听吧"</span>, username);</div><div class="line">        <span class="comment">// 设置强制推送</span></div><div class="line">        message.setAttribute(<span class="string">"em_force_notification"</span>, <span class="string">"true"</span>);</div><div class="line">        <span class="comment">// 设置自定义推送提示</span></div><div class="line">        JSONObject extObj = <span class="keyword">new</span> JSONObject();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            extObj.put(<span class="string">"em_push_title"</span>, <span class="string">"有人呼叫你，开启 APP 接听吧"</span>);</div><div class="line">            extObj.put(<span class="string">"extern"</span>, <span class="string">"定义推送扩展内容"</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (JSONException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        message.setAttribute(<span class="string">"em_apns_ext"</span>, extObj);</div><div class="line">        message.setMessageStatusCallback(<span class="keyword">new</span> EMCallBack() &#123;</div><div class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">()</span> </span>&#123;</div><div class="line">              <span class="comment">// 在这里可以删除消息</span></div><div class="line">            &#125;</div><div class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(<span class="keyword">int</span> i, String s)</span> </span>&#123;</div><div class="line">              <span class="comment">// 在这里可以删除消息</span></div><div class="line">            &#125;</div><div class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgress</span><span class="params">(<span class="keyword">int</span> i, String s)</span> </span>&#123;&#125;</div><div class="line">        &#125;);</div><div class="line">        EMClient.getInstance().chatManager().sendMessage(message);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>实现了上边的这个推送提供者之后，当对方不在线就会回调 onRemoteOffline()方法，就可以发送一条消息给对方，然后上边我们已经集成了小米推送，就可以通过离线推送的方式通知对方有新消息，对方看到后点击通知栏就可以打开 app了，这个时候我们的语音或视频呼叫还在一直呼叫，然后就可以连通了！</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>OK 到这里基本就已经完成了，大家可以运行自己的项目，或者我上边的 demo 测试下，我这边通过小米5测试 OK；其实集成推送部分并不难，只是有几点需要注意：</p>
+<ul>
+<li>环信开发者后台的推送证书设置时一定要注意应用包名和小米推送后台的应用包名以及自己项目的包名，三个地方一定要一致</li>
+<li>初始化设置一定要通过环信的 options 去设置小米推送的 appId 和 appKey，不需要用小米的注册方法自己注册；</li>
+<li>Androidmanifest 一定要加上环信的广播接收器，或者继承自环信封装的广播接收器</li>
+</ul>
+<p>注意以上几点基本推送就没有问题了，如果不行可以先通过小米开发者后台的推送工具测试推送是否通了，然后检查以上几点；</p>
+<blockquote>
+<p>PS：华为推送相关其实一样，不过因为华为不允许个人开发者注册账户，所以这里暂时不赘述</p>
+</blockquote>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>【<a href="http://dev.xiaomi.com/doc/?p=544" target="_blank" rel="external">小米推送Android SDK文档</a>】<br>【<a href="http://docs.easemob.com/im/200androidclientintegration/115thirdpartypush" target="_blank" rel="external">环信推送相关文档</a>】</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;项目源码：&lt;a href=&quot;https://github.com/lzan13&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;lzan13&lt;/a&gt; / &lt;a href=&quot;https://github.com/lzan13/VMCh
+    
+    </summary>
+    
+      <category term="Develop" scheme="http://melove.net/categories/Develop/"/>
+    
+    
+      <category term="Android" scheme="http://melove.net/tags/Android/"/>
+    
+      <category term="Offline" scheme="http://melove.net/tags/Offline/"/>
+    
+      <category term="Easemob" scheme="http://melove.net/tags/Easemob/"/>
+    
+      <category term="Call" scheme="http://melove.net/tags/Call/"/>
+    
+      <category term="Hyphenate" scheme="http://melove.net/tags/Hyphenate/"/>
+    
+      <category term="MIPush" scheme="http://melove.net/tags/MIPush/"/>
+    
+      <category term="Message" scheme="http://melove.net/tags/Message/"/>
+    
+  </entry>
   
   <entry>
     <title>关于环信2.xSDK日志简单分析</title>
@@ -984,51 +1051,6 @@ Gradle version：2.4
       <category term="CustomView" scheme="http://melove.net/tags/CustomView/"/>
     
       <category term="ImageView" scheme="http://melove.net/tags/ImageView/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AndroidStudio结合Git同步代码到Github库提高开发效率</title>
-    <link href="http://melove.net/2015/03/android-androidstudio-git-1427697198000.html"/>
-    <id>http://melove.net/2015/03/android-androidstudio-git-1427697198000.html</id>
-    <published>2015-03-30T06:33:18.000Z</published>
-    <updated>2017-02-16T09:12:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前都是用优盘拷贝代码，这里修改一次，拷贝一下，现在用<code>AndroidStudio</code>带有版本控制功能，可以直接使用<code>git</code>同步到<code>github</code>，所以学着弄下，这里记录下来</p>
-<p>首先是在<code>github</code>上新建一个仓库，这是我的测试项目<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git5.png" alt="androidstudio-git5"></p>
-<p>创建成功会跳转到下图页面，此页面中的：git remote add origin <a href="https://github.com/xxx/xxx.git" target="_blank" rel="external">https://github.com/xxx/xxx.git</a> 这句话在后边通过<code>AndroidStuido</code>提交代码到库需要用到，复制备用<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git14.png" alt="androidstudio-git5"></p>
-<p>OK 网络上的仓库创建好了，那就要创建本地的项目了，打开<code>AndroidStudio</code>创建新项目：<br>新项目创建好之后默认显示的是<code>Android</code>的当前<code>Module</code><br>注意：<code>AndroidStudio V1.0.1</code>版本的<code>Module</code>名字显示为<code>APP</code>不能改，不然会找不到<code>Module</code>!!!<br>这里把显示选择到整个项目，这是为了第一次提交到github做准备，把所有的项目文件都提交到github去<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git2.png" alt="androidstudio-git2"></p>
-<p>接着设置下<code>git</code>以及<code>github</code>账户<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git13.png" alt="androidstudio-git13"><br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git15.jpg" alt="androidstudio-git15"></p>
-<p>OK 然后就是<code>init</code>当前项目<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git11.png" alt="androidstudio-git11"><br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git6.png" alt="androidstudio-git6"></p>
-<p><code>init</code>项目之后有一个步骤是必须的，但是却无法在<code>AndroidStudio</code>中完成，因为要<code>remote</code>项目但是<code>AndroidStudio</code>没有提供这个菜单选项，所以要在<code>git Bash</code>命令行进行；<br>打开<code>git Bash</code>窗口，切换到当前项目根目录，然后输入<code>remote</code>命令回车<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git3.png" alt="androidstudio-git3"></p>
-<p>然后就是添加选中的项目文件，第一次提交项目选中整个<code>project</code>，<br>当项目文件变绿色时，说明add成功<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git7.png" alt="androidstudio-git7"></p>
-<p>接着就是需要<code>commit</code>项目文件了，<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git8.png" alt="androidstudio-git8"></p>
-<p><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git9.png" alt="androidstudio-git9"></p>
-<p><code>commit</code>之后就是<code>pull</code>项目<br>OK 提交也提交过了，下面就是真正的把项目<code>Push</code>到<code>github</code>了<br>选择:<code>VCS-&gt;Git-&gt;Push</code>其实也可以在<code>commit</code>的同时选择<code>commit and push</code><br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git10.png" alt="androidstudio-git11"></p>
-<p>弹出<code>push</code>确认对话框，选择提交到分支，后边第一次默认是<code>master</code>分支，可以自定义，<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git14.png" alt="androidstudio-git12"></p>
-<p>点击<code>push</code>后会弹出输入<code>github</code>账户和密码，输入之后会提示创建本地密码仓库密码，可以取消，如果设置了密码，在以后提交时会出现下图的密码输入框<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git12.png" alt="androidstudio-git10"></p>
-<p>OK 刷新下<code>github</code>的项目，可以看到整个项目已经被<code>push</code>到库中了<br><img src="http://lzan13.qiniudn.com/blog/uploads/images/2015/04/androidstudio-git1.png" alt="androidstudio-git1"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;之前都是用优盘拷贝代码，这里修改一次，拷贝一下，现在用&lt;code&gt;AndroidStudio&lt;/code&gt;带有版本控制功能，可以直接使用&lt;code&gt;git&lt;/code&gt;同步到&lt;code&gt;github&lt;/code&gt;，所以学着弄下，这里记录下来&lt;/p&gt;
-&lt;p&gt;首先是在&lt;code
-    
-    </summary>
-    
-      <category term="Develop" scheme="http://melove.net/categories/Develop/"/>
-    
-      <category term="Android" scheme="http://melove.net/categories/Develop/Android/"/>
-    
-    
-      <category term="Android" scheme="http://melove.net/tags/Android/"/>
-    
-      <category term="AndroidStudio" scheme="http://melove.net/tags/AndroidStudio/"/>
-    
-      <category term="Git" scheme="http://melove.net/tags/Git/"/>
-    
-      <category term="Github" scheme="http://melove.net/tags/Github/"/>
     
   </entry>
   
