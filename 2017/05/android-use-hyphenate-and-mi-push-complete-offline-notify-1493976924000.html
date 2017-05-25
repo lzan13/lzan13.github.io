@@ -102,7 +102,7 @@
 
 前言集成聊天，目的无非就是为了让两个人能够方便的沟通，但是有时我们会退到后台，kill 程序，这时候别人再发送消息就收不到了，以及有些用户还想在呼叫通话时也能通知对方，打开 app 接听通话，这些都因为 app 被杀死而实现不了；还好有推送服务可用，苹果有apns，虽然Android有gcm， 但是在国内也用">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/672606-c5449b5706f8eaa7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-05-25T08:53:11.000Z">
+<meta property="og:updated_time" content="2017-05-25T08:56:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用环信3.xSDK集成小米推送实现消息以及通话时的离线通知">
 <meta name="twitter:description" content="项目源码：lzan13 / VMChatDemoCall简书博客：lzan13 / 
@@ -401,7 +401,7 @@
 </blockquote>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>集成聊天，目的无非就是为了让两个人能够方便的沟通，但是有时我们会退到后台，kill 程序，这时候别人再发送消息就收不到了，以及有些用户还想在呼叫通话时也能通知对方，打开 app 接听通话，这些都因为 app 被杀死而实现不了；还好有推送服务可用，苹果有<code>apns</code>，虽然<code>Android</code>有<code>gcm</code>， 但是在国内也用不了，因此就催生了各种各样的第三方推送，环信这边根据市场设备情况，选择了两家推送集成，在国内可以集成小米和华为推送，这样可以保证在他们自家的设备上实现离线消息通知；</p>
 <blockquote>
-<p>PS：为什么不用极光，因为极光并不是国内那些 rom 厂商自家的推送服务，他们不允许第三方的服务器在自家设备的后台撒欢</p>
+<p>PS：为什么不用极光，因为极光并不是国内那些 rom 厂商自家的推送服务，他们不允许第三方的服务器在自家设备的后台撒欢<br>PS：经测试小米的多报名在推送上不好使，不知道现在怎么样，如果有使用多包名测试不行的情况，可以重新创建应用试下</p>
 </blockquote>
 <p>废话不多说，今天就通过集成最新的小米推送来实现下消息的离线推送通知，以及被呼叫方离线时方推送提醒对方启动 app 接听通话；其实都是通过集成推送完成！</p>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>首先你的项目需要集成环信 sdk，并且已经实现了发送消息以及音视频通话功能（这个可以直接用我上边 github 上的项目）；<br>然后你需要有小米的开发者账户，需要创建一个应用，包名要和你自己的项目一样，然后需要用到的就是应用的<code>appId</code>、<code>appKey</code>、<code>appSecret</code>，这些在环信开发者后台上传小米证书，以及在项目中初始化小米推送需要用到；</p>
