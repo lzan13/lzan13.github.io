@@ -155,16 +155,15 @@ body {
 }
 
 .avatar:hover {
-    transition: all 2s;
-    -moz-transition: all 2s;
-    -webkit-transition: all 2s;
-    -o-transition: all 2s;
-    transform: rotate(720deg);
+    transition: all 1.5s;
+    -moz-transition: all 1.5s;
+    -webkit-transition: all 1.5s;
+    -o-transition: all 1.5s;
+    transform: rotate(360deg);
     /* IE 9 */
-    -ms-transform: rotate(720deg);
+    -ms-transform: rotate(360deg);
     /* Safari and Chrome */
-    -webkit-transform: rotate(720deg);
-    box-shadow: 0px 5px 48px 3px rgba(54, 54, 54, 0.16);
+    -webkit-transform: rotate(360deg);
 }
 
 /* 导航 */
