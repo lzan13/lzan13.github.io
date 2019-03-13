@@ -16,8 +16,6 @@
             o = t.length,
             i = t[o - 1];
         return {
-            l: o,
-            z: n(i, "zIndex", 0),
             o: n(i, "opacity", .6),
             c: n(i, "color", "54, 54, 54"),
             n: n(i, "count", 99)
@@ -36,9 +34,9 @@
         });
         x(i);
     }
-    var a, c, u, m = document.createElement("canvas"),
+    var m = document.getElementById("canvas-bg");
+    var a, c, u,
         d = t(),
-        l = "c_n" + d.l,
         r = m.getContext("2d"),
         x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
             function (n) {
@@ -50,9 +48,7 @@
             y: null,
             max: 2e4
         };
-    m.id = l,
-        m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o,
-        e("body")[0].appendChild(m),
+
         o(),
         window.onresize = o,
         window.onmousemove = function (n) {
