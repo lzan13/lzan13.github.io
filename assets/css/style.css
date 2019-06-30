@@ -277,6 +277,33 @@ ul li a:hover {
     margin: 0;
     float: left;
 }
+.team .member .info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 96px;
+    padding-left: 20px;
+}
 .team .member .description{
     clear: both;
+}
+@media(max-width:1200px){ 
+    .team {
+        width: 80%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }  
+}
+@media(max-width:960px){ 
+    .team {
+        width: 90%;
+    }  
+}
+@media(max-width:768px){ 
+    .team {
+        width: 80%;
+        display: grid;
+        grid-template-columns: 1fr;
+    }  
 }
